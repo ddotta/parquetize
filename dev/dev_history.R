@@ -9,7 +9,7 @@ usethis::use_test("csv_to_parquet")
 # écrire le code de la fonction
 # documenter la fonction
 # # Pour mettre à jour la documentation et le NAMESPACE
-devtools::document()
+# devtools::document()
 roxygen2::roxygenise()
 # écrire les tests
 # exécuter les tests

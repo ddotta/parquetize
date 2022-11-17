@@ -14,6 +14,7 @@
 #' @param path_to_csv string that indicates the path to the csv file
 #' @param url_to_csv string that indicates the URL of the csv file
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
+#' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip)
 #' @param path_to_parquet string that indicaters the path to the parquet file
 #'
 #' @return A parquet file
@@ -25,21 +26,28 @@
 #'
 #' @examples
 #'
-#' # Donnees (fictives) :
+#' # conversion from a local csv file :
 #'
-#' mes_donnees <- data.frame(
-#'  REG = c("84","76","11","84"),
-#'  DEP = c("01","09","92","26")
+#' result <- csv_to_parquet(
+#'   path_to_csv = "C:/Users/AQEW8W/Downloads/titi/ac1.csv",
+#'   path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/ac1.parquet",
 #' )
 #'
-#' extrait_flores_ent_19 <- ajoute_zonages_filiere(
-#'  base = mes_donnees)
+#' # conversion from a URL and a zipped file :
+#'
+#' csv_to_parquet(
+#'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
+#'   csv_as_a_zip = TRUE,
+#'   filename_in_zip = "equip-tour-transp-infra-2021.csv",
+#'   path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/equip-tour-transp-infra-2021.parquet",
+#' )
 
 
 csv_to_parquet <- function(
     path_to_csv,
     url_to_csv,
     csv_as_a_zip = FALSE,
+    filename_in_zip,
     path_to_parquet
     ) {
 
@@ -63,8 +71,9 @@ csv_to_parquet <- function(
 
       zipfile <- curl_download(url_to_csv,tempfile())
       csvfile <- unzip(zipfile)
+      names(csvfile) <- sub('.*/', '', csvfile)
 
-      csv_output <- read_delim(csvfile)
+      csv_output <- read_delim(csvfile[filename_in_zip])
     }
 
   }
