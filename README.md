@@ -1,4 +1,4 @@
-# parquetize
-R package that allows to convert databases of different formats to parquet format
+:package: Package `parquetize` <img src="man/figures/hex_parquetize.png" width=110 align="right"/>
+======================================
 
-![](/hex_parquetize.png)
+R package that allows to convert databases of different formats to parquet format

@@ -1,0 +1,10 @@
+# Les fichiers du projet R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+
+# Les fichiers Thumbs
+Thumbs.db
