@@ -14,6 +14,7 @@
 #' @param path_to_csv string that indicates the path to the csv file
 #' @param url_to_csv string that indicates the URL of the csv file
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
+#' @param path_to_parquet string that indicaters the path to the parquet file
 #'
 #' @return A parquet file
 #'
@@ -38,7 +39,8 @@
 csv_to_parquet <- function(
     path_to_csv,
     url_to_csv,
-    csv_as_a_zip = FALSE
+    csv_as_a_zip = FALSE,
+    path_to_parquet
     ) {
 
 
@@ -67,7 +69,8 @@ csv_to_parquet <- function(
 
   }
 
-  parquetfile <- write_parquet(csv_output)
+  parquetfile <- write_parquet(csv_output,
+                               sink = path_to_parquet)
 
   return(parquetfile)
 
