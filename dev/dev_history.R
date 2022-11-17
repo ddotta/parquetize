@@ -4,8 +4,8 @@
 ####################  AU QUOTIDIEN  ###############################
 # 3.a. Inclure du code, le documenter et le tester
 # Pour chaque fonction du package :
-usethis::use_r("supprime")
-usethis::use_test("supprime")
+usethis::use_r("csv_to_parquet")
+usethis::use_test("csv_to_parquet")
 # écrire le code de la fonction
 # documenter la fonction
 # # Pour mettre à jour la documentation et le NAMESPACE
