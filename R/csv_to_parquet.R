@@ -66,8 +66,24 @@ csv_to_parquet <- function(
     stop("Be careful, you have to fill in either the path_to_csv or url_to_csv argument")
   }
 
+  # Check if filename_in_zip is filled in when csv_as_a_zip is TRUE
   if (csv_as_a_zip==TRUE & missing(filename_in_zip)) {
     stop("Be careful, if the csv file is included in a zip then you must indicate the name of the csv file to convert")
+  }
+
+  # Check if path_to_csv is missing
+  if (missing(path_to_csv)) {
+    stop("Be careful, the argument path_to_csv must be filled in")
+  }
+
+  # Check if path_to_csv is missing
+  if (missing(url_to_csv)) {
+    stop("Be careful, the argument url_to_csv must be filled in")
+  }
+
+  # Check if path_to_parquet is missing
+  if (missing(path_to_parquet)) {
+    stop("Be careful, the argument path_to_parquet must be filled in")
   }
 
   if (missing(path_to_csv)==FALSE) {
