@@ -30,7 +30,7 @@
 #' # Conversion from a local csv file :
 #'
 #' csv_to_parquet(
-#'   path_to_csv = "C:/Users/AQEW8W/Downloads/titi/ac1.csv",
+#'   path_to_csv = "Downloads/ac1.csv",
 #'   path_to_parquet = "Downloads/ac1.parquet",
 #' )
 #'
@@ -94,5 +94,7 @@ csv_to_parquet <- function(
                                sink = path_to_parquet)
 
   return(invisible(parquetfile))
+
+  message(paste0("The csv file is available in parquet format under ",path_to_parquet))
 
 }
