@@ -93,6 +93,6 @@ csv_to_parquet <- function(
   parquetfile <- write_parquet(csv_output,
                                sink = path_to_parquet)
 
-  return(parquetfile)
+  return(invisible(parquetfile))
 
 }
