@@ -14,7 +14,7 @@
 #' @param path_to_csv string that indicates the path to the csv file
 #' @param url_to_csv string that indicates the URL of the csv file
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
-#' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip)
+#' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #'
 #' @return A parquet file
@@ -63,7 +63,11 @@ csv_to_parquet <- function(
 
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
-    print("Be careful, you have to fill in either the path_to_csv or url_to_csv argument")
+    stop("Be careful, you have to fill in either the path_to_csv or url_to_csv argument")
+  }
+
+  if (csv_as_a_zip==TRUE & missing(filename_in_zip)) {
+    stop("Be careful, if the csv file is included in a zip then you must indicate the name of the csv file to convert")
   }
 
   if (missing(path_to_csv)==FALSE) {
