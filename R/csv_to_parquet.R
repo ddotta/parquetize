@@ -15,7 +15,7 @@
 #' @param url_to_csv string that indicates the URL of the csv file
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip)
-#' @param path_to_parquet string that indicaters the path to the parquet file
+#' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #'
 #' @return A parquet file
 #'
@@ -31,14 +31,14 @@
 #'
 #' csv_to_parquet(
 #'   path_to_csv = "Downloads/ac1.csv",
-#'   path_to_parquet = "Downloads/ac1.parquet",
+#'   path_to_parquet = "Downloads",
 #' )
 #'
 #' # Conversion frome a URL and a csv file :
 #'
 #' csv_to_parquet(
 #'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
-#'   path_to_parquet = "Downloads/research-and-development-survey-2021.parquet",
+#'   path_to_parquet = "Downloads",
 #' )
 #'
 #' # Conversion from a URL and a zipped file :
@@ -47,7 +47,7 @@
 #'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
 #'   csv_as_a_zip = TRUE,
 #'   filename_in_zip = "equip-tour-transp-infra-2021.csv",
-#'   path_to_parquet = "Downloads/equip-tour-transp-infra-2021.parquet",
+#'   path_to_parquet = "Downloads",
 #' )
 #' }
 
@@ -71,12 +71,16 @@ csv_to_parquet <- function(
     csv_output <- read_delim(path_to_csv,
                              lazy = TRUE)
 
+    parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_csv)),".parquet")
+
   } else if (missing(url_to_csv)==FALSE) {
 
     if (csv_as_a_zip==FALSE) {
 
       csv_output <- read_delim(url_to_csv,
                                lazy = TRUE)
+
+      parquetname <- paste0(gsub("\\..*","",sub(".*/","", url_to_csv)),".parquet")
 
     } else if (csv_as_a_zip==TRUE) {
 
@@ -86,15 +90,19 @@ csv_to_parquet <- function(
 
       csv_output <- read_delim(csv_file[filename_in_zip],
                                lazy = TRUE)
+
+      parquetname <- paste0(gsub("\\..*","",filename_in_zip),".parquet")
     }
 
   }
 
   parquetfile <- write_parquet(csv_output,
-                               sink = path_to_parquet)
-
-  return(invisible(parquetfile))
+                               sink = file.path(path_to_parquet,
+                                                parquetname)
+                               )
 
   message(paste0("The csv file is available in parquet format under ",path_to_parquet))
+
+  return(invisible(parquetfile))
 
 }
