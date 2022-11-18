@@ -1,0 +1,18 @@
+template:
+  bootstrap: 5
+  bootswatch: litera
+
+navbar:
+  right:
+    - text: Contribute
+      icon: fab fa-github fa-lg
+      href: https://github.com/ddotta/parquetize
+
+reference:
+  - title: Functions
+    desc:  The conversion functions available in this package
+    contents:
+      - csv_to_parquet
+  - title: Other functions
+    contents:
+      - parquetize_example
