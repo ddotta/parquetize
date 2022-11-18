@@ -30,15 +30,15 @@
 #' # Conversion from a local csv file :
 #'
 #' csv_to_parquet(
-#'   path_to_csv = "Downloads/ac1.csv",
-#'   path_to_parquet = "Downloads",
+#'   path_to_csv = "Data/ac1.csv",
+#'   path_to_parquet = "Data",
 #' )
 #'
 #' # Conversion frome a URL and a csv file :
 #'
 #' csv_to_parquet(
 #'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
-#'   path_to_parquet = "Downloads",
+#'   path_to_parquet = "Data",
 #' )
 #'
 #' # Conversion from a URL and a zipped file :
@@ -47,7 +47,7 @@
 #'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
 #'   csv_as_a_zip = TRUE,
 #'   filename_in_zip = "equip-tour-transp-infra-2021.csv",
-#'   path_to_parquet = "Downloads",
+#'   path_to_parquet = "Data",
 #' )
 #' }
 
@@ -69,16 +69,6 @@ csv_to_parquet <- function(
   # Check if filename_in_zip is filled in when csv_as_a_zip is TRUE
   if (csv_as_a_zip==TRUE & missing(filename_in_zip)) {
     stop("Be careful, if the csv file is included in a zip then you must indicate the name of the csv file to convert")
-  }
-
-  # Check if path_to_csv is missing
-  if (missing(path_to_csv)) {
-    stop("Be careful, the argument path_to_csv must be filled in")
-  }
-
-  # Check if path_to_csv is missing
-  if (missing(url_to_csv)) {
-    stop("Be careful, the argument url_to_csv must be filled in")
   }
 
   # Check if path_to_parquet is missing

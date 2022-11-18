@@ -19,9 +19,9 @@ csv_to_parquet(
 
 \item{csv_as_a_zip}{boolean that indicates if the csv is stored in a zip}
 
-\item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip)}
+\item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.}
 
-\item{path_to_parquet}{string that indicaters the path to the parquet file}
+\item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
 }
 \value{
 A parquet file
@@ -41,19 +41,28 @@ Several conversion possibilities are offered :
 }
 \examples{
 
-# conversion from a local csv file :
+\dontrun{
+# Conversion from a local csv file :
 
-result <- csv_to_parquet(
-  path_to_csv = "C:/Users/AQEW8W/Downloads/titi/ac1.csv",
-  path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/ac1.parquet",
+csv_to_parquet(
+  path_to_csv = "Data/ac1.csv",
+  path_to_parquet = "Data",
 )
 
-# conversion from a URL and a zipped file :
+# Conversion frome a URL and a csv file :
+
+csv_to_parquet(
+  url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+  path_to_parquet = "Data",
+)
+
+# Conversion from a URL and a zipped file :
 
 csv_to_parquet(
   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
   csv_as_a_zip = TRUE,
   filename_in_zip = "equip-tour-transp-infra-2021.csv",
-  path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/equip-tour-transp-infra-2021.parquet",
+  path_to_parquet = "Data",
 )
+}
 }
