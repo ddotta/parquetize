@@ -26,10 +26,10 @@ devtools::check()
 # 3.c. Astuce qui peut aider durant le développement
 # Charger l'ensemble des fonctions de son package
 devtools::load_all()
-------------------------------------------------#
+#------------------------------------------------#
 
-  # Ajout de  `dev/dev_history.R` au .Rbuildignore
-  usethis::use_build_ignore("dev/dev_history.R")
+# Ajout de  `dev/dev_history.R` au .Rbuildignore
+usethis::use_build_ignore("dev/dev_history.R")
 
 # Ajout d'un fichier NEWS
 usethis::use_news_md()
@@ -37,14 +37,14 @@ usethis::use_news_md()
 # Creation du squelette du pkgdown
 usethis::use_pkgdown()
 
-# Configuration du CI
-usethis::use_gitlab_ci()
+# Configuration des GHA
+usethis::use_github_action()
 
 # Ajout des fichiers dans `data-raw`
-usethis::use_data_raw("liste_etablissements")
+usethis::use_data_raw("region-2022")
 
 # Creation des vignettes
-usethis::use_vignette("aa-calculs-perimetres-outputs")
+usethis::use_vignette("aa-conversions")
 
 # Creation du repertoire testthat
 usethis::use_testthat()
