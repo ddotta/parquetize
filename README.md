@@ -7,7 +7,6 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 <!-- badges: end -->
 
 # parquetize :package: <a href="https://ddotta.github.io/parquetize/"><img src="man/figures/hex_parquetize.png" align="right" width=110 />
-======================================
 
 R package that allows to convert databases of different formats to parquet format
 
