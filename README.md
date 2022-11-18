@@ -2,3 +2,10 @@
 ======================================
 
 R package that allows to convert databases of different formats to parquet format
+
+## Installation
+
+``` r
+# install.packages("remotes")
+remotes::install_github("ddotta/parquetize")
+```
