@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^dev/dev_history\.R$
 ^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
