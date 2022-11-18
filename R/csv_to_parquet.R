@@ -16,7 +16,7 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
-#' @param compression_type string that indicates the compression type for the parquet file (see [here](https://arrow.apache.org/docs/r/reference/write_parquet.html))
+#' @param compression_type string that indicates the compression type for the parquet file (see here \url{https://arrow.apache.org/docs/r/reference/write_parquet.html})
 #'
 #' @return A parquet file
 #'
