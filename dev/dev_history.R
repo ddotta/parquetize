@@ -49,6 +49,9 @@ usethis::use_vignette("aa-conversions")
 # Creation du repertoire testthat
 usethis::use_testthat()
 
+# Pour avoir le détail du code coverage par fonction
+covr::report()
+
 ################ En fin de developpement ##########
 
 # Construction du site (uniquement sur SSP Cloud)
