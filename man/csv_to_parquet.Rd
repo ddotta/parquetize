@@ -9,7 +9,8 @@ csv_to_parquet(
   url_to_csv,
   csv_as_a_zip = FALSE,
   filename_in_zip,
-  path_to_parquet
+  path_to_parquet,
+  compression_type = "snappy"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ csv_to_parquet(
 \item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.}
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
+
+\item{compression_type}{string that indicates the compression type for the parquet file (see [here](https://arrow.apache.org/docs/r/reference/write_parquet.html))}
 }
 \value{
 A parquet file
