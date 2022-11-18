@@ -20,9 +20,8 @@ usethis::use_package("dplyr", min_version = "1.0.8")
 # pour utiliser %>% dans un package
 # usethis::use_pipe()
 
-# Sous AUS, pour assurer la conformité du package
-# Réaliser le contrôle de conformité
-devtools::check(cran=F)
+# Pour réaliser le contrôle de conformité du package
+devtools::check()
 
 # 3.c. Astuce qui peut aider durant le développement
 # Charger l'ensemble des fonctions de son package
