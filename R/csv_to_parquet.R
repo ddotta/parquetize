@@ -79,7 +79,8 @@ csv_to_parquet <- function(
   if (missing(path_to_csv)==FALSE) {
 
     csv_output <- read_delim(path_to_csv,
-                             lazy = TRUE)
+                             lazy = TRUE,
+                             col_types = list(col_character()))
 
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_csv)),".parquet")
 

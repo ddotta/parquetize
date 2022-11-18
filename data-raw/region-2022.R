@@ -13,11 +13,8 @@ zipinseefr <- curl_download("https://www.insee.fr/fr/statistiques/fichier/605172
                              tempfile())
 filesinseefr <- unzip(zipfile=zipinseefr)
 
-region_2022 <- read_delim(filesinseefr[11])[,c("REG","LIBELLE")]
+region_2022 <- read_delim(filesinseefr[11])
 
-# Anonymisation des SIREN et des raison sociales
-# Code pour produire la base exemple au format csv sous
-# `inst/extdata`
 write.csv2(
   region_2022,
   file = "inst/extdata/region_2022.csv",
