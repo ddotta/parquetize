@@ -59,13 +59,15 @@ csv_to_parquet <- function(
 
   if (missing(path_to_csv)==FALSE) {
 
-    csv_output <- read_delim(path_to_csv)
+    csv_output <- read_delim(path_to_csv,
+                             lazy = TRUE)
 
   } else if (missing(url_to_csv)==FALSE) {
 
     if (csv_as_a_zip==FALSE) {
 
-      csv_output <- read_delim(url_to_csv)
+      csv_output <- read_delim(url_to_csv,
+                               lazy = TRUE)
 
     } else if (csv_as_a_zip==TRUE) {
 
@@ -73,7 +75,8 @@ csv_to_parquet <- function(
       csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
       names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(csv_file[filename_in_zip])
+      csv_output <- read_delim(csv_file[filename_in_zip],
+                               lazy = TRUE)
     }
 
   }
