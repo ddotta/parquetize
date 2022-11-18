@@ -1,6 +1,6 @@
 template:
   bootstrap: 5
-  bootswatch: materia
+  bootswatch: litera
 
 navbar:
   right:
