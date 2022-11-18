@@ -49,8 +49,6 @@ usethis::use_vignette("aa-conversions")
 # Creation du repertoire testthat
 usethis::use_testthat()
 
-
-
 ################ En fin de developpement ##########
 
 # Construction du site (uniquement sur SSP Cloud)
