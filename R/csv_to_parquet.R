@@ -69,11 +69,11 @@ csv_to_parquet <- function(
 
     } else if (csv_as_a_zip==TRUE) {
 
-      zipfile <- curl_download(url_to_csv,tempfile())
-      csvfile <- unzip(zipfile)
-      names(csvfile) <- sub('.*/', '', csvfile)
+      zip_file <- curl_download(url_to_csv,tempfile())
+      csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
+      names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(csvfile[filename_in_zip])
+      csv_output <- read_delim(csv_file[filename_in_zip])
     }
 
   }
