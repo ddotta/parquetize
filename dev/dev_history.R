@@ -38,7 +38,7 @@ usethis::use_news_md()
 usethis::use_pkgdown()
 
 # Configuration des GHA
-usethis::use_github_action()
+usethis::use_github_action(name = "check-release")
 
 # Ajout des fichiers dans `data-raw`
 usethis::use_data_raw("region-2022")
