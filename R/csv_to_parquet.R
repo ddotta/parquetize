@@ -26,21 +26,30 @@
 #'
 #' @examples
 #'
-#' # conversion from a local csv file :
+#' \dontrun{
+#' # Conversion from a local csv file :
 #'
-#' result <- csv_to_parquet(
+#' csv_to_parquet(
 #'   path_to_csv = "C:/Users/AQEW8W/Downloads/titi/ac1.csv",
-#'   path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/ac1.parquet",
+#'   path_to_parquet = "Downloads/ac1.parquet",
 #' )
 #'
-#' # conversion from a URL and a zipped file :
+#' # Conversion frome a URL and a csv file :
+#'
+#' csv_to_parquet(
+#'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+#'   path_to_parquet = "Downloads/research-and-development-survey-2021.parquet",
+#' )
+#'
+#' # Conversion from a URL and a zipped file :
 #'
 #' csv_to_parquet(
 #'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
 #'   csv_as_a_zip = TRUE,
 #'   filename_in_zip = "equip-tour-transp-infra-2021.csv",
-#'   path_to_parquet = "C:/Users/AQEW8W/Downloads/titi/equip-tour-transp-infra-2021.parquet",
+#'   path_to_parquet = "Downloads/equip-tour-transp-infra-2021.parquet",
 #' )
+#' }
 
 
 csv_to_parquet <- function(
