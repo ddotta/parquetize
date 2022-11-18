@@ -13,6 +13,17 @@ test_that("Checks arguments are filled in", {
   )
 })
 
+test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip as TRUE", {
+  expect_error(
+    csv_to_parquet(
+      url_to_csv = "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip",
+      csv_as_a_zip = TRUE,
+      path_to_parquet = tempdir()
+    ),
+    "Be careful, if the csv file is included in a zip then you must indicate the name of the csv file to convert"
+  )
+})
+
 test_that("Checks message is displayed with path_to_csv argument", {
   expect_message(
     csv_to_parquet(
@@ -44,4 +55,3 @@ test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip
     paste0("The csv file is available in parquet format under ",tempdir())
   )
 })
-
