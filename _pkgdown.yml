@@ -1,24 +1,10 @@
+url: https://ddotta.github.io/parquetize/
+
 navbar:
-  structure:
-    left:
-      - home
-      - reference
-      - articles
-      - news
-  components:
-    reference:
-      text: Functions
-      href: reference/index.html
-    news:
-      text: News
-      href: news/index.html
   right:
-    - text: Source code
+    - text: Contribuer
       icon: fab fa-github fa-lg
       href: https://github.com/ddotta/parquetize
-
-home:
-  title: R package to convert files to parquet format
 
 reference:
   - title: Functions
