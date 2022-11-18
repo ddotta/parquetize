@@ -13,10 +13,20 @@ test_that("Checks arguments are filled in", {
   )
 })
 
-test_that("Checks message is displayed", {
+test_that("Checks message is displayed with url_to_csv argument", {
   expect_message(
     csv_to_parquet(
       url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+      path_to_parquet = tempdir()
+    ),
+    paste0("The csv file is available in parquet format under ",tempdir())
+  )
+})
+
+test_that("Checks message is displayed with path_to_csv argument", {
+  expect_message(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
       path_to_parquet = tempdir()
     ),
     paste0("The csv file is available in parquet format under ",tempdir())
