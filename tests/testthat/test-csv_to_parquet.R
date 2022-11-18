@@ -13,6 +13,16 @@ test_that("Checks arguments are filled in", {
   )
 })
 
+test_that("Checks message is displayed with path_to_csv argument", {
+  expect_message(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_parquet = tempdir()
+    ),
+    paste0("The csv file is available in parquet format under ",tempdir())
+  )
+})
+
 test_that("Checks message is displayed with url_to_csv argument", {
   expect_message(
     csv_to_parquet(
@@ -23,12 +33,15 @@ test_that("Checks message is displayed with url_to_csv argument", {
   )
 })
 
-test_that("Checks message is displayed with path_to_csv argument", {
+test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip as TRUE", {
   expect_message(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
+      csv_as_a_zip = TRUE,
+      filename_in_zip = "equip-tour-transp-infra-2021.csv",
       path_to_parquet = tempdir()
     ),
     paste0("The csv file is available in parquet format under ",tempdir())
   )
 })
+
