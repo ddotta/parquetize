@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://ddotta.github.io/parquetize/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://ddotta.github.io/parquetize/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://ddotta.github.io/parquetize/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://ddotta.github.io/parquetize/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://ddotta.github.io/parquetize/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/csv_to_parquet.html</loc>
+    <loc>https://ddotta.github.io/parquetize/reference/csv_to_parquet.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://ddotta.github.io/parquetize/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/parquetize_example.html</loc>
+    <loc>https://ddotta.github.io/parquetize/reference/parquetize_example.html</loc>
   </url>
 </urlset>

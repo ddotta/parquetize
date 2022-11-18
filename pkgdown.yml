@@ -2,5 +2,8 @@ pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-11-18T15:09Z
+last_built: 2022-11-18T15:12Z
+urls:
+  reference: https://ddotta.github.io/parquetize/reference
+  article: https://ddotta.github.io/parquetize/articles
 
