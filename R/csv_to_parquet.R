@@ -22,6 +22,7 @@
 #' @importFrom readr read_delim
 #' @importFrom curl curl_download
 #' @importFrom arrow write_parquet
+#' @importFrom utils unzip
 #' @export
 #'
 #' @examples
@@ -79,8 +80,7 @@ csv_to_parquet <- function(
   if (missing(path_to_csv)==FALSE) {
 
     csv_output <- read_delim(path_to_csv,
-                             lazy = TRUE,
-                             col_types = list(col_character()))
+                             lazy = TRUE)
 
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_csv)),".parquet")
 

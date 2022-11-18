@@ -16,7 +16,7 @@ roxygen2::roxygenise()
 devtools::test()
 
 # 3.b. Si besoin, déclarer une dépendance dans DESCRIPTION
-usethis::use_package("dplyr", min_version = "1.0.8")
+usethis::use_package("readr")
 # pour utiliser %>% dans un package
 # usethis::use_pipe()
 
