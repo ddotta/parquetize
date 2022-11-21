@@ -10,3 +10,6 @@ inst/doc
 
 # This folders
 Data/
+
+# Files with this extensions
+*.sas7bdat
