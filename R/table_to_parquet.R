@@ -34,6 +34,7 @@
 #'   path_to_table = "Data/postp.sas7bdat",
 #'   path_to_parquet = "Data",
 #' )
+#'
 #' # Conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(
@@ -180,15 +181,11 @@ table_to_parquet <- function(
                                  chunk_size = nb_rows,
                                  ...)
 
-    update_progressbar(conversion_progress,9)
-
   } else if (partition %in% c("yes")) {
 
     parquetfile <- write_dataset(table_output,
                                  path = path_to_parquet,
                                  ...)
-
-    update_progressbar(conversion_progress,9)
 
   }
 

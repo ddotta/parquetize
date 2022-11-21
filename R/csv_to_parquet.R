@@ -61,9 +61,13 @@ csv_to_parquet <- function(
     filename_in_zip,
     path_to_parquet,
     compression_type = "snappy",
-    compression_level = NULL
+    compression_level = NULL,
+    ...
     ) {
 
+
+  # Initialize the progress bar
+  conversion_progress <- txtProgressBar(style = 3)
 
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
@@ -80,10 +84,14 @@ csv_to_parquet <- function(
     stop("Be careful, the argument path_to_parquet must be filled in")
   }
 
+  update_progressbar(conversion_progress,1)
+
   if (missing(path_to_csv)==FALSE) {
 
     csv_output <- read_delim(path_to_csv,
                              lazy = TRUE)
+
+    update_progressbar(conversion_progress,6)
 
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_csv)),".parquet")
 
@@ -93,6 +101,8 @@ csv_to_parquet <- function(
 
       csv_output <- read_delim(url_to_csv,
                                lazy = TRUE)
+
+      update_progressbar(conversion_progress,6)
 
       parquetname <- paste0(gsub("\\..*","",sub(".*/","", url_to_csv)),".parquet")
 
@@ -105,6 +115,8 @@ csv_to_parquet <- function(
       csv_output <- read_delim(csv_file[filename_in_zip],
                                lazy = TRUE)
 
+      update_progressbar(conversion_progress,6)
+
       parquetname <- paste0(gsub("\\..*","",filename_in_zip),".parquet")
     }
 
@@ -116,7 +128,9 @@ csv_to_parquet <- function(
                                ...
                                )
 
-  message(paste0("The csv file is available in parquet format under ",path_to_parquet))
+  update_progressbar(conversion_progress,10)
+
+  message(paste0("\nThe csv file is available in parquet format under ",path_to_parquet))
 
   return(invisible(parquetfile))
 
