@@ -17,7 +17,7 @@ update_progressbar = function(progressbar,
 read_by_chunk = function(format_export,
                          path,
                          nb_rows,
-                         ...) {
+                         encoding) {
 
   liste_tables <- vector("list")
   part <- 1
@@ -29,19 +29,19 @@ read_by_chunk = function(format_export,
         read_sas(path,
                  skip = step,
                  n_max = nb_rows,
-                 ...)
+                 encoding = encoding)
     } else if (format_export %in% c("SPSS")) {
       liste_tables[[part]] <-
         read_sav(path,
                  skip = step,
                  n_max = nb_rows,
-                 ...)
+                 encoding = encoding)
     } else if (format_export %in% c("Stata")) {
       liste_tables[[part]] <-
         read_dta(path,
                  skip = step,
                  n_max = nb_rows,
-                 ...)
+                 encoding = encoding)
     }
 
     if (nrow(liste_tables[[part]]) > 0) {

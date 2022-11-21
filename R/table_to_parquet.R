@@ -1,6 +1,6 @@
-#' Convert a csv table to parquet format
+#' Convert an input table to parquet format
 #'
-#' This function allows to convert a csv table to parquet format. \cr
+#' This function allows to convert an input table to parquet format. \cr
 #'
 #' Several conversion possibilities are offered :
 #'
@@ -11,12 +11,13 @@
 #'
 #' }
 #'
-#' @param path_to_table string that indicates the path to the csv file (don't forget the extension).
+#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
 #' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
 #' @param nb_rows By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' @param ... additional format-specific arguments (e.g `"encoding"`), see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.
+#' @param encoding string that indicates the character encoding for the input file.
+#' @param ... additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.
 #'
 #' @return Parquet files, invisibly
 #'
@@ -27,6 +28,12 @@
 #' @examples
 #'
 #' \dontrun{
+#' # Conversion from a SAS file to a single parquet file :
+#'
+#' table_to_parquet(
+#'   path_to_table = "Data/postp.sas7bdat",
+#'   path_to_parquet = "Data",
+#' )
 #' # Conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(
@@ -71,6 +78,7 @@ table_to_parquet <- function(
     path_to_parquet,
     nb_rows = NULL,
     partition = "no",
+    encoding = NULL,
     ...
 ) {
 
@@ -97,7 +105,8 @@ table_to_parquet <- function(
 
     if (is.null(nb_rows)) {
 
-      table_output <- read_sas(path_to_table)
+      table_output <- read_sas(data_file = path_to_table,
+                               encoding = encoding)
 
       update_progressbar(conversion_progress,6)
 
@@ -105,7 +114,8 @@ table_to_parquet <- function(
 
       table_output <- read_by_chunk(format_export = file_format,
                                     path = path_to_table,
-                                    nb_rows = nb_rows)
+                                    nb_rows = nb_rows,
+                                    encoding = encoding)
 
       update_progressbar(conversion_progress,6)
     }
@@ -116,7 +126,8 @@ table_to_parquet <- function(
 
     if (is.null(nb_rows)) {
 
-      table_output <- read_sav(path_to_table)
+      table_output <- read_sav(data_file = path_to_table,
+                               encoding = encoding)
 
       update_progressbar(conversion_progress,6)
 
@@ -124,7 +135,8 @@ table_to_parquet <- function(
 
       table_output <- read_by_chunk(format_export = file_format,
                                     path = path_to_table,
-                                    nb_rows = nb_rows)
+                                    nb_rows = nb_rows,
+                                    encoding = encoding)
 
       update_progressbar(conversion_progress,6)
 
@@ -136,7 +148,8 @@ table_to_parquet <- function(
 
     if (is.null(nb_rows)) {
 
-      table_output <- read_dta(path_to_table)
+      table_output <- read_dta(data_file = path_to_table,
+                               encoding = encoding)
 
       update_progressbar(conversion_progress,6)
 
@@ -144,7 +157,8 @@ table_to_parquet <- function(
 
       table_output <- read_by_chunk(format_export = file_format,
                                     path = path_to_table,
-                                    nb_rows = nb_rows)
+                                    nb_rows = nb_rows,
+                                    encoding = encoding)
 
       update_progressbar(conversion_progress,6)
 
