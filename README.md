@@ -22,16 +22,21 @@ remotes::install_github("ddotta/parquetize")
 library(parquetize)
 ```
 
-## Content
+## Why this package ?
 
-This package contains only 2 functions:  
+While working, I realized that I was often repeating the same operation when working with parquet files : 
 
-- csv_to_parquet
-- table_to_parquet
+- I import the file in R with "haven" or "readr".
+- And I export the file in parquet format
+
+As a fervent of the DRY principle (don't repeat yourself) the 2 main functions of this package make my life easier and execute these operations within the same function :
+
+- `csv_to_parquet()`
+- `table_to_parquet()`
 
 See [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.html) for more details.
 
-## About
+## About and contribution
 
 This package is a simple wrapper of some very useful functions from the `haven`, `readr` and `arrow` packages.
 
