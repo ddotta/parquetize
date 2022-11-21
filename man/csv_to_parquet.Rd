@@ -11,7 +11,9 @@ csv_to_parquet(
   filename_in_zip,
   path_to_parquet,
   compression_type = "snappy",
-  compression_level = NULL
+  compression_level = NULL,
+  encoding = "UTF-8",
+  ...
 )
 }
 \arguments{

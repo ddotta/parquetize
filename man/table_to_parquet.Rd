@@ -2,22 +2,36 @@
 % Please edit documentation in R/table_to_parquet.R
 \name{table_to_parquet}
 \alias{table_to_parquet}
-\title{Convert a csv table to parquet format}
+\title{Convert an input table to parquet format}
 \usage{
-table_to_parquet(path_to_table, path_to_parquet, partition, ...)
+table_to_parquet(
+  path_to_table,
+  path_to_parquet,
+  nb_rows = NULL,
+  partition = "no",
+  encoding = NULL,
+  ...
+)
 }
 \arguments{
-\item{path_to_table}{string that indicates the path to the csv file}
+\item{path_to_table}{string that indicates the path to the input file (don't forget the extension).}
 
-\item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
+\item{path_to_parquet}{string that indicates the path to the directory where the parquet files will be stored.}
 
-\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file}
+\item{nb_rows}{By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.}
+
+\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+
+\item{encoding}{string that indicates the character encoding for the input file.}
+
+\item{...}{additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.}
 }
 \value{
 Parquet files, invisibly
 }
 \description{
-This function allows to convert a csv table to parquet format. \cr
+This function allows to convert an input table to parquet format. \cr
 }
 \details{
 Several conversion possibilities are offered :
@@ -32,28 +46,49 @@ Several conversion possibilities are offered :
 \examples{
 
 \dontrun{
-# Conversion from a local csv file :
+# Conversion from a SAS file to a single parquet file :
 
 table_to_parquet(
-  path_to_csv = "Data/ac1.csv",
+  path_to_table = "Data/postp.sas7bdat",
   path_to_parquet = "Data",
 )
 
-# Conversion from a URL and a csv file :
+# Conversion from a SAS file to a single parquet file :
 
 table_to_parquet(
-  url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+  path_to_table = "Data/postp.sas7bdat",
   path_to_parquet = "Data",
-  compression = "gzip"
 )
 
-# Conversion from a URL and a zipped file :
+# Conversion from a SPSS file to a single parquet file :
 
 table_to_parquet(
-  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
-  csv_as_a_zip = TRUE,
-  filename_in_zip = "equip-tour-transp-infra-2021.csv",
+  path_to_table = "Data/postp.sav",
+  path_to_parquet = "Data"
+)
+
+# Conversion from a Stata file to a single parquet file :
+
+table_to_parquet(
+  path_to_table = "Data/postp.dta",
   path_to_parquet = "Data",
+)
+
+# Conversion from a big SAS file to a single parquet file by chunk :
+
+table_to_parquet(
+  path_to_table = "Data/postp.sas7bdat",
+  path_to_parquet = "Data",
+  nb_rows = 100000
+)
+
+# Conversion from a SAS file to a partitioned parquet file :
+
+table_to_parquet(
+  path_to_table = "Data/postp.sas7bdat",
+  path_to_parquet = "Data",
+  partition = "yes",
+  partitioning =  c("REG")
 )
 }
 }
