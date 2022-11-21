@@ -11,9 +11,19 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 
 R package that allows to convert databases of different formats to [parquet](https://parquet.apache.org/) format.
 
-## Installation
+## Installation and load
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("ddotta/parquetize")
 ```
+
+``` r
+library(parquetize)
+```
+
+## About
+
+This package is a simple wrapper of some very useful functions from the "haven", "readr" and "arrow" packages.
+
+Feel welcome to contribute to add features that you find useful in your daily work.
