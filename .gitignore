@@ -1,10 +1,12 @@
-# Les fichiers du projet R
+# This files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 
-# Les fichiers Thumbs
 Thumbs.db
 docs
 inst/doc
+
+# This folders
+Data/
