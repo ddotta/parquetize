@@ -34,7 +34,7 @@ As a fervent of the DRY principle (don't repeat yourself) the 2 main functions o
 - `csv_to_parquet()`
     - **The other benefit of this function** is that it allows you to convert csv files whether they are stored locally or available on the internet directly to csv format or inside a zip.
 - `table_to_parquet()`
-    - **The other benefit of this function**is that it handles SAS, SPSS and Stata files at the same time. There is only one function to use for these 3 cases.
+    - **The other benefit of this function**is that it handles SAS, SPSS and Stata files at the same time. There is only one function to use for these 3 cases.  
 
 For more details, see [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
 
@@ -42,4 +42,4 @@ For more details, see [this vignette](https://ddotta.github.io/parquetize/articl
 
 This package is a simple wrapper of some very useful functions from the `haven`, `readr` and `arrow` packages.
 
-Feel welcome to contribute to add features or statistical language that you find useful in your daily work.
+Feel welcome to contribute to add features that you find useful in your daily work. Ideas are welcomed in [the issues](https://github.com/ddotta/parquetize/issues).
