@@ -74,6 +74,9 @@ table_to_parquet <- function(
     ...
 ) {
 
+  # Initialize the progress bar
+  conversion_progress <- txtProgressBar(style = 3)
+
   # Check if path_to_table is missing
   if (missing(path_to_table)) {
     stop("Be careful, the argument path_to_table must be filled in")
@@ -83,6 +86,8 @@ table_to_parquet <- function(
   if (missing(path_to_parquet)) {
     stop("Be careful, the argument path_to_parquet must be filled in")
   }
+
+  update_progressbar(conversion_progress,1)
 
   extension <- sub(".*\\.","",sub(".*/","", path_to_table))
 
@@ -94,41 +99,56 @@ table_to_parquet <- function(
 
       table_output <- read_sas(path_to_table)
 
+      update_progressbar(conversion_progress,6)
+
     } else if (is.null(nb_rows)==FALSE) {
 
-      liste_tables <- vector("list")
-      part <- 1
-      step <- 0
-      continue <- TRUE
-      while(continue) {
-        liste_tables[[part]] <-
-          read_sas(path_to_table,
-                   skip = step,
-                   n_max = nb_rows,
-                   ...)
-        if (nrow(liste_tables[[part]]) > 0) {
-          part <- part + 1
-          step <- step + nb_rows
-          continue <- TRUE
-        } else {
-          continue <- FALSE
-        }
+      table_output <- read_by_chunk(format_export = file_format,
+                                    path = path_to_table,
+                                    nb_rows = nb_rows)
 
-      }
-
-      table_output <- do.call(rbind,liste_tables)
-
+      update_progressbar(conversion_progress,6)
     }
 
   } else if (extension %in% c("sav")) {
 
     file_format <- "SPSS"
-    table_output <- read_sav(path_to_table)
+
+    if (is.null(nb_rows)) {
+
+      table_output <- read_sav(path_to_table)
+
+      update_progressbar(conversion_progress,6)
+
+    } else if (is.null(nb_rows)==FALSE) {
+
+      table_output <- read_by_chunk(format_export = file_format,
+                                    path = path_to_table,
+                                    nb_rows = nb_rows)
+
+      update_progressbar(conversion_progress,6)
+
+    }
 
   } else if (extension %in% c("dta")) {
 
     file_format <- "Stata"
-    table_output <- read_dta(path_to_table)
+
+    if (is.null(nb_rows)) {
+
+      table_output <- read_dta(path_to_table)
+
+      update_progressbar(conversion_progress,6)
+
+    } else if (is.null(nb_rows)==FALSE) {
+
+      table_output <- read_by_chunk(format_export = file_format,
+                                    path = path_to_table,
+                                    nb_rows = nb_rows)
+
+      update_progressbar(conversion_progress,6)
+
+    }
 
   }
 
@@ -146,15 +166,21 @@ table_to_parquet <- function(
                                  chunk_size = nb_rows,
                                  ...)
 
+    update_progressbar(conversion_progress,9)
+
   } else if (partition %in% c("yes")) {
 
     parquetfile <- write_dataset(table_output,
                                  path = path_to_parquet,
                                  ...)
 
+    update_progressbar(conversion_progress,9)
+
   }
 
-  message(paste0("The ", file_format," file is available in parquet format under ",path_to_parquet))
+  update_progressbar(conversion_progress,10)
+
+  message(paste0("\nThe ", file_format," file is available in parquet format under ",path_to_parquet))
 
   return(invisible(parquetfile))
 
