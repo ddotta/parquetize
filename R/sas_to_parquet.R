@@ -18,16 +18,6 @@ sas_to_parquet <- function(
 
   if (missing(path_to_sas)==FALSE) {
 
-    # Structure du fichier
-    # df <- read_sas(path_to_sas,n_max=1)
-    # n <- names(df)
-    # s <- schema(purrr::imap(
-    #   df,
-    #   function(x,n)
-    #     if (class(x)=="character") Field$create(name=n, type=string())
-    #   else                       Field$create(name=n, type=float64())
-    # ))
-
     sas_output <- read_sas(path_to_sas)
 
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_sas)),".parquet")
