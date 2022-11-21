@@ -2,7 +2,11 @@
 
 export(csv_to_parquet)
 export(parquetize_example)
+export(table_to_parquet)
 importFrom(arrow,write_parquet)
 importFrom(curl,curl_download)
+importFrom(haven,read_dta)
+importFrom(haven,read_sas)
+importFrom(haven,read_sav)
 importFrom(readr,read_delim)
 importFrom(utils,unzip)
