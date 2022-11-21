@@ -24,7 +24,8 @@ csv_to_parquet(
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
 
-\item{compression_type}{string that indicates the compression type for the parquet file (see [here](https://arrow.apache.org/docs/r/reference/write_parquet.html))}
+\item{compression_type}{string that indicates the compression type for the parquet file (see here \url{https://arrow.apache.org/docs/r/reference/write_parquet.html}).
+Can be equal to "snappy" (by default), "gzip", "brotly", "lz4", "zstd" or "none".}
 }
 \value{
 A parquet file
