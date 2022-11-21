@@ -9,7 +9,7 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 :package: Package `parquetize` <img src="man/figures/hex_parquetize.png" width=110 align="right"/>
 ======================================
 
-R package that allows to convert databases of different formats (csv, SAS, SPSS and Stata) to [parquet](https://parquet.apache.org/) format.
+R package that allows to convert databases of different formats (csv, SAS, SPSS and Stata) to [parquet](https://parquet.apache.org/) format in a same function.
 
 ## Installation and load
 
@@ -21,6 +21,15 @@ remotes::install_github("ddotta/parquetize")
 ``` r
 library(parquetize)
 ```
+
+## Content
+
+This package contains only 2 functions:  
+
+- csv_to_parquet
+- table_to_parquet
+
+See [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.html) for more details.
 
 ## About
 
