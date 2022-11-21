@@ -18,6 +18,7 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param compression_type string that indicates the compression type for the parquet file (see here \url{https://arrow.apache.org/docs/r/reference/write_parquet.html}).
 #'   Can be equal to "snappy" (by default), "gzip", "brotly", "lz4", "zstd" or "none".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
 #'
 #' @return A parquet file
 #'
@@ -61,7 +62,8 @@ csv_to_parquet <- function(
     csv_as_a_zip = FALSE,
     filename_in_zip,
     path_to_parquet,
-    compression_type = "snappy"
+    compression_type = "snappy",
+    compression_level = NULL
     ) {
 
 
