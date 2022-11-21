@@ -36,8 +36,8 @@ As a fervent of the DRY principle (don't repeat yourself) the 2 main functions o
 
 See [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.html) for more details.
 
-## About and contribution
+## Contribution
 
 This package is a simple wrapper of some very useful functions from the `haven`, `readr` and `arrow` packages.
 
-Feel welcome to contribute to add features that you find useful in your daily work.
+Feel welcome to contribute to add features or statistical language that you find useful in your daily work.
