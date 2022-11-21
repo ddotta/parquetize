@@ -17,3 +17,13 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(parquetize)
 ```
+
+
+compression
+et compression_level
+
+2 fonctions :
+
+csv_to_parquet : pratique avec plusieurs argument from URL avec ou sans zip
+
+table_to_parquet : pour tous les formats de données (la fonction devine le format du fichier à l'aide de son extension)

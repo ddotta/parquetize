@@ -16,9 +16,6 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
-#' @param compression_type string that indicates the compression type for the parquet file (see here \url{https://arrow.apache.org/docs/r/reference/write_parquet.html}).
-#'   Can be equal to "snappy" (by default), "gzip", "brotly", "lz4", "zstd" or "none".
-#' @param compression_level compression level. Meaning depends on compression algorithm.
 #'
 #' @return A parquet file
 #'
@@ -43,6 +40,7 @@
 #' csv_to_parquet(
 #'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
 #'   path_to_parquet = "Data",
+#'   compression = "gzip"
 #' )
 #'
 #' # Conversion from a URL and a zipped file :
@@ -115,7 +113,7 @@ csv_to_parquet <- function(
   parquetfile <- write_parquet(csv_output,
                                sink = file.path(path_to_parquet,
                                                 parquetname),
-                               compression = compression_type
+                               ...
                                )
 
   message(paste0("The csv file is available in parquet format under ",path_to_parquet))
