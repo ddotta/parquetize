@@ -11,7 +11,7 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 
 R package that allows to convert databases of different formats (csv, SAS, SPSS and Stata) to [parquet](https://parquet.apache.org/) format in a same function.
 
-## Installation and load
+## Installation
 
 ``` r
 # install.packages("remotes")
@@ -33,6 +33,6 @@ See [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.
 
 ## About
 
-This package is a simple wrapper of some very useful functions from the "haven", "readr" and "arrow" packages.
+This package is a simple wrapper of some very useful functions from the `haven`, `readr` and `arrow` packages.
 
 Feel welcome to contribute to add features that you find useful in your daily work.

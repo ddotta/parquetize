@@ -17,7 +17,7 @@
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #'
-#' @return A parquet file
+#' @return A parquet file, invisibly
 #'
 #' @importFrom readr read_delim
 #' @importFrom curl curl_download
