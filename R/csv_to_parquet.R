@@ -62,6 +62,7 @@ csv_to_parquet <- function(
     path_to_parquet,
     compression_type = "snappy",
     compression_level = NULL,
+    encoding = "UTF-8",
     ...
     ) {
 
@@ -88,7 +89,8 @@ csv_to_parquet <- function(
 
   if (missing(path_to_csv)==FALSE) {
 
-    csv_output <- read_delim(path_to_csv,
+    csv_output <- read_delim(file = path_to_csv,
+                             locale = locale(encoding = encoding),
                              lazy = TRUE)
 
     update_progressbar(conversion_progress,6)
@@ -99,7 +101,8 @@ csv_to_parquet <- function(
 
     if (csv_as_a_zip==FALSE) {
 
-      csv_output <- read_delim(url_to_csv,
+      csv_output <- read_delim(file = url_to_csv,
+                               locale = locale(encoding = encoding),
                                lazy = TRUE)
 
       update_progressbar(conversion_progress,6)
@@ -112,7 +115,8 @@ csv_to_parquet <- function(
       csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
       names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(csv_file[filename_in_zip],
+      csv_output <- read_delim(file = url_to_csv,
+                               locale = locale(encoding = encoding),
                                lazy = TRUE)
 
       update_progressbar(conversion_progress,6)
