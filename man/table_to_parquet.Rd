@@ -28,7 +28,7 @@ If "yes", `"partitioning"` argument must be filled in. In this case, a folder wi
 
 \item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
-\item{...}{additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.}
+\item{...}{additional format-specific arguments, see [arrow::write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html) and [arrow::write_dataset()](https://arrow.apache.org/docs/r/reference/write_dataset.html) for more informations.}
 }
 \value{
 Parquet files, invisibly
@@ -56,14 +56,16 @@ To avoid overcharging R's RAM, the reading of input files can be done by chunk. 
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempdir(),
+  progressbar = "no"
 )
 
 # Conversion from a SPSS file to a single parquet file :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempdir(),
+  progressbar = "no"
 )
 # Conversion from a Stata file to a single parquet file without progress bar :
 
@@ -79,7 +81,8 @@ table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
   nb_rows = 50,
-  encoding = "utf-8"
+  encoding = "utf-8",
+  progressbar = "no"
 )
 
 # Conversion from a SAS file to a partitioned parquet file  :
@@ -88,7 +91,8 @@ table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
   partition = "yes",
-  partitioning =  c("Species") # vector use as partition key
+  partitioning =  c("Species"), # vector use as partition key
+  progressbar = "no"
 )
 
 # Reading SAS file by chunk and conversion from a SAS file to a partitioned parquet file :
@@ -98,6 +102,7 @@ path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
 path_to_parquet = tempdir(),
 nb_rows = 50,
 partition = "yes",
-partitioning =  c("Species") # vector use as partition key
+partitioning =  c("Species"), # vector use as partition key
+progressbar = "no"
 )
 }

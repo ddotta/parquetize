@@ -36,7 +36,8 @@ csv_to_parquet(
 
 \item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
-\item{...}{additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.}
+\item{...}{additional format-specific arguments, see [arrow::write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)
+and [arrow::write_dataset()](https://arrow.apache.org/docs/r/reference/write_dataset.html) for more informations.}
 }
 \value{
 A parquet file, invisibly
@@ -60,7 +61,8 @@ Several conversion possibilities are offered :
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempdir(),
+  progressbar = "no"
 )
 
 # Conversion from a URL and a csv file with "gzip" compression :
@@ -69,7 +71,8 @@ csv_to_parquet(
   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
   path_to_parquet = tempdir(),
   compression = "gzip",
-  compression_level = 5
+  compression_level = 5,
+  progressbar = "no"
 )
 
 # Conversion from a URL and a zipped file :
@@ -78,6 +81,7 @@ csv_to_parquet(
   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/5057840/cog_ensemble_2021_csv.zip",
   csv_as_a_zip = TRUE,
   filename_in_zip = "commune2021.csv",
-  path_to_parquet = tempdir()
+  path_to_parquet = tempdir(),
+  progressbar = "no"
 )
 }
