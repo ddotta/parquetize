@@ -39,7 +39,7 @@ As a fervent of the DRY principle (don't repeat yourself) the 2 exported functio
     
 **The last benefit** of using package `{parquetize}` is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.
 
-For more details, see [the documentation](https://ddotta.github.io/parquetize/) and examples :  
+For more details, see the documentation and examples :  
 - [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples).  
 - [table_to_parquet()](https://ddotta.github.io/parquetize/reference/table_to_parquet.html#ref-examples).
 
