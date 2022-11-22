@@ -1,15 +1,20 @@
-#' Convert an input table to parquet format
+#' Convert an input file to parquet format
 #'
-#' This function allows to convert an input table to parquet format. \cr
+#' This function allows to convert an input file to parquet format. \cr
 #'
-#' Several conversion possibilities are offered :
+#' It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
+#' For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_table` argument). \cr
+#'
+#' Two conversions possibilities are offered :
 #'
 #'\itemize{
 #'
-#' \item{From a locally stored file. The argument `path_to_csv` must then be used;}
-#' \item{From a URL. The argument `url_to_csv` must then be used.}
+#' \item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+#' \item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 #'
 #' }
+#'
+#' To avoid overcharging R's RAM, the reading of input files can be done by chunk. Argument  `nb_rows` must then be used.
 #'
 #' @param path_to_table string that indicates the path to the input file (don't forget the extension).
 #' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
@@ -24,56 +29,58 @@
 #'
 #' @importFrom haven read_sas read_sav read_dta
 #' @importFrom arrow write_parquet write_dataset
+#' @importFrom utils txtProgressBar setTxtProgressBar
 #' @export
 #'
 #' @examples
-#'
-#' \dontrun{
 #' # Conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(
-#'   path_to_table = "Data/postp.sas7bdat",
-#'   path_to_parquet = "Data",
-#' )
-#'
-#' # Conversion from a SAS file to a single parquet file :
-#'
-#' table_to_parquet(
-#'   path_to_table = "Data/postp.sas7bdat",
-#'   path_to_parquet = "Data",
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir()
 #' )
 #'
 #' # Conversion from a SPSS file to a single parquet file :
 #'
 #' table_to_parquet(
-#'   path_to_table = "Data/postp.sav",
-#'   path_to_parquet = "Data"
+#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_parquet = tempdir()
 #' )
-#'
-#' # Conversion from a Stata file to a single parquet file :
+#' # Conversion from a Stata file to a single parquet file without progress bar :
 #'
 #' table_to_parquet(
-#'   path_to_table = "Data/postp.dta",
-#'   path_to_parquet = "Data",
+#'   path_to_table = system.file("examples","iris.dta", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   progressbar = "no"
 #' )
 #'
-#' # Conversion from a big SAS file to a single parquet file by chunk :
+#' # Reading SAS file by chunk and with encoding and conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(
-#'   path_to_table = "Data/postp.sas7bdat",
-#'   path_to_parquet = "Data",
-#'   nb_rows = 100000
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   nb_rows = 50,
+#'   encoding = "utf-8"
 #' )
 #'
-#' # Conversion from a SAS file to a partitioned parquet file :
+#' # Conversion from a SAS file to a partitioned parquet file  :
 #'
 #' table_to_parquet(
-#'   path_to_table = "Data/postp.sas7bdat",
-#'   path_to_parquet = "Data",
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir(),
 #'   partition = "yes",
-#'   partitioning =  c("REG")
+#'   partitioning =  c("Species") # vector use as partition key
 #' )
-#' }
+#'
+#' # Reading SAS file by chunk and conversion from a SAS file to a partitioned parquet file :
+#'
+#' table_to_parquet(
+#' path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#' path_to_parquet = tempdir(),
+#' nb_rows = 50,
+#' partition = "yes",
+#' partitioning =  c("Species") # vector use as partition key
+#' )
 
 table_to_parquet <- function(
     path_to_table,

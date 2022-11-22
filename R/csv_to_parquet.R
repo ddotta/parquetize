@@ -6,8 +6,8 @@
 #'
 #'\itemize{
 #'
-#' \item{From a locally stored file. The argument `path_to_csv` must then be used;}
-#' \item{From a URL. The argument `url_to_csv` must then be used.}
+#' \item{From a locally stored file. Argument `path_to_csv` must then be used;}
+#' \item{From a URL. Argument `url_to_csv` must then be used.}
 #'
 #' }
 #'
@@ -16,13 +16,13 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
-#' @param compression_type compression algorithm. Default "snappy".
+#' @param compression compression algorithm. Default "snappy".
 #' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @return A parquet file, invisibly
 #'
-#' @importFrom readr read_delim
+#' @importFrom readr read_delim locale
 #' @importFrom curl curl_download
 #' @importFrom arrow write_parquet
 #' @importFrom utils unzip
@@ -30,20 +30,20 @@
 #'
 #' @examples
 #'
-#' \dontrun{
 #' # Conversion from a local csv file :
 #'
 #' csv_to_parquet(
-#'   path_to_csv = "Data/ac1.csv",
-#'   path_to_parquet = "Data",
+#'   path_to_csv = parquetize_example("region_2022.csv"),
+#'   path_to_parquet = tempdir()
 #' )
 #'
-#' # Conversion from a URL and a csv file :
+#' # Conversion from a URL and a csv file with "gzip" compression :
 #'
 #' csv_to_parquet(
 #'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
-#'   path_to_parquet = "Data",
-#'   compression = "gzip"
+#'   path_to_parquet = tempdir(),
+#'   compression = "gzip",
+#'   compression_level = 5
 #' )
 #'
 #' # Conversion from a URL and a zipped file :
@@ -52,10 +52,8 @@
 #'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
 #'   csv_as_a_zip = TRUE,
 #'   filename_in_zip = "equip-tour-transp-infra-2021.csv",
-#'   path_to_parquet = "Data",
+#'   path_to_parquet = tempdir(),
 #' )
-#' }
-
 
 csv_to_parquet <- function(
     path_to_csv,
