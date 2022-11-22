@@ -1,6 +1,7 @@
 #' Utility function that updates a progress bar
 #'
-#' @param progressbar a progress bar
+#' @param pbar a progress bar
+#' @param name_progressbar name of a progress bar
 #' @param value value of progression (in tenths)
 #' @noRd
 update_progressbar = function(pbar,
@@ -15,6 +16,9 @@ update_progressbar = function(pbar,
 #' Utility function that read a file (SAS, SPSS or Stata) by chunk
 #'
 #' @param format_export string that indicates the format of the exported file (="SAS"/"SPSS"/"Stata")
+#' @param path string that indicates the path to the input file (don't forget the extension).
+#' @param nb_rows By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.
+#' @param encoding string that indicates the character encoding for the input file.
 #' @noRd
 read_by_chunk = function(format_export,
                          path,
