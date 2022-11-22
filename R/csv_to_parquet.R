@@ -20,8 +20,8 @@
 #' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
-#' @param ... additional format-specific arguments, see [arrow::write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)
-#'  and [arrow::write_dataset()](https://arrow.apache.org/docs/r/reference/write_dataset.html) for more informations.
+#' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
+#'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
 #' @importFrom readr read_delim locale

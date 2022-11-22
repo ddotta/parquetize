@@ -36,8 +36,8 @@ csv_to_parquet(
 
 \item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
-\item{...}{additional format-specific arguments, see [arrow::write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)
-and [arrow::write_dataset()](https://arrow.apache.org/docs/r/reference/write_dataset.html) for more informations.}
+\item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
+and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
 }
 \value{
 A parquet file, invisibly
