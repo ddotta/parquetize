@@ -24,6 +24,8 @@ library(parquetize)
 
 ## Why this package ?
 
+This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/) and [arrow](https://github.com/apache/arrow) packages.
+
 While working, I realized that I was often repeating the same operation when working with parquet files : 
 
 - I import the file in R with "haven" or "readr".
@@ -41,7 +43,5 @@ As a fervent of the DRY principle (don't repeat yourself) the 2 exported functio
 For more details, see [the documentation](https://ddotta.github.io/parquetize/) and [this vignette](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
 
 ## Contribution
-
-This package is a simple wrapper of some very useful functions from the `haven`, `readr` and `arrow` packages.
 
 Feel welcome to contribute to add features that you find useful in your daily work. Ideas are welcomed in [the issues](https://github.com/ddotta/parquetize/issues).
