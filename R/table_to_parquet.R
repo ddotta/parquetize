@@ -18,11 +18,12 @@
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param ... additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.
+#' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #'
 #' @return Parquet files, invisibly
 #'
 #' @importFrom haven read_sas read_sav read_dta
-#' @importFrom arrow write_parquet
+#' @importFrom arrow write_parquet write_dataset
 #' @export
 #'
 #' @examples
@@ -80,11 +81,14 @@ table_to_parquet <- function(
     nb_rows = NULL,
     partition = "no",
     encoding = NULL,
+    progressbar = "yes",
     ...
 ) {
 
-  # Initialize the progress bar
-  conversion_progress <- txtProgressBar(style = 3)
+  if (progressbar %in% c("yes")) {
+    # Initialize the progress bar
+    conversion_progress <- txtProgressBar(style = 3)
+  }
 
   # Check if path_to_table is missing
   if (missing(path_to_table)) {
@@ -96,7 +100,9 @@ table_to_parquet <- function(
     stop("Be careful, the argument path_to_parquet must be filled in")
   }
 
-  update_progressbar(conversion_progress,1)
+  update_progressbar(pbar = progressbar,
+                     name_progressbar = conversion_progress,
+                     value = 1)
 
   extension <- sub(".*\\.","",sub(".*/","", path_to_table))
 
@@ -109,7 +115,9 @@ table_to_parquet <- function(
       table_output <- read_sas(data_file = path_to_table,
                                encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
     } else if (is.null(nb_rows)==FALSE) {
 
@@ -118,7 +126,9 @@ table_to_parquet <- function(
                                     nb_rows = nb_rows,
                                     encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
     }
 
   } else if (extension %in% c("sav")) {
@@ -127,10 +137,12 @@ table_to_parquet <- function(
 
     if (is.null(nb_rows)) {
 
-      table_output <- read_sav(data_file = path_to_table,
+      table_output <- read_sav(file = path_to_table,
                                encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
     } else if (is.null(nb_rows)==FALSE) {
 
@@ -139,7 +151,9 @@ table_to_parquet <- function(
                                     nb_rows = nb_rows,
                                     encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
     }
 
@@ -149,10 +163,12 @@ table_to_parquet <- function(
 
     if (is.null(nb_rows)) {
 
-      table_output <- read_dta(data_file = path_to_table,
+      table_output <- read_dta(file = path_to_table,
                                encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
     } else if (is.null(nb_rows)==FALSE) {
 
@@ -161,7 +177,9 @@ table_to_parquet <- function(
                                     nb_rows = nb_rows,
                                     encoding = encoding)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
     }
 
@@ -189,7 +207,9 @@ table_to_parquet <- function(
 
   }
 
-  update_progressbar(conversion_progress,10)
+  update_progressbar(pbar = progressbar,
+                     name_progressbar = conversion_progress,
+                     value = 10)
 
   message(paste0("\nThe ", file_format," file is available in parquet format under ",path_to_parquet))
 
