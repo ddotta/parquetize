@@ -13,7 +13,8 @@ zipinseefr <- curl_download("https://www.insee.fr/fr/statistiques/fichier/605172
                              tempfile())
 filesinseefr <- unzip(zipfile=zipinseefr)
 
-region_2022 <- read_delim(filesinseefr[11])
+region_2022 <- read_delim(filesinseefr[11],
+                          show_col_types = FALSE)
 
 write.csv2(
   region_2022,

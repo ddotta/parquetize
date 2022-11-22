@@ -20,7 +20,8 @@
 #' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
-#' @param ... additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.
+#' @param ... additional format-specific arguments, see [arrow::write_parquet()](https://arrow.apache.org/docs/r/reference/write_parquet.html)
+#'  and [arrow::write_dataset()](https://arrow.apache.org/docs/r/reference/write_dataset.html) for more informations.
 #' @return A parquet file, invisibly
 #'
 #' @importFrom readr read_delim locale
@@ -35,7 +36,8 @@
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempdir(),
+#'   progressbar = "no"
 #' )
 #'
 #' # Conversion from a URL and a csv file with "gzip" compression :
@@ -44,7 +46,8 @@
 #'   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
 #'   path_to_parquet = tempdir(),
 #'   compression = "gzip",
-#'   compression_level = 5
+#'   compression_level = 5,
+#'   progressbar = "no"
 #' )
 #'
 #' # Conversion from a URL and a zipped file :
@@ -53,7 +56,8 @@
 #'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/5057840/cog_ensemble_2021_csv.zip",
 #'   csv_as_a_zip = TRUE,
 #'   filename_in_zip = "commune2021.csv",
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempdir(),
+#'   progressbar = "no"
 #' )
 
 csv_to_parquet <- function(
@@ -98,7 +102,8 @@ csv_to_parquet <- function(
 
     csv_output <- read_delim(file = path_to_csv,
                              locale = locale(encoding = encoding),
-                             lazy = TRUE)
+                             lazy = TRUE,
+                             show_col_types = FALSE)
 
     update_progressbar(pbar = progressbar,
                        name_progressbar = conversion_progress,
@@ -112,7 +117,8 @@ csv_to_parquet <- function(
 
       csv_output <- read_delim(file = url_to_csv,
                                locale = locale(encoding = encoding),
-                               lazy = TRUE)
+                               lazy = TRUE,
+                               show_col_types = FALSE)
 
       update_progressbar(pbar = progressbar,
                          name_progressbar = conversion_progress,
@@ -128,7 +134,8 @@ csv_to_parquet <- function(
 
       csv_output <- read_delim(file = csv_file[[filename_in_zip]],
                                locale = locale(encoding = encoding),
-                               lazy = TRUE)
+                               lazy = TRUE,
+                               show_col_types = FALSE)
 
       update_progressbar(pbar = progressbar,
                          name_progressbar = conversion_progress,
