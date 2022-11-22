@@ -35,6 +35,8 @@ csv_to_parquet(
 \item{encoding}{string that indicates the character encoding for the input file.}
 
 \item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
+
+\item{...}{additional format-specific arguments, see [arrow::write_parquet()] and [arrow::write_dataset()] for more informations.}
 }
 \value{
 A parquet file, invisibly
@@ -73,9 +75,9 @@ csv_to_parquet(
 # Conversion from a URL and a zipped file :
 
 csv_to_parquet(
-  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
+  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/2540004/dpt2021_csv.zip",
   csv_as_a_zip = TRUE,
-  filename_in_zip = "equip-tour-transp-infra-2021.csv",
-  path_to_parquet = tempdir(),
+  filename_in_zip = "dpt2021.csv",
+  path_to_parquet = "Data"
 )
 }
