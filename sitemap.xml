@@ -7,12 +7,6 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/aa-conversions.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -29,5 +23,8 @@
   </url>
   <url>
     <loc>/reference/parquetize_example.html</loc>
+  </url>
+  <url>
+    <loc>/reference/table_to_parquet.html</loc>
   </url>
 </urlset>

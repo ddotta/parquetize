@@ -1,7 +1,6 @@
 pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
-articles:
-  aa-conversions: aa-conversions.html
-last_built: 2022-11-21T13:17Z
+articles: {}
+last_built: 2022-11-22T12:19Z
 
