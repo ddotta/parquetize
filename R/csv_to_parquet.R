@@ -16,6 +16,9 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
+#' @param compression_type compression algorithm. Default "snappy".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
+#' @param encoding string that indicates the character encoding for the input file.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @return A parquet file, invisibly
 #'
@@ -60,7 +63,7 @@ csv_to_parquet <- function(
     csv_as_a_zip = FALSE,
     filename_in_zip,
     path_to_parquet,
-    compression_type = "snappy",
+    compression = "snappy",
     compression_level = NULL,
     encoding = "UTF-8",
     progressbar = "yes",
