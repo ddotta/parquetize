@@ -33,9 +33,9 @@ While working, I realized that I was often repeating the same operation when wor
 
 As a fervent of the DRY principle (don't repeat yourself) the 2 exported functions of this package make my life easier and **execute these operations within the same function** :
 
-- `csv_to_parquet()`
+- [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html)
     - **The other benefit of this function** is that it allows you to convert csv files whether they are stored locally or available on the internet directly to csv format or inside a zip.
-- `table_to_parquet()`
+- [table_to_parquet()](https://ddotta.github.io/parquetize/reference/table_to_parquet.html)
     - **The other benefit of this function**is that it handles SAS, SPSS and Stata files at the same time. There is only one function to use for these 3 cases.  
     
 **The last benefit** of using package `{parquetize}` is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.
