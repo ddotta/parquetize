@@ -65,3 +65,16 @@ test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip
     "The csv file is available in parquet format under Data"
   )
 })
+
+test_that("Checks message is displayed with compression and compression_level arguments", {
+  expect_message(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_parquet = "Data",
+      progressbar = "no",
+      compression = "gzip",
+      compression_level = 5
+    ),
+    "The csv file is available in parquet format under Data"
+  )
+})
