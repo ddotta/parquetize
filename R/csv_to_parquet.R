@@ -50,10 +50,10 @@
 #' # Conversion from a URL and a zipped file :
 #'
 #' csv_to_parquet(
-#'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/2540004/dpt2021_csv.zip",
+#'   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/5057840/cog_ensemble_2021_csv.zip",
 #'   csv_as_a_zip = TRUE,
-#'   filename_in_zip = "dpt2021.csv",
-#'   path_to_parquet = "Data"
+#'   filename_in_zip = "commune2021.csv",
+#'   path_to_parquet = tempdir()
 #' )
 
 csv_to_parquet <- function(
@@ -126,7 +126,7 @@ csv_to_parquet <- function(
       csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
       names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(file = csv_file,
+      csv_output <- read_delim(file = csv_file[[filename_in_zip]],
                                locale = locale(encoding = encoding),
                                lazy = TRUE)
 
@@ -147,7 +147,7 @@ csv_to_parquet <- function(
 
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
-                     value = 6)
+                     value = 10)
 
   message(paste0("\nThe csv file is available in parquet format under ",path_to_parquet))
 

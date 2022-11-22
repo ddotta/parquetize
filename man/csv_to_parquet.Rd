@@ -75,9 +75,9 @@ csv_to_parquet(
 # Conversion from a URL and a zipped file :
 
 csv_to_parquet(
-  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/2540004/dpt2021_csv.zip",
+  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/5057840/cog_ensemble_2021_csv.zip",
   csv_as_a_zip = TRUE,
-  filename_in_zip = "dpt2021.csv",
-  path_to_parquet = "Data"
+  filename_in_zip = "commune2021.csv",
+  path_to_parquet = tempdir()
 )
 }
