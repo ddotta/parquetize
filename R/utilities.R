@@ -3,12 +3,14 @@
 #' @param progressbar a progress bar
 #' @param value value of progression (in tenths)
 #' @noRd
-update_progressbar = function(progressbar,
+update_progressbar = function(pbar,
+                              name_progressbar,
                               value) {
-  Sys.sleep(0.1)
-  setTxtProgressBar(progressbar,value/10)
+  if (pbar %in% c("yes")) {
+    Sys.sleep(0.1)
+    setTxtProgressBar(name_progressbar,value/10)
+  }
 }
-
 
 #' Utility function that read a file (SAS, SPSS or Stata) by chunk
 #'
@@ -26,19 +28,19 @@ read_by_chunk = function(format_export,
   while(continue) {
     if (format_export %in% c("SAS")) {
       liste_tables[[part]] <-
-        read_sas(path,
+        read_sas(data_file = path,
                  skip = step,
                  n_max = nb_rows,
                  encoding = encoding)
     } else if (format_export %in% c("SPSS")) {
       liste_tables[[part]] <-
-        read_sav(path,
+        read_sav(file = path,
                  skip = step,
                  n_max = nb_rows,
                  encoding = encoding)
     } else if (format_export %in% c("Stata")) {
       liste_tables[[part]] <-
-        read_dta(path,
+        read_dta(file = path,
                  skip = step,
                  n_max = nb_rows,
                  encoding = encoding)

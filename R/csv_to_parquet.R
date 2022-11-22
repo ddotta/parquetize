@@ -16,7 +16,7 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
-#'
+#' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @return A parquet file, invisibly
 #'
 #' @importFrom readr read_delim
@@ -63,12 +63,15 @@ csv_to_parquet <- function(
     compression_type = "snappy",
     compression_level = NULL,
     encoding = "UTF-8",
+    progressbar = "yes",
     ...
     ) {
 
 
-  # Initialize the progress bar
-  conversion_progress <- txtProgressBar(style = 3)
+  if (progressbar %in% c("yes")) {
+    # Initialize the progress bar
+    conversion_progress <- txtProgressBar(style = 3)
+  }
 
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
@@ -85,7 +88,9 @@ csv_to_parquet <- function(
     stop("Be careful, the argument path_to_parquet must be filled in")
   }
 
-  update_progressbar(conversion_progress,1)
+  update_progressbar(pbar = progressbar,
+                     name_progressbar = conversion_progress,
+                     value = 1)
 
   if (missing(path_to_csv)==FALSE) {
 
@@ -93,7 +98,9 @@ csv_to_parquet <- function(
                              locale = locale(encoding = encoding),
                              lazy = TRUE)
 
-    update_progressbar(conversion_progress,6)
+    update_progressbar(pbar = progressbar,
+                       name_progressbar = conversion_progress,
+                       value = 6)
 
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_csv)),".parquet")
 
@@ -105,7 +112,9 @@ csv_to_parquet <- function(
                                locale = locale(encoding = encoding),
                                lazy = TRUE)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
       parquetname <- paste0(gsub("\\..*","",sub(".*/","", url_to_csv)),".parquet")
 
@@ -115,11 +124,13 @@ csv_to_parquet <- function(
       csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
       names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(file = url_to_csv,
+      csv_output <- read_delim(file = csv_file,
                                locale = locale(encoding = encoding),
                                lazy = TRUE)
 
-      update_progressbar(conversion_progress,6)
+      update_progressbar(pbar = progressbar,
+                         name_progressbar = conversion_progress,
+                         value = 6)
 
       parquetname <- paste0(gsub("\\..*","",filename_in_zip),".parquet")
     }
@@ -132,7 +143,9 @@ csv_to_parquet <- function(
                                ...
                                )
 
-  update_progressbar(conversion_progress,10)
+  update_progressbar(pbar = progressbar,
+                     name_progressbar = conversion_progress,
+                     value = 6)
 
   message(paste0("\nThe csv file is available in parquet format under ",path_to_parquet))
 
