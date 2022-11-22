@@ -24,5 +24,6 @@ Imports:
     haven,
     arrow,
     curl,
-    readr
+    readr,
+    dplyr
 VignetteBuilder: knitr
