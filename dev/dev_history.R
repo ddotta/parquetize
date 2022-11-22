@@ -21,7 +21,7 @@ usethis::use_package("readr")
 # usethis::use_pipe()
 
 # Pour réaliser le contrôle de conformité du package
-unlink("Data")
+unlink("Data",recursive = TRUE)
 devtools::check()
 
 # 3.c. Astuce qui peut aider durant le développement
