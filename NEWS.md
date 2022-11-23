@@ -1,6 +1,7 @@
 # parquetize 0.2.0
 
-* Check if `path_to_parquet` exists in functions `csv_to_parquet()` or `table_to_parquet()`
+* Improving code coverage (#9)
+* Check if `path_to_parquet` exists in functions `csv_to_parquet()` or `table_to_parquet()` (@py-b)
 
 
 # parquetize 0.1.0
