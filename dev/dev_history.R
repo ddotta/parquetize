@@ -27,6 +27,9 @@ devtools::check()
 # 3.c. Astuce qui peut aider durant le développement
 # Charger l'ensemble des fonctions de son package
 devtools::load_all()
+
+# Pour le code coverage
+covr::package_coverage()
 #------------------------------------------------#
 
 # Ajout de  `dev/dev_history.R` au .Rbuildignore
