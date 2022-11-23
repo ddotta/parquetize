@@ -30,6 +30,7 @@ devtools::load_all()
 
 # Pour le code coverage
 covr::package_coverage()
+covr::report()
 #------------------------------------------------#
 
 # Ajout de  `dev/dev_history.R` au .Rbuildignore
