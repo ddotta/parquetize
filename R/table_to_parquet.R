@@ -113,6 +113,11 @@ table_to_parquet <- function(
     stop("Be careful, the argument path_to_parquet must be filled in")
   }
 
+  # Check if path_to_parquet exists
+  if (dir.exists(path_to_parquet)==FALSE) {
+    dir.create(path_to_parquet, recursive = TRUE)
+  }
+
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
                      value = 1)
