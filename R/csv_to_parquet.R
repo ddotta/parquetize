@@ -58,7 +58,7 @@
 #'   path_to_parquet = tempdir(),
 #'   progressbar = "no",
 #'   partition = "yes",
-#'   partitioning =  c("Species")
+#'   partitioning =  c("REG")
 #' )
 #'
 #' # Conversion from a URL and a csv file with "gzip" compression :
