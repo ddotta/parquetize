@@ -46,7 +46,6 @@
 rds_to_parquet <- function(
     path_to_rds,
     path_to_parquet,
-    format = "rds",
     partition = "no",
     progressbar = "yes",
     ...

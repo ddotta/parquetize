@@ -7,7 +7,6 @@
 rds_to_parquet(
   path_to_rds,
   path_to_parquet,
-  format = "rds",
   partition = "no",
   progressbar = "yes",
   ...
