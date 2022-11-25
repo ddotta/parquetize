@@ -22,7 +22,13 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/json_to_parquet.html</loc>
+  </url>
+  <url>
     <loc>/reference/parquetize_example.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rds_to_parquet.html</loc>
   </url>
   <url>
     <loc>/reference/table_to_parquet.html</loc>
