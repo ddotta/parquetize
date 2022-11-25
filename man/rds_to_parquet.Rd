@@ -44,7 +44,7 @@ Two conversions possibilities are offered :
 }
 \examples{
 
-# Conversion from a local rds file :
+# Conversion from a local rds file to a single parquet file ::
 
 rds_to_parquet(
   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
@@ -52,12 +52,13 @@ rds_to_parquet(
   progressbar = "no"
 )
 
-# Conversion from a local ndrds file :
+# Conversion from a local rds file to a partitioned parquet file  ::
 
 rds_to_parquet(
-  path_to_rds = system.file("extdata","iris.ndrds",package = "parquetize"),
+  path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
   path_to_parquet = tempdir(),
-  format = "ndrds",
-  progressbar = "no"
+  progressbar = "no",
+  partition = "yes",
+  partitioning =  c("Species")
 )
 }

@@ -47,7 +47,7 @@ Two conversions possibilities are offered :
 }
 \examples{
 
-# Conversion from a local json file :
+# Conversion from a local json file to a single parquet file ::
 
 json_to_parquet(
   path_to_json = system.file("extdata","iris.json",package = "parquetize"),
@@ -55,7 +55,7 @@ json_to_parquet(
   progressbar = "no"
 )
 
-# Conversion from a local ndjson file :
+# Conversion from a local ndjson file to a partitioned parquet file  ::
 
 json_to_parquet(
   path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
