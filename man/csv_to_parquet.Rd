@@ -70,12 +70,22 @@ Two conversions possibilities are offered :
 }
 \examples{
 
-# Conversion from a local csv file :
+# Conversion from a local csv file to a single parquet file :
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
   path_to_parquet = tempdir(),
   progressbar = "no"
+)
+
+# Conversion from a local csv file  to a partitioned parquet file  :
+
+csv_to_parquet(
+  path_to_csv = parquetize_example("region_2022.csv"),
+  path_to_parquet = tempdir(),
+  progressbar = "no",
+  partition = "yes",
+  partitioning =  c("REG")
 )
 
 # Conversion from a URL and a csv file with "gzip" compression :
