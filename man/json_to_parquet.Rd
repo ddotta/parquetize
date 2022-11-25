@@ -8,6 +8,7 @@ json_to_parquet(
   path_to_json,
   path_to_parquet,
   format = "json",
+  partition = "no",
   progressbar = "yes",
   ...
 )
@@ -19,6 +20,9 @@ json_to_parquet(
 
 \item{format}{string that indicates if the format is "json" (by default) or "ndjson"}
 
+\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+
 \item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
@@ -28,15 +32,16 @@ and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::w
 A parquet file, invisibly
 }
 \description{
-This function allows to convert a json file to parquet format. \cr
+This function allows to convert a \href{https://www.json.org/json-en.html}{json}
+or \href{http://ndjson.org/}{ndjson} file to parquet format. \cr
 }
 \details{
-Several conversion possibilities are offered :
+Two conversions possibilities are offered :
 
 \itemize{
 
-\item{From a locally stored file. Argument `path_to_csv` must then be used;}
-\item{From a URL. Argument `url_to_csv` must then be used.}
+\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 
 }
 }
