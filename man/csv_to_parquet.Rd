@@ -2,7 +2,7 @@
 % Please edit documentation in R/csv_to_parquet.R
 \name{csv_to_parquet}
 \alias{csv_to_parquet}
-\title{Convert a csv table to parquet format}
+\title{Convert a csv file to parquet format}
 \usage{
 csv_to_parquet(
   path_to_csv,
@@ -43,7 +43,7 @@ and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::w
 A parquet file, invisibly
 }
 \description{
-This function allows to convert a csv table to parquet format. \cr
+This function allows to convert a csv file to parquet format. \cr
 }
 \details{
 Several conversion possibilities are offered :
