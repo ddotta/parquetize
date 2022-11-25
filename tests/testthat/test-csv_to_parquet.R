@@ -2,7 +2,7 @@ if (file.exists('Data')==FALSE) {
   dir.create("Data")
 }
 
-test_that("Checks arguments are filled in", {
+test_that("Checks arguments are correctly filled in", {
   expect_error(
     csv_to_parquet(
       url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
