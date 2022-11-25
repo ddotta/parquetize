@@ -108,7 +108,13 @@ json_to_parquet <- function(
                      name_progressbar = conversion_progress,
                      value = 10)
 
-  message(paste0("\nThe json file is available in parquet format under ",path_to_parquet))
+  message(paste0("\nThe ",
+                 if (format %in% c("json")) {
+                 "json"
+                 } else if (format %in% c("ndjson")) {
+                 "ndjson"
+                 },
+                 " file is available in parquet format under ",path_to_parquet))
 
   return(invisible(parquetfile))
 
