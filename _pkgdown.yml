@@ -13,6 +13,7 @@ reference:
     desc:  The conversion functions available in this package
     contents:
       - csv_to_parquet
+      - json_to_parquet
       - table_to_parquet
   - title: Other functions
     contents:
