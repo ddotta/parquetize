@@ -1,5 +1,6 @@
 # parquetize 0.2.0
 
+* Added `rds_to_parquet()` function to convert rds files to parquet format.
 * Added `json_to_parquet()` function to convert json and ndjson files to parquet format.
 * Added the possibility to convert a csv file to a partitioned parquet file.
 * Improving code coverage (#9)
