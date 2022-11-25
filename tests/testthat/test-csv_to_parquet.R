@@ -78,3 +78,17 @@ test_that("Checks message is displayed with compression and compression_level ar
     "The csv file is available in parquet format under Data"
   )
 })
+
+test_that("Checks message is displayed with by adding partition and partitioning argument", {
+
+  expect_message(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_parquet = "Data",
+      progressbar = "no",
+      partition = "yes",
+      partitioning =  c("REG")
+    ),
+    "The csv file is available in parquet format under Data"
+  )
+})
