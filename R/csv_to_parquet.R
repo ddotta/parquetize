@@ -11,6 +11,15 @@
 #'
 #' }
 #'
+#' Two conversions possibilities are offered :
+#'
+#'\itemize{
+#'
+#' \item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+#' \item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
+#'
+#' }
+#'
 #' @param path_to_csv string that indicates the path to the csv file
 #' @param url_to_csv string that indicates the URL of the csv file
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
@@ -18,6 +27,8 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param compression compression algorithm. Default "snappy".
 #' @param compression_level compression level. Meaning depends on compression algorithm.
+#' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+#' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
@@ -68,6 +79,7 @@ csv_to_parquet <- function(
     path_to_parquet,
     compression = "snappy",
     compression_level = NULL,
+    partition = "no",
     encoding = "UTF-8",
     progressbar = "yes",
     ...
@@ -151,11 +163,22 @@ csv_to_parquet <- function(
 
   }
 
-  parquetfile <- write_parquet(csv_output,
-                               sink = file.path(path_to_parquet,
-                                                parquetname),
-                               ...
-                               )
+  if (partition %in% c("no")) {
+
+    parquetfile <- write_parquet(csv_output,
+                                 sink = file.path(path_to_parquet,
+                                                  parquetname),
+                                 ...
+    )
+
+  } else if (partition %in% c("yes")) {
+
+    parquetfile <- write_dataset(csv_output,
+                                 path = path_to_parquet,
+                                 ...)
+
+  }
+
 
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,

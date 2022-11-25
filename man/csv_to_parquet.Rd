@@ -12,6 +12,7 @@ csv_to_parquet(
   path_to_parquet,
   compression = "snappy",
   compression_level = NULL,
+  partition = "no",
   encoding = "UTF-8",
   progressbar = "yes",
   ...
@@ -31,6 +32,9 @@ csv_to_parquet(
 \item{compression}{compression algorithm. Default "snappy".}
 
 \item{compression_level}{compression level. Meaning depends on compression algorithm.}
+
+\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
 
 \item{encoding}{string that indicates the character encoding for the input file.}
 
@@ -52,6 +56,15 @@ Several conversion possibilities are offered :
 
 \item{From a locally stored file. Argument `path_to_csv` must then be used;}
 \item{From a URL. Argument `url_to_csv` must then be used.}
+
+}
+
+Two conversions possibilities are offered :
+
+\itemize{
+
+\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 
 }
 }
