@@ -25,5 +25,6 @@ Imports:
     arrow,
     curl,
     readr,
-    dplyr
+    dplyr,
+    jsonlite
 VignetteBuilder: knitr
