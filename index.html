@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 <div class="page-header"><h1 id="package-package-parquetize-">
 <span class="emoji" data-emoji="package">📦</span> Package <code>parquetize</code> <img src="reference/figures/hex_parquetize.png" width="110" align="right"><a class="anchor" aria-label="anchor" href="#package-package-parquetize-"></a>
 </h1></div>
-<p>R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, JSON, ndJSON) to <a href="https://parquet.apache.org/" class="external-link">parquet</a> format in a same function.</p>
+<p>R package that allows to convert databases of different formats (csv, SAS, SPSS and Stata) to <a href="https://parquet.apache.org/" class="external-link">parquet</a> format in a same function.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -80,13 +80,13 @@
 <div class="section level2">
 <h2 id="why-this-package-">Why this package ?<a class="anchor" aria-label="anchor" href="#why-this-package-"></a>
 </h2>
-<p>This package is a simple wrapper of some very useful functions from the <a href="https://github.com/tidyverse/haven" class="external-link">haven</a>, <a href="https://github.com/tidyverse/readr/" class="external-link">readr</a>, <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a> and <a href="https://github.com/apache/arrow" class="external-link">arrow</a> packages.</p>
+<p>This package is a simple wrapper of some very useful functions from the <a href="https://github.com/tidyverse/haven" class="external-link">haven</a>, <a href="https://github.com/tidyverse/readr/" class="external-link">readr</a> and <a href="https://github.com/apache/arrow" class="external-link">arrow</a> packages.</p>
 <p>While working, I realized that I was often repeating the same operation when working with parquet files :</p>
 <ul>
-<li>I import the file in R with {haven}, {jsonlite} or {readr}.</li>
+<li>I import the file in R with “haven” or “readr”.</li>
 <li>And I export the file in parquet format</li>
 </ul>
-<p>As a fervent of the DRY principle (don’t repeat yourself) the 3 exported functions of this package make my life easier and <strong>execute these operations within the same function</strong> :</p>
+<p>As a fervent of the DRY principle (don’t repeat yourself) the 2 exported functions of this package make my life easier and <strong>execute these operations within the same function</strong> :</p>
 <ul>
 <li>
 <a href="https://ddotta.github.io/parquetize/reference/csv_to_parquet.html" class="external-link">csv_to_parquet()</a>
@@ -94,17 +94,6 @@
 <li>
 <strong>The other benefit of this function</strong> is that it allows you to convert csv files whether they are stored locally or available on the internet directly to csv format or inside a zip.</li>
 </ul>
-</li>
-<li>
-<a href="https://ddotta.github.io/parquetize/reference/json_to_parquet.html" class="external-link">json_to_parquet()</a>
-<ul>
-<li>
-<strong>The other benefit of this function</strong> is that it handles JSON and ndJSON files in a same function. There is only one function to use for these 2 cases.<br>
-</li>
-</ul>
-</li>
-<li>
-<a href="https://ddotta.github.io/parquetize/reference/rds_to_parquet.html" class="external-link">rds_to_parquet()</a><br>
 </li>
 <li>
 <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link">table_to_parquet()</a>
@@ -115,10 +104,8 @@
 </li>
 </ul>
 <p><strong>The last benefit</strong> of using package <code>{parquetize}</code> is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.</p>
-<p>For more details, see the documentation and examples :<br>
+<p>For more details, see <a href="https://ddotta.github.io/parquetize/" class="external-link">the documentation</a> and examples :<br>
 - <a href="https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples" class="external-link">csv_to_parquet()</a>.<br>
-- <a href="https://ddotta.github.io/parquetize/reference/json_to_parquet.html#ref-examples" class="external-link">json_to_parquet()</a>.<br>
-- <a href="https://ddotta.github.io/parquetize/reference/rds_to_parquet.html#ref-examples" class="external-link">rds_to_parquet()</a>.<br>
 - <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html#ref-examples" class="external-link">table_to_parquet()</a>.</p>
 </div>
 <div class="section level2">
@@ -154,7 +141,7 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ddotta/parquetize/actions/workflows/check-release.yaml" class="external-link"><img src="https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg" alt="R check status"></a></li>
+<li><a href="https://github.com/ddotta/fmtsas/actions/workflows/check-release.yaml" class="external-link"><img src="https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg" alt="R check status"></a></li>
 <li><a href="https://codecov.io/gh/ddotta/parquetize" class="external-link"><img src="https://codecov.io/gh/ddotta/parquetize/branch/main/graph/badge.svg?token=25MHI8O62M" alt="codecov"></a></li>
 </ul>
 </div>
