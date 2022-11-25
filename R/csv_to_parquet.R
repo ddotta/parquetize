@@ -179,7 +179,6 @@ csv_to_parquet <- function(
 
   }
 
-
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
                      value = 10)

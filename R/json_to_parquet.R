@@ -1,19 +1,22 @@
 #' Convert a json file to parquet format
 #'
-#' This function allows to convert a json file to parquet format. \cr
+#' This function allows to convert a \href{https://www.json.org/json-en.html}{json}
+#' or \href{http://ndjson.org/}{ndjson} file to parquet format. \cr
 #'
-#' Several conversion possibilities are offered :
+#' Two conversions possibilities are offered :
 #'
 #'\itemize{
 #'
-#' \item{From a locally stored file. Argument `path_to_csv` must then be used;}
-#' \item{From a URL. Argument `url_to_csv` must then be used.}
+#' \item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+#' \item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 #'
 #' }
 #'
 #' @param path_to_json string that indicates the path to the csv file
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param format string that indicates if the format is "json" (by default) or "ndjson"
+#' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+#' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
@@ -46,6 +49,7 @@ json_to_parquet <- function(
     path_to_json,
     path_to_parquet,
     format = "json",
+    partition = "no",
     progressbar = "yes",
     ...
 ) {
@@ -83,12 +87,10 @@ json_to_parquet <- function(
 
   if (format %in% c("json")) {
     json_output <- jsonlite::read_json(path = path_to_json,
-                                       simplifyVector = TRUE,
-                                       ...)
+                                       simplifyVector = TRUE)
   } else if (format %in% c("ndjson")) {
     json_output <- read_json_arrow(file = path_to_json,
-                                   as_data_frame = TRUE,
-                                   ...)
+                                   as_data_frame = TRUE)
   }
 
   update_progressbar(pbar = progressbar,
@@ -97,12 +99,19 @@ json_to_parquet <- function(
 
   parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_json)),".parquet")
 
+  if (partition %in% c("no")) {
 
-  parquetfile <- write_parquet(json_output,
-                               sink = file.path(path_to_parquet,
-                                                parquetname),
-                               ...
-  )
+    parquetfile <- write_parquet(json_output,
+                                 sink = file.path(path_to_parquet,
+                                                  parquetname))
+
+  } else if (partition %in% c("yes")) {
+
+    parquetfile <- write_dataset(json_output,
+                                 path = path_to_parquet,
+                                 ...)
+
+  }
 
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
