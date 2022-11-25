@@ -20,7 +20,7 @@
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
-#' @importFrom arrow write_parquet read_rds_arrow
+#' @importFrom arrow write_parquet
 #' @export
 #'
 #' @examples
@@ -103,13 +103,7 @@ rds_to_parquet <- function(
                      name_progressbar = conversion_progress,
                      value = 10)
 
-  message(paste0("\nThe ",
-                 if (format %in% c("rds")) {
-                   "rds"
-                 } else if (format %in% c("ndrds")) {
-                   "ndrds"
-                 },
-                 " file is available in parquet format under ",path_to_parquet))
+  message(paste0("\nThe rds file is available in parquet format under ",path_to_parquet))
 
   return(invisible(parquetfile))
 
