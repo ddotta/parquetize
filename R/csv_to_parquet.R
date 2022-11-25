@@ -1,6 +1,6 @@
-#' Convert a csv table to parquet format
+#' Convert a csv file to parquet format
 #'
-#' This function allows to convert a csv table to parquet format. \cr
+#' This function allows to convert a csv file to parquet format. \cr
 #'
 #' Several conversion possibilities are offered :
 #'
