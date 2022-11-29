@@ -21,6 +21,15 @@ remotes::install_github("ddotta/parquetize")
 library(parquetize)
 ```
 
+<details>
+  <summary>For the French Insee agents who want to use the package with AUS</summary>
+``` r
+install.packages("parquetize", 
+                 repos = "https://nexus.insee.fr/repository/r-local", 
+                 type = "source") 
+```
+</details>
+
 ## Why this package ?
 
 This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite) and [arrow](https://github.com/apache/arrow) packages.
