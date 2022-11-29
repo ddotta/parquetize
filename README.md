@@ -23,7 +23,8 @@ library(parquetize)
 
 <details>
   <summary>For the French Insee agents who want to use the package with AUS</summary>
-``` r
+  
+```r
 install.packages("parquetize", 
                  repos = "https://nexus.insee.fr/repository/r-local", 
                  type = "source") 
