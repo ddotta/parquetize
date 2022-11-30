@@ -23,7 +23,8 @@
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
-#' @importFrom DBI DBConnect dbReadTable
+#' @importFrom DBI dbConnect dbReadTable dbListTables
+#' @importFrom RSQLite SQLite
 #' @importFrom arrow write_parquet write_dataset
 #' @export
 #'
@@ -89,15 +90,15 @@ sqlite_to_parquet <- function(
                      value = 1)
 
 
-  con_sqlite <- dbConnect(RSQLite::SQLite(), path_to_sqlite)
+  con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), path_to_sqlite)
 
   # Check if table_in_sqlite exists in sqlite file
-  list_table <- dbListTables(con_sqlite)
+  list_table <- DBI::dbListTables(con_sqlite)
   if (!(table_in_sqlite %in% list_table)==TRUE) {
     stop("Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file")
   }
 
-  sqlite_output <- dbReadTable(con_sqlite, table_in_sqlite)
+  sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
 
 
   update_progressbar(pbar = progressbar,
