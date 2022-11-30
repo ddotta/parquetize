@@ -27,5 +27,7 @@ Imports:
     readr,
     dplyr,
     jsonlite,
-    DBI
+    DBI,
+    duckdb,
+    RSQLite
 VignetteBuilder: knitr
