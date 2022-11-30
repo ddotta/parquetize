@@ -3,6 +3,7 @@
 ##################################################################%#
 
 library(RSQLite)
-con <- dbConnect(RSQLite::SQLite(), "inst/extdata/iris.sqlite")
+library(DBI)
+con <- DBI::dbConnect(RSQLite::SQLite(), "inst/extdata/iris.sqlite")
 dbWriteTable(con, "iris", iris)
 dbDisconnect(con)
