@@ -100,6 +100,7 @@ sqlite_to_parquet <- function(
 
   sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
 
+  dbDisconnect(sqlite_output)
 
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
