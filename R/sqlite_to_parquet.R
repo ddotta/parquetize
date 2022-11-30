@@ -23,7 +23,7 @@
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
-#' @importFrom DBI dbConnect dbReadTable dbListTables
+#' @importFrom DBI dbConnect dbReadTable dbListTables dbDisconnect
 #' @importFrom RSQLite SQLite
 #' @importFrom arrow write_parquet write_dataset
 #' @export
@@ -100,7 +100,7 @@ sqlite_to_parquet <- function(
 
   sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
 
-  dbDisconnect(con_sqlite)
+  DBI::dbDisconnect(con_sqlite, shutdown=TRUE)
 
   update_progressbar(pbar = progressbar,
                      name_progressbar = conversion_progress,
