@@ -1,5 +1,6 @@
 # parquetize 0.3.0
 
+* Added `duckdb_to_parquet()` function to convert duckdb files to parquet format.
 * Added `sqlite_to_parquet()` function to convert sqlite files to parquet format.
 
 # parquetize 0.2.0
