@@ -1,3 +1,7 @@
+# parquetize 0.3.0
+
+* Added `sqlite_to_parquet()` function to convert sqlite files to parquet format.
+
 # parquetize 0.2.0
 
 * Added `rds_to_parquet()` function to convert rds files to parquet format.
