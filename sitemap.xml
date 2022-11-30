@@ -19,6 +19,9 @@
     <loc>/reference/csv_to_parquet.html</loc>
   </url>
   <url>
+    <loc>/reference/duckdb_to_parquet.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>/reference/rds_to_parquet.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sqlite_to_parquet.html</loc>
   </url>
   <url>
     <loc>/reference/table_to_parquet.html</loc>
