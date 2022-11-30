@@ -33,14 +33,16 @@ install.packages("parquetize",
 
 ## Why this package ?
 
-This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite) and [arrow](https://github.com/apache/arrow) packages.
+This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite), [RSQLite](https://github.com/r-dbi/RSQLite), [duckdb](https://github.com/cran/duckdb) and [arrow](https://github.com/apache/arrow) packages.
 
 While working, I realized that I was often repeating the same operation when working with parquet files : 
 
-- I import the file in R with {haven}, {jsonlite} or {readr}.
+- I import the file in R with {haven}, {jsonlite}, {readr}, {DBI}, {RSQLite} or {duckdb}.
 - And I export the file in parquet format
 
-As a fervent of the DRY principle (don't repeat yourself) the 3 exported functions of this package make my life easier and **execute these operations within the same function** :
+As a fervent of the DRY principle (don't repeat yourself) the exported functions of this package make my life easier and **execute these operations within the same function**.  
+
+**The last benefit** of using package `{parquetize}` is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.
 
 - [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html)
     - **The other benefit of this function** is that it allows you to convert csv files whether they are stored locally or available on the internet directly to csv format or inside a zip.
@@ -53,8 +55,6 @@ As a fervent of the DRY principle (don't repeat yourself) the 3 exported functio
 - [duckdb_to_parquet()](https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html)
 
     
-**The last benefit** of using package `{parquetize}` is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.
-
 For more details, see the documentation and examples :  
 - [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples).  
 - [json_to_parquet()](https://ddotta.github.io/parquetize/reference/json_to_parquet.html#ref-examples).  
