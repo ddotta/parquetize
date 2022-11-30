@@ -1,6 +1,6 @@
 #' Convert a sqlite file to parquet format
 #'
-#' This function allows to convert a sqlite file to parquet format. \cr
+#' This function allows to convert a table from a sqlite file to parquet format. \cr
 #' The following extensions are supported :
 #' "db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2". \cr
 #'
@@ -30,7 +30,7 @@
 #'
 #' @examples
 #'
-#' # Conversion from a local sqlite file to a single parquet file ::
+#' # Conversion from a local sqlite file to a single parquet file :
 #'
 #' sqlite_to_parquet(
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
@@ -39,7 +39,7 @@
 #'   progressbar = "no"
 #' )
 #'
-#' # Conversion from a local sqlite file to a partitioned parquet file  ::
+#' # Conversion from a local sqlite file to a partitioned parquet file  :
 #'
 #' sqlite_to_parquet(
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
