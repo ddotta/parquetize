@@ -11,7 +11,7 @@
 #'
 #' }
 #'
-#' @param path_to_rds string that indicates the path to the csv file
+#' @param path_to_rds string that indicates the path to the rds file
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
