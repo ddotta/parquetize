@@ -9,7 +9,7 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 :package: Package `parquetize` <img src="man/figures/hex_parquetize.png" width=110 align="right"/>
 ======================================
 
-R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, JSON, ndJSON) to [parquet](https://parquet.apache.org/) format in a same function.
+R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, duckdb, sqlite, JSON, ndJSON) to [parquet](https://parquet.apache.org/) format in a same function.
 
 ## Installation
 
