@@ -21,11 +21,3 @@ reference:
   - title: Other functions
     contents:
       - parquetize_example
-  - title: Data
-    contents:
-      - region_2022.csv
-      - iris.rds
-      - iris.json
-      - iris.ndjson
-      - iris.sqlite
-      - iris.duckdb
