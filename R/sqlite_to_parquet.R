@@ -23,7 +23,8 @@
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
-#' @importFrom arrow write_parquet
+#' @importFrom DBI DBConnect dbReadTable
+#' @importFrom arrow write_parquet write_dataset
 #' @export
 #'
 #' @examples
@@ -63,14 +64,14 @@ sqlite_to_parquet <- function(
     conversion_progress <- txtProgressBar(style = 3)
   }
 
-  # Check if extension used in path_to_sqlite is correct
-  if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
-    stop("Be careful, the extension used in path_to_sqlite is not correct")
-  }
-
   # Check if path_to_sqlite is missing
   if (missing(path_to_sqlite)) {
     stop("Be careful, the argument path_to_sqlite must be filled in")
+  }
+
+  # Check if extension used in path_to_sqlite is correct
+  if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
+    stop("Be careful, the extension used in path_to_sqlite is not correct")
   }
 
   # Check if path_to_parquet is missing
