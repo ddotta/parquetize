@@ -16,6 +16,7 @@ reference:
       - json_to_parquet
       - rds_to_parquet
       - table_to_parquet
+      - sqlite_to_parquet
   - title: Other functions
     contents:
       - parquetize_example
