@@ -33,6 +33,14 @@
 #' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
+#'
+#' @note Be careful, if the zip size exceeds 4 GB, the function may truncate
+#' the data (because unzip() won't work reliably in this case -
+#' see \href{https://rdrr.io/r/utils/unzip.html}{here}).
+#' In this case, it's advised to unzip your csv file by hand
+#' (for example with \href{https://www.7-zip.org/}{7-Zip})
+#' then use the function with the argument `path_to_csv`.
+#'
 #' @return A parquet file, invisibly
 #'
 #' @importFrom readr read_delim locale
