@@ -68,6 +68,14 @@ Two conversions possibilities are offered :
 
 }
 }
+\note{
+Be careful, if the zip size exceeds 4 GB, the function may truncate
+the data (because unzip() won't work reliably in this case -
+see \href{https://rdrr.io/r/utils/unzip.html}{here}).
+In this case, it's advised to unzip your csv file by hand
+(for example with \href{https://www.7-zip.org/}{7-Zip})
+then use the function with the argument `path_to_csv`.
+}
 \examples{
 
 # Conversion from a local csv file to a single parquet file :
