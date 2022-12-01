@@ -130,6 +130,15 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <ul><li><p>Convert to a single parquet file. Argument `path_to_parquet` must then be used;</p></li>
 <li><p>Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Be careful, if the zip size exceeds 4 GB, the function may truncate
+the data (because unzip() won't work reliably in this case -
+see <a href="https://rdrr.io/r/utils/unzip.html" class="external-link">here</a>).
+In this case, it's advised to unzip your csv file by hand
+(for example with <a href="https://www.7-zip.org/" class="external-link">7-Zip</a>)
+then use the function with the argument `path_to_csv`.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -142,7 +151,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpVWcUIY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpbpqgKp</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local csv file  to a partitioned parquet file  :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -154,7 +163,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  partitioning <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REG"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpVWcUIY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpbpqgKp</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a csv file with "gzip" compression :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -166,7 +175,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpVWcUIY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpbpqgKp</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a zipped file :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -178,7 +187,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpVWcUIY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The csv file is available in parquet format under /tmp/RtmpbpqgKp</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
