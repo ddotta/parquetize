@@ -30,7 +30,6 @@
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #' @param encoding string that indicates the character encoding for the input file.
-#' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
@@ -100,15 +99,9 @@ csv_to_parquet <- function(
     compression_level = NULL,
     partition = "no",
     encoding = "UTF-8",
-    progressbar = "yes",
     ...
     ) {
 
-
-  if (progressbar %in% c("yes")) {
-    # Initialize the progress bar
-    conversion_progress <- txtProgressBar(style = 3)
-  }
 
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
