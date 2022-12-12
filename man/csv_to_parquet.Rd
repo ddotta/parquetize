@@ -14,7 +14,6 @@ csv_to_parquet(
   compression_level = NULL,
   partition = "no",
   encoding = "UTF-8",
-  progressbar = "yes",
   ...
 )
 }
@@ -37,8 +36,6 @@ csv_to_parquet(
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
 
 \item{encoding}{string that indicates the character encoding for the input file.}
-
-\item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
