@@ -27,6 +27,7 @@ Be careful, this function will not work if files with different structures
 are present in the folder given with the argument `folder`.
 }
 \examples{
+\dontrun{
 if (file.exists('output')==FALSE) {
   dir.create("output")
 }
@@ -47,4 +48,5 @@ write_parquet(data.frame(
 test_data <- rbind_parquet(folder = "output",
                            output_name = "test_data",
                            delete_initial_files = FALSE)
+}
 }
