@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' if (file.exists('output')==FALSE) {
 #'   dir.create("output")
 #' }
@@ -39,6 +40,7 @@
 #' test_data <- rbind_parquet(folder = "output",
 #'                            output_name = "test_data",
 #'                            delete_initial_files = FALSE)
+#' }
 
 rbind_parquet <- function(folder,
                           output_name,
