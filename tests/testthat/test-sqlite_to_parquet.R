@@ -5,15 +5,13 @@ if (file.exists('Data')==FALSE) {
 test_that("Checks arguments are correctly filled in", {
   expect_snapshot(
     sqlite_to_parquet(
-      path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
-      progressbar = "no"
+      path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize")
     ),
     error = TRUE
   )
   expect_snapshot(
     sqlite_to_parquet(
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     ),
     error = TRUE
   )
@@ -21,8 +19,7 @@ test_that("Checks arguments are correctly filled in", {
     sqlite_to_parquet(
       path_to_sqlite = system.file("extdata","iris.sqlit",package = "parquetize"),
       table_in_sqlite = "iris",
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     ),
     error = TRUE
   )
@@ -30,8 +27,7 @@ test_that("Checks arguments are correctly filled in", {
     sqlite_to_parquet(
       path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
       table_in_sqlite = "mtcars",
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     ),
     error = TRUE
   )
@@ -42,8 +38,7 @@ test_that("Checks message is displayed with sqlite file", {
     sqlite_to_parquet(
       path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
       table_in_sqlite = "iris",
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     )
   )
 })
@@ -55,7 +50,6 @@ test_that("Checks message is displayed with by adding partition and partitioning
       path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
       table_in_sqlite = "iris",
       path_to_parquet = "Data",
-      progressbar = "no",
       partition = "yes",
       partitioning =  c("Species")
     )

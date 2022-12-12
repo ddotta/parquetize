@@ -7,8 +7,7 @@ test_that("Checks arguments are correctly filled in", {
 
   expect_snapshot(
     duckdb_to_parquet(
-      path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize"),
-      progressbar = "no"
+      path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize")
     ),
     error = TRUE
   )
@@ -17,8 +16,7 @@ test_that("Checks arguments are correctly filled in", {
 
   expect_snapshot(
     duckdb_to_parquet(
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     ),
     error = TRUE
   )
@@ -29,8 +27,7 @@ test_that("Checks arguments are correctly filled in", {
     duckdb_to_parquet(
       path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize"),
       table_in_duckdb = "mtcars",
-      path_to_parquet = "Data",
-      progressbar = "no"
+      path_to_parquet = "Data"
     ),
     error = TRUE
   )
@@ -59,7 +56,6 @@ test_that("Checks message is displayed with by adding partition and partitioning
       path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize"),
       table_in_duckdb = "iris",
       path_to_parquet = "Data",
-      progressbar = "no",
       partition = "yes",
       partitioning =  c("Species")
     )

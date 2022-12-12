@@ -2,7 +2,7 @@
 
     Code
       duckdb_to_parquet(path_to_duckdb = system.file("extdata", "iris.duckdb",
-        package = "parquetize"), progressbar = "no")
+        package = "parquetize"))
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
@@ -11,7 +11,7 @@
 ---
 
     Code
-      duckdb_to_parquet(path_to_parquet = "Data", progressbar = "no")
+      duckdb_to_parquet(path_to_parquet = "Data")
     Message <cliMessage>
       x Be careful, the argument path_to_duckdb must be filled in
       Reading data...
@@ -22,8 +22,7 @@
 
     Code
       duckdb_to_parquet(path_to_duckdb = system.file("extdata", "iris.duckdb",
-        package = "parquetize"), table_in_duckdb = "mtcars", path_to_parquet = "Data",
-      progressbar = "no")
+        package = "parquetize"), table_in_duckdb = "mtcars", path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
       x Be careful, the table filled in the table_in_duckdb argument does not exist in your duckdb file
@@ -51,7 +50,7 @@
     Code
       duckdb_to_parquet(path_to_duckdb = system.file("extdata", "iris.duckdb",
         package = "parquetize"), table_in_duckdb = "iris", path_to_parquet = "Data",
-      progressbar = "no", partition = "yes", partitioning = c("Species"))
+      partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Reading data...
       Writing data...

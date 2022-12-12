@@ -1,8 +1,7 @@
 # Checks arguments are correctly filled in
 
     Code
-      rds_to_parquet(path_to_rds = system.file("extdata", "iris.rds", package = "parquetize"),
-      progressbar = "no")
+      rds_to_parquet(path_to_rds = system.file("extdata", "iris.rds", package = "parquetize"))
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
@@ -11,7 +10,7 @@
 ---
 
     Code
-      rds_to_parquet(path_to_parquet = "Data", progressbar = "no")
+      rds_to_parquet(path_to_parquet = "Data")
     Message <cliMessage>
       x Be careful, the argument path_to_rds must be filled in
       Reading data...
@@ -22,7 +21,7 @@
 
     Code
       rds_to_parquet(path_to_rds = system.file("extdata", "iris.rds", package = "parquetize"),
-      path_to_parquet = "Data", progressbar = "no")
+      path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -33,8 +32,7 @@
 
     Code
       rds_to_parquet(path_to_rds = system.file("extdata", "iris.rds", package = "parquetize"),
-      path_to_parquet = "Data", progressbar = "no", partition = "yes", partitioning = c(
-        "Species"))
+      path_to_parquet = "Data", partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Reading data...
       Writing data...

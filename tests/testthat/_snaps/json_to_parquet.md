@@ -1,8 +1,7 @@
 # Checks arguments are correctly filled in
 
     Code
-      json_to_parquet(path_to_json = system.file("extdata", "iris.ndjson", package = "parquetize"),
-      progressbar = "no")
+      json_to_parquet(path_to_json = system.file("extdata", "iris.ndjson", package = "parquetize"))
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
@@ -11,7 +10,7 @@
 ---
 
     Code
-      json_to_parquet(path_to_parquet = "Data", progressbar = "no")
+      json_to_parquet(path_to_parquet = "Data")
     Message <cliMessage>
       x Be careful, the argument path_to_json must be filled in
       Reading data...
@@ -22,7 +21,7 @@
 
     Code
       json_to_parquet(path_to_json = system.file("extdata", "iris.json", package = "parquetize"),
-      path_to_parquet = "Data", format = "xjson", progressbar = "no")
+      path_to_parquet = "Data", format = "xjson")
     Message <cliMessage>
       x Be careful, the argument format must be equal to 'json' or 'ndjson'
       Reading data...
@@ -34,7 +33,7 @@
 
     Code
       json_to_parquet(path_to_json = system.file("extdata", "iris.json", package = "parquetize"),
-      path_to_parquet = "Data", progressbar = "no")
+      path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -45,7 +44,7 @@
 
     Code
       json_to_parquet(path_to_json = system.file("extdata", "iris.ndjson", package = "parquetize"),
-      path_to_parquet = "Data", format = "ndjson", progressbar = "no")
+      path_to_parquet = "Data", format = "ndjson")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -56,8 +55,7 @@
 
     Code
       json_to_parquet(path_to_json = system.file("extdata", "iris.json", package = "parquetize"),
-      path_to_parquet = "Data", progressbar = "no", partition = "yes", partitioning = c(
-        "Species"))
+      path_to_parquet = "Data", partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Reading data...
       Writing data...
