@@ -1,67 +1,87 @@
-#' Utility function that updates a progress bar
+#' Utility function that read and write data by chunk
 #'
-#' @param pbar a progress bar
-#' @param name_progressbar name of a progress bar
-#' @param value value of progression (in tenths)
+#' @param file_format file format
+#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
+#' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
+#' @param chunk_size Number of lines that defines the size of the chunk.
+#' @param skip Number of lines to ignore when converting.
+#' @param encoding string that indicates the character encoding for the input file.
+#'
+#'
 #' @noRd
-update_progressbar = function(pbar,
-                              name_progressbar,
-                              value) {
-  if (pbar %in% c("yes")) {
-    Sys.sleep(0.1)
-    setTxtProgressBar(name_progressbar,value/10)
+bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip, encoding = "utf-8") {
+
+  if (file_format %in% c("SAS")) {
+
+    tbl <- read_sas(data_file = path_to_table,
+                    skip = skip,
+                    n_max = chunk_size,
+                    encoding = encoding)
+  } else if (file_format %in% c("SPSS")) {
+
+    tbl <- read_sav(file = path_to_table,
+                    skip = skip,
+                    n_max = chunk_size,
+                    encoding = encoding)
+
+  } else if (file_format %in% c("Stata")) {
+
+    tbl <- read_dta(file = path_to_table,
+                    skip = skip,
+                    n_max = chunk_size,
+                    encoding = encoding)
   }
+
+  not_completed <- nrow(tbl) != 0
+
+  if (isTRUE(not_completed)) {
+    write_parquet(tbl,
+                  sink = file.path(path_to_parquet,
+                                   paste0("parquetize",sprintf("%d",skip),".parquet"))
+    )
+  }
+
+  return(not_completed)
 }
 
-#' Utility function that read a file (SAS, SPSS or Stata) by chunk
+# Function to read parquet files in a folder, combine them using rbind,
+# write the result to a new parquet file, and delete the initial files
+#' Utility function that updates a progress bar
 #'
-#' @param format_export string that indicates the format of the exported file (="SAS"/"SPSS"/"Stata")
-#' @param path string that indicates the path to the input file (don't forget the extension).
-#' @param nb_rows By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.
-#' @param encoding string that indicates the character encoding for the input file.
+#' This function read parquet files in a folder, combine them using rbind and
+#' write the result to a new parquet file. It also delete the initial files.
+#'
+#' @param folder a folder
+#' @param output_name name of the output parquet file
+#'
+#' @importFrom arrow read_parquet
+#'
 #' @noRd
-read_by_chunk = function(format_export,
-                         path,
-                         nb_rows,
-                         encoding) {
+bychunk_process <- function(folder,
+                            output_name) {
+  # Get the list of files in the folder
+  files <- list.files(folder, pattern = "^parquetize.*\\.parquet$")
 
-  liste_tables <- vector("list")
-  part <- 1
-  step <- 0
-  continue <- TRUE
-  while(continue) {
-    if (format_export %in% c("SAS")) {
-      liste_tables[[part]] <-
-        read_sas(data_file = path,
-                 skip = step,
-                 n_max = nb_rows,
-                 encoding = encoding)
-    } else if (format_export %in% c("SPSS")) {
-      liste_tables[[part]] <-
-        read_sav(file = path,
-                 skip = step,
-                 n_max = nb_rows,
-                 encoding = encoding)
-    } else if (format_export %in% c("Stata")) {
-      liste_tables[[part]] <-
-        read_dta(file = path,
-                 skip = step,
-                 n_max = nb_rows,
-                 encoding = encoding)
-    }
+  # Initialize an empty list to store the data frames
+  data_frames <- list()
 
-    if (nrow(liste_tables[[part]]) > 0) {
-      part <- part + 1
-      step <- step + nb_rows
-      continue <- TRUE
-    } else {
-      continue <- FALSE
-    }
+  # Loop through the files
+  for (file in files) {
+    # Read the parquet file into a data frame
+    df <- read_parquet(file.path(folder,file))
 
+    # Add the data frame to the list
+    data_frames[[file]] <- df
   }
 
-  table_output <- do.call(rbind,liste_tables)
+  # Use rbind to combine the data frames into a single data frame
+  combined_df <- do.call(rbind, data_frames)
 
-  return(table_output)
+  # Write the combined data frame to a new parquet file
+  write_parquet(combined_df, file.path(folder, output_name))
 
+  # Delete the initial parquet files
+  unlink(file.path(folder,files))
+
+  return(invisible(combined_df))
 }
