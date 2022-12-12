@@ -29,5 +29,6 @@ Imports:
     jsonlite,
     DBI,
     duckdb,
-    RSQLite
+    RSQLite,
+    cli
 VignetteBuilder: knitr
