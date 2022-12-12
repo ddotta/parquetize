@@ -1,6 +1,5 @@
 ---
 title: "Convert huge input file to parquet"
-author: "Damien Dotta"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{aa-conversions}
@@ -19,7 +18,7 @@ knitr::opts_chunk$set(
 library(parquetize)
 ```
 
-# Convert huge input file to parquet format with `parquetize`
+# Convert huge input file to parquet format
 
 For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `by_chunk=TRUE` in the [`table_to_parquet()`]((https://ddotta.github.io/parquetize/reference/table_to_parquet.html)) function. 
 The native behavior of this function (and all other functions in the package) is to load the entire table to be converted into R and then write it to disk (in a single file or a partitioned directory).  
@@ -29,8 +28,10 @@ This risk is even more present if you work locally on your computer and it can b
 `table_to_parquet()` offers this solution which answers a need expressed by parquetize users.  
 
 **The idea is to split the very large table into "chunks" based on the number of rows in the table in order to be able to simultaneously :**  
-- **read a chunk of the very large database**
+- **read a chunk of the very large database**  
 - **write this chunk in the floor file**
+
+Tip: the number of chunks to be defined must be limited. It must be in tens and not hundreds to limit the number of intermediate files (see example below).  
 
 Here is an example from the documentation using the iris table. 
 Here we cut the 150 rows into 3 chunks of 50 rows.
@@ -45,7 +46,7 @@ encoding = "utf-8"
 )
 ```
 
-In real life, we can perform this kind of request with the parquetize API (for example with a SAS file of 50 000 000 lines) :  
+In real life, we can perform this kind of request with the parquetize API (for example with a SAS file of 50 000 000 lines and defining 25 chunks of 2 000 000 rows each) :  
 
 
 ```{r real-example, eval=FALSE}
