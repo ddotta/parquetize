@@ -66,6 +66,8 @@ For more details, see the documentation and examples :
 
 ## Example
 
+You want to use the Insee file of first names by birth department? Use R and {parquetize} package that takes care of everything: it downloads the data (3.7 million rows) and converts it to parquet format in few seconds ! 
+
 <img src="man/figures/Insee_example_csv.gif" width="100%" />
 
 ## Contribution
