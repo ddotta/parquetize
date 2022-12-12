@@ -9,7 +9,6 @@ json_to_parquet(
   path_to_parquet,
   format = "json",
   partition = "no",
-  progressbar = "yes",
   ...
 )
 }
@@ -22,8 +21,6 @@ json_to_parquet(
 
 \item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
-
-\item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -51,8 +48,7 @@ Two conversions possibilities are offered :
 
 json_to_parquet(
   path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 
 # Conversion from a local ndjson file to a partitioned parquet file  ::
@@ -60,7 +56,6 @@ json_to_parquet(
 json_to_parquet(
   path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
   path_to_parquet = tempdir(),
-  format = "ndjson",
-  progressbar = "no"
+  format = "ndjson"
 )
 }

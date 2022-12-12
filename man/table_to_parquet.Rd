@@ -7,10 +7,11 @@
 table_to_parquet(
   path_to_table,
   path_to_parquet,
-  nb_rows = NULL,
+  by_chunk = FALSE,
+  chunk_size,
+  skip = 0,
   partition = "no",
   encoding = NULL,
-  progressbar = "yes",
   ...
 )
 }
@@ -19,14 +20,17 @@ table_to_parquet(
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet files will be stored.}
 
-\item{nb_rows}{By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.}
+\item{by_chunk}{Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.}
+
+\item{chunk_size}{this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.}
+
+\item{skip}{By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.}
 
 \item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, if `by_chunk` argument is not NULL then a single parquet file will be created.}
 
 \item{encoding}{string that indicates the character encoding for the input file.}
-
-\item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
 \item{...}{additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -50,15 +54,16 @@ Two conversions possibilities are offered :
 
 }
 
-To avoid overcharging R's RAM, the reading of input files can be done by chunk. Argument  `nb_rows` must then be used.
+To avoid overcharging R's RAM, the conversion can be done by chunk. Argument `by_chunk` must then be used.
+This is very useful for huge tables and for computers with little RAM because the conversion is then done
+with less memory consumption.
 }
 \examples{
 # Conversion from a SAS file to a single parquet file :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 
 # Conversion from a SPSS file to a single parquet file :
@@ -66,14 +71,12 @@ table_to_parquet(
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempdir(),
-  progressbar = "no"
 )
 # Conversion from a Stata file to a single parquet file without progress bar :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.dta", package = "haven"),
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 
 # Reading SAS file by chunk and with encoding and conversion from a SAS file to a single parquet file :
@@ -81,9 +84,9 @@ table_to_parquet(
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
-  nb_rows = 50,
-  encoding = "utf-8",
-  progressbar = "no"
+  by_chunk = TRUE,
+  chunk_size = 50,
+  encoding = "utf-8"
 )
 
 # Conversion from a SAS file to a partitioned parquet file  :
@@ -92,18 +95,6 @@ table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
   partition = "yes",
-  partitioning =  c("Species"), # vector use as partition key
-  progressbar = "no"
-)
-
-# Reading SAS file by chunk and conversion from a SAS file to a partitioned parquet file :
-
-table_to_parquet(
-path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-path_to_parquet = tempdir(),
-nb_rows = 50,
-partition = "yes",
-partitioning =  c("Species"), # vector use as partition key
-progressbar = "no"
+  partitioning =  c("Species") # vector use as partition key
 )
 }

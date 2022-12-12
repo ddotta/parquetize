@@ -4,13 +4,7 @@
 \alias{rds_to_parquet}
 \title{Convert a rds file to parquet format}
 \usage{
-rds_to_parquet(
-  path_to_rds,
-  path_to_parquet,
-  partition = "no",
-  progressbar = "yes",
-  ...
-)
+rds_to_parquet(path_to_rds, path_to_parquet, partition = "no", ...)
 }
 \arguments{
 \item{path_to_rds}{string that indicates the path to the rds file}
@@ -19,8 +13,6 @@ rds_to_parquet(
 
 \item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
-
-\item{progressbar}{string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -47,8 +39,7 @@ Two conversions possibilities are offered :
 
 rds_to_parquet(
   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 
 # Conversion from a local rds file to a partitioned parquet file  ::
@@ -56,7 +47,6 @@ rds_to_parquet(
 rds_to_parquet(
   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
   path_to_parquet = tempdir(),
-  progressbar = "no",
   partition = "yes",
   partitioning =  c("Species")
 )
