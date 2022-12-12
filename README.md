@@ -32,7 +32,6 @@ install.packages("parquetize",
 ```
 </details>
 
-<img src="man/figures/Insee_example_csv.gif" width="100%" />
 
 ## Why this package ?
 
@@ -64,6 +63,10 @@ For more details, see the documentation and examples :
 - [rds_to_parquet()](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html#ref-examples).  
 - [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples)  
 - [duckdb_to_parquet()](https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html#ref-examples).
+
+## Example
+
+<img src="man/figures/Insee_example_csv.gif" width="100%" />
 
 ## Contribution
 
