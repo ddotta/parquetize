@@ -79,8 +79,7 @@ then use the function with the argument `path_to_csv`.
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 
 # Conversion from a local csv file  to a partitioned parquet file  :
@@ -88,7 +87,6 @@ csv_to_parquet(
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
   path_to_parquet = tempdir(),
-  progressbar = "no",
   partition = "yes",
   partitioning =  c("REG")
 )
@@ -99,8 +97,7 @@ csv_to_parquet(
   url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
   path_to_parquet = tempdir(),
   compression = "gzip",
-  compression_level = 5,
-  progressbar = "no"
+  compression_level = 5
 )
 
 # Conversion from a URL and a zipped file :
@@ -109,7 +106,6 @@ csv_to_parquet(
   url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/5057840/cog_ensemble_2021_csv.zip",
   csv_as_a_zip = TRUE,
   filename_in_zip = "commune2021.csv",
-  path_to_parquet = tempdir(),
-  progressbar = "no"
+  path_to_parquet = tempdir()
 )
 }
