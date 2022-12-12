@@ -17,7 +17,6 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -25,6 +24,7 @@
 #' @importFrom DBI dbConnect dbReadTable dbListTables
 #' @importFrom duckdb duckdb duckdb_shutdown
 #' @importFrom arrow write_parquet write_dataset
+#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success
 #' @export
 #'
 #' @examples
@@ -34,8 +34,7 @@
 #' duckdb_to_parquet(
 #'   path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize"),
 #'   table_in_duckdb = "iris",
-#'   path_to_parquet = tempdir(),
-#'   progressbar = "no"
+#'   path_to_parquet = tempdir()
 #' )
 #'
 #' # Conversion from a local duckdb file to a partitioned parquet file  :
@@ -44,7 +43,6 @@
 #'   path_to_duckdb = system.file("extdata","iris.duckdb",package = "parquetize"),
 #'   table_in_duckdb = "iris",
 #'   path_to_parquet = tempdir(),
-#'   progressbar = "no",
 #'   partition = "yes",
 #'   partitioning =  c("Species")
 #' )
@@ -54,24 +52,17 @@ duckdb_to_parquet <- function(
     table_in_duckdb,
     path_to_parquet,
     partition = "no",
-    progressbar = "yes",
     ...
 ) {
 
-
-  if (progressbar %in% c("yes")) {
-    # Initialize the progress bar
-    conversion_progress <- txtProgressBar(style = 3)
-  }
-
   # Check if path_to_duckdb is missing
   if (missing(path_to_duckdb)) {
-    stop("Be careful, the argument path_to_duckdb must be filled in")
+    cli_alert_danger("Be careful, the argument path_to_duckdb must be filled in")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    stop("Be careful, the argument path_to_parquet must be filled in")
+    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
   }
 
   # Check if path_to_parquet exists
@@ -79,10 +70,8 @@ duckdb_to_parquet <- function(
     dir.create(path_to_parquet, recursive = TRUE)
   }
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 1)
-
+  Sys.sleep(0.01)
+  cli_progress_message("Reading data...")
 
   con_duckdb <- DBI::dbConnect(duckdb::duckdb(),
                                path_to_duckdb)
@@ -90,7 +79,7 @@ duckdb_to_parquet <- function(
   # Check if table_in_duckdb exists in duckdb file
   list_table <- DBI::dbListTables(con_duckdb)
   if (!(table_in_duckdb %in% list_table)==TRUE) {
-    stop("Be careful, the table filled in the table_in_duckdb argument does not exist in your duckdb file")
+    cli_alert_danger("Be careful, the table filled in the table_in_duckdb argument does not exist in your duckdb file")
   }
 
   duckdb_output <- DBI::dbReadTable(con_duckdb, table_in_duckdb)
@@ -101,9 +90,8 @@ duckdb_to_parquet <- function(
     file.remove(paste0(path_to_duckdb,".wal"))
   }
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 6)
+  Sys.sleep(0.01)
+  cli_progress_message("Writing data...")
 
   parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_duckdb)),".parquet")
 
@@ -121,11 +109,7 @@ duckdb_to_parquet <- function(
 
   }
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 10)
-
-  message(paste0("\nThe ", table_in_duckdb," table from your duckdb file is available in parquet format under ",path_to_parquet))
+  cli_alert_success("\nThe {table_in_duckdb} table from your duckdb file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 

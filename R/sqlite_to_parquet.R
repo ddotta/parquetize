@@ -18,7 +18,6 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' @param progressbar string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -26,6 +25,7 @@
 #' @importFrom DBI dbConnect dbReadTable dbListTables dbDisconnect
 #' @importFrom RSQLite SQLite
 #' @importFrom arrow write_parquet write_dataset
+#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success
 #' @export
 #'
 #' @examples
@@ -35,8 +35,7 @@
 #' sqlite_to_parquet(
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
-#'   path_to_parquet = tempdir(),
-#'   progressbar = "no"
+#'   path_to_parquet = tempdir()
 #' )
 #'
 #' # Conversion from a local sqlite file to a partitioned parquet file  :
@@ -45,7 +44,6 @@
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
 #'   path_to_parquet = tempdir(),
-#'   progressbar = "no",
 #'   partition = "yes",
 #'   partitioning =  c("Species")
 #' )
@@ -55,29 +53,22 @@ sqlite_to_parquet <- function(
     table_in_sqlite,
     path_to_parquet,
     partition = "no",
-    progressbar = "yes",
     ...
 ) {
 
-
-  if (progressbar %in% c("yes")) {
-    # Initialize the progress bar
-    conversion_progress <- txtProgressBar(style = 3)
-  }
-
   # Check if path_to_sqlite is missing
   if (missing(path_to_sqlite)) {
-    stop("Be careful, the argument path_to_sqlite must be filled in")
+    cli_alert_danger("Be careful, the argument path_to_sqlite must be filled in")
   }
 
   # Check if extension used in path_to_sqlite is correct
   if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
-    stop("Be careful, the extension used in path_to_sqlite is not correct")
+    cli_alert_danger("Be careful, the extension used in path_to_sqlite is not correct")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    stop("Be careful, the argument path_to_parquet must be filled in")
+    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
   }
 
   # Check if path_to_parquet exists
@@ -85,26 +76,23 @@ sqlite_to_parquet <- function(
     dir.create(path_to_parquet, recursive = TRUE)
   }
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 1)
-
+  Sys.sleep(0.01)
+  cli_progress_message("Reading data...")
 
   con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), path_to_sqlite)
 
   # Check if table_in_sqlite exists in sqlite file
   list_table <- DBI::dbListTables(con_sqlite)
   if (!(table_in_sqlite %in% list_table)==TRUE) {
-    stop("Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file")
+    cli_alert_danger("Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file")
   }
 
   sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
 
   DBI::dbDisconnect(con_sqlite, shutdown=TRUE)
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 6)
+  Sys.sleep(0.01)
+  cli_progress_message("Writing data...")
 
   parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_sqlite)),".parquet")
 
@@ -122,11 +110,9 @@ sqlite_to_parquet <- function(
 
   }
 
-  update_progressbar(pbar = progressbar,
-                     name_progressbar = conversion_progress,
-                     value = 10)
-
-  message(paste0("\nThe ", table_in_sqlite," table from your sqlite file is available in parquet format under ",path_to_parquet))
+  cli_alert_success(paste0("\nThe ",
+                           table_in_sqlite,
+                           " table from your sqlite file is available in parquet format under {path_to_parquet}"))
 
   return(invisible(parquetfile))
 
