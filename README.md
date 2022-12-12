@@ -32,6 +32,8 @@ install.packages("parquetize",
 ```
 </details>
 
+<img src="man/figures/Insee_example_csv.gif" width="100%" />
+
 ## Why this package ?
 
 This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite), [RSQLite](https://github.com/r-dbi/RSQLite), [duckdb](https://github.com/cran/duckdb) and [arrow](https://github.com/apache/arrow) packages.
