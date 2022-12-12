@@ -2,7 +2,7 @@
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
-        package = "parquetize"), progressbar = "no")
+        package = "parquetize"))
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
@@ -11,7 +11,7 @@
 ---
 
     Code
-      sqlite_to_parquet(path_to_parquet = "Data", progressbar = "no")
+      sqlite_to_parquet(path_to_parquet = "Data")
     Message <cliMessage>
       x Be careful, the argument path_to_sqlite must be filled in
     Error <simpleError>
@@ -21,8 +21,7 @@
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlit",
-        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data",
-      progressbar = "no")
+        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data")
     Message <cliMessage>
       x Be careful, the extension used in path_to_sqlite is not correct
       Reading data...
@@ -35,8 +34,7 @@
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
-        package = "parquetize"), table_in_sqlite = "mtcars", path_to_parquet = "Data",
-      progressbar = "no")
+        package = "parquetize"), table_in_sqlite = "mtcars", path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
       x Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file
@@ -48,8 +46,7 @@
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
-        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data",
-      progressbar = "no")
+        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -61,7 +58,7 @@
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
         package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data",
-      progressbar = "no", partition = "yes", partitioning = c("Species"))
+      partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Reading data...
       Writing data...
