@@ -55,10 +55,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">table_to_parquet</span><span class="op">(</span></span>
 <span>  <span class="va">path_to_table</span>,</span>
 <span>  <span class="va">path_to_parquet</span>,</span>
-<span>  nb_rows <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by_chunk <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">chunk_size</span>,</span>
+<span>  skip <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  partition <span class="op">=</span> <span class="st">"no"</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  progressbar <span class="op">=</span> <span class="st">"yes"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -73,21 +74,26 @@
 <dd><p>string that indicates the path to the directory where the parquet files will be stored.</p></dd>
 
 
-<dt>nb_rows</dt>
-<dd><p>By default NULL. Number of rows to process at once. This is the number of lines put into R's RAM and the number of lines written to disk for the parquet file.</p></dd>
+<dt>by_chunk</dt>
+<dd><p>Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.</p></dd>
+
+
+<dt>chunk_size</dt>
+<dd><p>this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.</p></dd>
+
+
+<dt>skip</dt>
+<dd><p>By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.</p></dd>
 
 
 <dt>partition</dt>
 <dd><p>string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.</p></dd>
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, if `by_chunk` argument is not NULL then a single parquet file will be created.</p></dd>
 
 
 <dt>encoding</dt>
 <dd><p>string that indicates the character encoding for the input file.</p></dd>
-
-
-<dt>progressbar</dt>
-<dd><p>string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display</p></dd>
 
 
 <dt>...</dt>
@@ -108,7 +114,9 @@ For these 3 cases, the function guesses the data format using the extension of t
 <p>Two conversions possibilities are offered :</p>
 <ul><li><p>Convert to a single parquet file. Argument `path_to_parquet` must then be used;</p></li>
 <li><p>Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;</p></li>
-</ul><p>To avoid overcharging R's RAM, the reading of input files can be done by chunk. Argument  `nb_rows` must then be used.</p>
+</ul><p>To avoid overcharging R's RAM, the conversion can be done by chunk. Argument `by_chunk` must then be used.
+This is very useful for huge tables and for computers with little RAM because the conversion is then done
+with less memory consumption.</p>
     </div>
 
     <div class="section level2">
@@ -117,42 +125,50 @@ For these 3 cases, the function guesses the data format using the extension of t
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The SAS file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SPSS file to a single parquet file :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sav"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The SPSS file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span><span class="co"># Conversion from a Stata file to a single parquet file without progress bar :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.dta"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The Stata file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The Stata file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SAS file by chunk and with encoding and conversion from a SAS file to a single parquet file :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  nb_rows <span class="op">=</span> <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  by_chunk <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  chunk_size <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The SAS file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Conversion completed !</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Conversion completed !</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Conversion completed !</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SAS file to a partitioned parquet file  :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -160,24 +176,12 @@ For these 3 cases, the function guesses the data format using the extension of t
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  partition <span class="op">=</span> <span class="st">"yes"</span>,</span></span>
-<span class="r-in"><span>  partitioning <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>, <span class="co"># vector use as partition key</span></span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  partitioning <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span> <span class="co"># vector use as partition key</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The SAS file is available in parquet format under /tmp/RtmpmdOh2I</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Reading SAS file by chunk and conversion from a SAS file to a partitioned parquet file :</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>nb_rows <span class="op">=</span> <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>partition <span class="op">=</span> <span class="st">"yes"</span>,</span></span>
-<span class="r-in"><span>partitioning <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span>, <span class="co"># vector use as partition key</span></span></span>
-<span class="r-in"><span>progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The SAS file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

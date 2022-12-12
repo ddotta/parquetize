@@ -46,6 +46,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="parquetize-040">parquetize 0.4.0<a class="anchor" aria-label="anchor" href="#parquetize-040"></a></h2>
+<p><strong>This release includes an important feature :</strong></p>
+<p>The <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> function can now convert tables to parquet format with less memory consumption. Useful for huge tables and for computers with little RAM. (#15)</p>
+<ul><li>Removal of the <code>nb_rows</code> argument in the <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> function</li>
+<li>Replaced by new arguments <code>by_chunk</code>, <code>chunk_size</code> and <code>skip</code> (see documentation)</li>
+<li>Progress bars are now managed with <a href="https://github.com/r-lib/cli" class="external-link">{cli} package</a>
+</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="parquetize-030">parquetize 0.3.0<a class="anchor" aria-label="anchor" href="#parquetize-030"></a></h2>
 <ul><li>Added <code><a href="../reference/duckdb_to_parquet.html">duckdb_to_parquet()</a></code> function to convert duckdb files to parquet format.</li>
 <li>Added <code><a href="../reference/sqlite_to_parquet.html">sqlite_to_parquet()</a></code> function to convert sqlite files to parquet format.</li>

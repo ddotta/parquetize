@@ -60,7 +60,6 @@ or <a href="http://ndjson.org/" class="external-link">ndjson</a> file to parquet
 <span>  <span class="va">path_to_parquet</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"json"</span>,</span>
 <span>  partition <span class="op">=</span> <span class="st">"no"</span>,</span>
-<span>  progressbar <span class="op">=</span> <span class="st">"yes"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -82,10 +81,6 @@ or <a href="http://ndjson.org/" class="external-link">ndjson</a> file to parquet
 <dt>partition</dt>
 <dd><p>string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.</p></dd>
-
-
-<dt>progressbar</dt>
-<dd><p>string () ("yes" or "no" - by default) that indicates whether you want a progress bar to display</p></dd>
 
 
 <dt>...</dt>
@@ -113,22 +108,24 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">json_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_json <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.json"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The json file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The json file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local ndjson file to a partitioned parquet file  ::</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">json_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_json <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.ndjson"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  format <span class="op">=</span> <span class="st">"ndjson"</span>,</span></span>
-<span class="r-in"><span>  progressbar <span class="op">=</span> <span class="st">"no"</span></span></span>
+<span class="r-in"><span>  format <span class="op">=</span> <span class="st">"ndjson"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The ndjson file is available in parquet format under /tmp/RtmpmdOh2I</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The ndjson file is available in parquet format under /tmp/Rtmp9stcCa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
