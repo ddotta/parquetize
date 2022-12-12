@@ -37,6 +37,9 @@
     <loc>/reference/parquetize_example.html</loc>
   </url>
   <url>
+    <loc>/reference/rbind_parquet.html</loc>
+  </url>
+  <url>
     <loc>/reference/rds_to_parquet.html</loc>
   </url>
   <url>
