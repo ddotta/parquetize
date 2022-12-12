@@ -34,7 +34,7 @@
 #'
 #' @importFrom haven read_sas read_sav read_dta
 #' @importFrom arrow write_parquet write_dataset
-#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success
+#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_progress_bar
 #' @export
 #'
 #' @examples
