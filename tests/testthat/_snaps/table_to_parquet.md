@@ -58,11 +58,11 @@
       encoding = "utf-8")
     Message <cliMessage>
       Conversion completed !
-      Reading data...
+      v The SAS file is available in parquet format under Data/iris1-50.parquet
       Conversion completed !
-      Writing data...
-      v The SAS file is available in parquet format under Data
-      Writing data...
+      v The SAS file is available in parquet format under Data/iris51-100.parquet
+      Conversion completed !
+      v The SAS file is available in parquet format under Data/iris101-150.parquet
       Conversion completed !
 
 # Checks message is displayed with by adding partition and partitioning argument
@@ -85,11 +85,11 @@
       partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Conversion completed !
-      Reading data...
+      v The SAS file is available in parquet format under Data/iris1-50.parquet
       Conversion completed !
-      Writing data...
-      v The SAS file is available in parquet format under Data
-      Writing data...
+      v The SAS file is available in parquet format under Data/iris51-100.parquet
+      Conversion completed !
+      v The SAS file is available in parquet format under Data/iris101-150.parquet
       Conversion completed !
 
 # Checks message is displayed with SAS by adding chunk_size argument
@@ -99,11 +99,11 @@
         package = "haven"), path_to_parquet = "Data", by_chunk = TRUE, chunk_size = 50)
     Message <cliMessage>
       Conversion completed !
-      Reading data...
+      v The SAS file is available in parquet format under Data/iris1-50.parquet
       Conversion completed !
-      Writing data...
-      v The SAS file is available in parquet format under Data
-      Writing data...
+      v The SAS file is available in parquet format under Data/iris51-100.parquet
+      Conversion completed !
+      v The SAS file is available in parquet format under Data/iris101-150.parquet
       Conversion completed !
 
 # Checks message is displayed with SPSS by adding nb_rows, partition and partitioning argument
