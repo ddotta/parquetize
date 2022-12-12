@@ -4,6 +4,7 @@
 
 The  `table_to_parquet()` function can now convert tables to parquet format with less memory consumption.
 Useful for huge tables and for computers with little RAM. (#15)
+A vgnette has been written about it. See [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).  
 
 * Removal of the `nb_rows` argument in the `table_to_parquet()` function
 * Replaced by new arguments `by_chunk`, `chunk_size` and `skip` (see documentation)
