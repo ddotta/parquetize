@@ -211,14 +211,8 @@ table_to_parquet <- function(
 
     if (isTRUE(bychunk(file_format = file_format, path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size))) {
 
-      Recall(path_to_table, path_to_parquet, skip = skip + chunk_size, chunk_size = chunk_size)
+      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size)
 
-    } else {
-
-      bychunk_process(folder = path_to_parquet,
-                      output_name = parquetname)
-
-      cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
     }
 
   }
