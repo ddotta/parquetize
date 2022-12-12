@@ -18,7 +18,7 @@ reference:
       - table_to_parquet
       - sqlite_to_parquet
       - duckdb_to_parquet
-      - rbind_to_parquet
   - title: Other functions
     contents:
+      - rbind_parquet
       - parquetize_example
