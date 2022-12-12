@@ -20,6 +20,8 @@ library(parquetize)
 
 # Convert huge input file to parquet format
 
+## With `table_to_parquet()`
+
 For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `by_chunk=TRUE` in the [`table_to_parquet()`]((https://ddotta.github.io/parquetize/reference/table_to_parquet.html)) function. 
 The native behavior of this function (and all other functions in the package) is to load the entire table to be converted into R and then write it to disk (in a single file or a partitioned directory).  
 
@@ -31,15 +33,15 @@ This risk is even more present if you work locally on your computer and it can b
 - **read a chunk of the very large database**  
 - **write this chunk in the floor file**
 
-Tip: the number of chunks to be defined must be limited. It must be in tens and not hundreds to limit the number of intermediate files (see example below).  
+Tip: The number of lines that each chunk must contain must be supported by the RAM of your computer/server. Ideally, the number of chunks to be defined must be limited. It should be in tens and not hundreds to limit the number of intermediate files (see example below).  
 
 Here is an example from the documentation using the iris table. 
-Here we cut the 150 rows into 3 chunks of 50 rows.
+Here we cut the 150 rows into 3 chunks of 50 rows. In this example we get 3 parquet files of 50 lines called `iris1-50.parquet`, `iris51-100.parquet` and `iris101-151.parquet`
 
 ```{r iris-example, eval=FALSE}
 table_to_parquet(
 path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
-path_to_parquet = tempdir(),
+path_to_parquet = tempfile(),
 by_chunk = TRUE,
 chunk_size = 50,
 encoding = "utf-8"
@@ -59,5 +61,18 @@ encoding = "utf-8"
 )
 ```
 
-*Note :* **it should be noted that this technique (which uses the by_chunk argument) only creates a single parquet file.** Indeed, to create a partitioned file requires to read the whole database. 
-If you want to obtain a partitioned file you will have to convert your single parquet file into a partitioned file in a second step.
+Files `myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet` ... will be created.   
+
+## Function `rbind_parquet(`
+
+If at the end of the conversion with `table_to_parquet()`, **you want to reconstitute a unique initial table** and *if you have the computer resources (in RAM) to do so**, you can use the helper function provided with the API of `rbind_parquet()`.  
+This function allows to bind multiple parquet files by row.   
+Here's an example without deleting initial files (`delete_initial_files`=FALSE) :    
+
+```{r rbind_parquet-example, eval=FALSE}
+rbind_parquet(
+folder = tempfile(),
+output_name = "iris",
+delete_initial_files = FALSE
+)
+```
