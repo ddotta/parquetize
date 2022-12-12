@@ -73,8 +73,6 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Convert huge input file to parquet</h1>
-                        <h4 data-toc-skip class="author">Damien
-Dotta</h4>
             
       
       
@@ -86,8 +84,7 @@ Dotta</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parquetize</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="convert-huge-input-file-to-parquet-format-with-parquetize">Convert huge input file to parquet format with
-<code>parquetize</code><a class="anchor" aria-label="anchor" href="#convert-huge-input-file-to-parquet-format-with-parquetize"></a>
+<h2 id="convert-huge-input-file-to-parquet-format">Convert huge input file to parquet format<a class="anchor" aria-label="anchor" href="#convert-huge-input-file-to-parquet-format"></a>
 </h2>
 <p>For <strong>huge input files in SAS, SPSS and Stata formats</strong>,
 the parquetize package allows you to perform a clever conversion by
@@ -103,8 +100,11 @@ need expressed by parquetize users.</p>
 <p><strong>The idea is to split the very large table into “chunks” based
 on the number of rows in the table in order to be able to simultaneously
 :</strong><br>
-- <strong>read a chunk of the very large database</strong> -
-<strong>write this chunk in the floor file</strong></p>
+- <strong>read a chunk of the very large database</strong><br>
+- <strong>write this chunk in the floor file</strong></p>
+<p>Tip: the number of chunks to be defined must be limited. It must be
+in tens and not hundreds to limit the number of intermediate files (see
+example below).</p>
 <p>Here is an example from the documentation using the iris table. Here
 we cut the 150 rows into 3 chunks of 50 rows.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -116,7 +116,8 @@ we cut the 150 rows into 3 chunks of 50 rows.</p>
 <span>encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>In real life, we can perform this kind of request with the parquetize
-API (for example with a SAS file of 50 000 000 lines) :</p>
+API (for example with a SAS file of 50 000 000 lines and defining 25
+chunks of 2 000 000 rows each) :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
@@ -132,8 +133,7 @@ database. If you want to obtain a partitioned file you will have to
 convert your single parquet file into a partitioned file in a second
 step.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
-    </nav></aside>
+  </main>
 </div>
 
 
