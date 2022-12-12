@@ -1,3 +1,14 @@
+# parquetize 0.4.0
+
+**This release includes an important feature :**
+
+The  `table_to_parquet()` function can now convert tables to parquet format with less memory consumption.
+Useful for huge tables and for computers with little RAM. (#15)
+
+* Removal of the `nb_rows` argument in the `table_to_parquet()` function
+* Replaced by new arguments `by_chunk`, `chunk_size` and `skip` (see documentation)
+* Progress bars are now managed with [{cli} package](https://github.com/r-lib/cli)
+
 # parquetize 0.3.0
 
 * Added `duckdb_to_parquet()` function to convert duckdb files to parquet format.
