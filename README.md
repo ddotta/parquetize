@@ -52,7 +52,7 @@ As a fervent of the DRY principle (don't repeat yourself) the exported functions
     - **The other benefit of this function** is that it handles JSON and ndJSON files in a same function. There is only one function to use for these 2 cases.  
 - [rds_to_parquet()](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html)  
 - [table_to_parquet()](https://ddotta.github.io/parquetize/reference/table_to_parquet.html)
-    - **The other benefit of this function** is that it handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases. To avoid overcharging R's RAM for huge table, the conversion can be done by chunk.
+    - **The other benefit of this function** is that it handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases. To avoid overcharging R's RAM for huge table, the conversion can be done by chunk. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html)
 - [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html)
 - [duckdb_to_parquet()](https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html)
 
