@@ -137,7 +137,7 @@ chunks of 2 000 000 rows each) :</p>
 <code>myhugefile2000001-4000000.parquet</code> … will be created.</p>
 </div>
 <div class="section level3">
-<h3 id="function-rbind_parquet">Function <code>rbind_parquet(</code><a class="anchor" aria-label="anchor" href="#function-rbind_parquet"></a>
+<h3 id="function-rbind_parquet">Function <code>rbind_parquet()</code><a class="anchor" aria-label="anchor" href="#function-rbind_parquet"></a>
 </h3>
 <p>If at the end of the conversion with <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code>,
 <strong>you want to reconstitute a unique initial table</strong> and *if
@@ -150,9 +150,12 @@ Here’s an example without deleting initial files
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rbind_parquet.html">rbind_parquet</a></span><span class="op">(</span></span>
 <span>folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>output_name <span class="op">=</span> <span class="st">"iris"</span>,</span>
+<span>output_name <span class="op">=</span> <span class="st">"myhugefile"</span>,</span>
 <span>delete_initial_files <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>The <code>myhugefile.parquet</code> file will be created from the
+<code>myhugefile1-2000000.parquet</code>,
+<code>myhugefile2000001-4000000.parquet</code>… files. :tada:</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
