@@ -56,7 +56,7 @@ Two conversions possibilities are offered :
 
 To avoid overcharging R's RAM, the conversion can be done by chunk. Argument `by_chunk` must then be used.
 This is very useful for huge tables and for computers with little RAM because the conversion is then done
-with less memory consumption.
+with less memory consumption. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
 }
 \examples{
 # Conversion from a SAS file to a single parquet file :
