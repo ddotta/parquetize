@@ -1,6 +1,7 @@
-#' Convert a csv file to parquet format
+#' @name csv_to_parquet
+#' @title Convert a csv file to parquet format
 #'
-#' This function allows to convert a csv file to parquet format. \cr
+#' @description This function allows to convert a csv file to parquet format. \cr
 #'
 #' Several conversion possibilities are offered :
 #'

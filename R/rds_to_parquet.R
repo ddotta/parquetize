@@ -1,6 +1,8 @@
-#' Convert a rds file to parquet format
+#' @name rds_to_parquet
 #'
-#' This function allows to convert a rds file to parquet format. \cr
+#' @title Convert a rds file to parquet format
+#'
+#' @description This function allows to convert a rds file to parquet format. \cr
 #'
 #' Two conversions possibilities are offered :
 #'

@@ -45,8 +45,7 @@ A parquet file, invisibly
 }
 \description{
 This function allows to convert a csv file to parquet format. \cr
-}
-\details{
+
 Several conversion possibilities are offered :
 
 \itemize{
