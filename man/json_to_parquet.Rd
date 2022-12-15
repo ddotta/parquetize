@@ -31,8 +31,7 @@ A parquet file, invisibly
 \description{
 This function allows to convert a \href{https://www.json.org/json-en.html}{json}
 or \href{http://ndjson.org/}{ndjson} file to parquet format. \cr
-}
-\details{
+
 Two conversions possibilities are offered :
 
 \itemize{

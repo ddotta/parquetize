@@ -32,8 +32,7 @@ A parquet file, invisibly
 This function allows to convert a table from a sqlite file to parquet format. \cr
 The following extensions are supported :
 "db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2". \cr
-}
-\details{
+
 Two conversions possibilities are offered :
 
 \itemize{

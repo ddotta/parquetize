@@ -1,4 +1,6 @@
-#' Utility function that read and write data by chunk
+#' @name bychunk
+#'
+#' @title Utility function that read and write data by chunk
 #'
 #' @param file_format file format
 #' @param path_to_table string that indicates the path to the input file (don't forget the extension).

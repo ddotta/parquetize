@@ -1,6 +1,8 @@
-#' Convert an input file to parquet format
+#' @name table_to_parquet
 #'
-#' This function allows to convert an input file to parquet format. \cr
+#' @title Convert an input file to parquet format
+#'
+#' @description This function allows to convert an input file to parquet format. \cr
 #'
 #' It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
 #' For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_table` argument). \cr

@@ -19,8 +19,7 @@ Parquet files, invisibly
 \description{
 This function read all parquet files in `folder` argument that starts with `output_name`,
 combine them using rbind and write the result to a new parquet file. \cr
-}
-\details{
+
 It can also delete the initial files if `delete_initial_files` argument is TRUE. \cr
 
 Be careful, this function will not work if files with different structures
@@ -28,6 +27,7 @@ are present in the folder given with the argument `folder`.
 }
 \examples{
 \dontrun{
+library(arrow)
 if (file.exists('output')==FALSE) {
   dir.create("output")
 }

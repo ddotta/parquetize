@@ -1,6 +1,7 @@
-#' Convert a duckdb file to parquet format
+#' @name duckdb_to_parquet
+#' @title Convert a duckdb file to parquet format
 #'
-#' This function allows to convert a table from a duckdb file to parquet format. \cr
+#' @description This function allows to convert a table from a duckdb file to parquet format. \cr
 #' The following extensions are supported : "duckdb" or "db". \cr
 #'
 #' Two conversions possibilities are offered :

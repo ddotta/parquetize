@@ -1,6 +1,8 @@
-#' Convert a sqlite file to parquet format
+#' @name sqlite_to_parquet
 #'
-#' This function allows to convert a table from a sqlite file to parquet format. \cr
+#' @title Convert a sqlite file to parquet format
+#'
+#' @description This function allows to convert a table from a sqlite file to parquet format. \cr
 #' The following extensions are supported :
 #' "db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2". \cr
 #'

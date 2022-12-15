@@ -1,6 +1,8 @@
-#' Function to bind multiple parquet files by row
+#' @name rbind_parquet
 #'
-#' This function read all parquet files in `folder` argument that starts with `output_name`,
+#' @title Function to bind multiple parquet files by row
+#'
+#' @description This function read all parquet files in `folder` argument that starts with `output_name`,
 #' combine them using rbind and write the result to a new parquet file. \cr
 #'
 #' It can also delete the initial files if `delete_initial_files` argument is TRUE. \cr
@@ -20,6 +22,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(arrow)
 #' if (file.exists('output')==FALSE) {
 #'   dir.create("output")
 #' }

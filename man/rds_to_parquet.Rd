@@ -22,8 +22,7 @@ A parquet file, invisibly
 }
 \description{
 This function allows to convert a rds file to parquet format. \cr
-}
-\details{
+
 Two conversions possibilities are offered :
 
 \itemize{

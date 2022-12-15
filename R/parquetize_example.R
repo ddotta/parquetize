@@ -1,6 +1,8 @@
-#' Get path to parquetize example
+#' @name parquetize_example
 #'
-#' parquetize comes bundled with a number of sample files in its `inst/extdata`
+#' @title Get path to parquetize example
+#'
+#' @description parquetize comes bundled with a number of sample files in its `inst/extdata`
 #' directory. This function make them easy to access
 #'
 #' @param file Name of file. If `NULL`, the example files will be listed.
