@@ -31,7 +31,7 @@
 # Checks message is displayed with url_to_csv argument
 
     Code
-      csv_to_parquet(url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
+      csv_to_parquet(url_to_csv = "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
         path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...

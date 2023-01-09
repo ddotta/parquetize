@@ -30,7 +30,7 @@ test_that("Checks message is displayed with path_to_csv argument", {
 test_that("Checks message is displayed with url_to_csv argument", {
   expect_snapshot(
     csv_to_parquet(
-      url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
+      url_to_csv = "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
       path_to_parquet = "Data"
     )
   )
