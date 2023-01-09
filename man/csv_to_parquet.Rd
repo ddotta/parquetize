@@ -93,7 +93,7 @@ csv_to_parquet(
 # Conversion from a URL and a csv file with "gzip" compression :
 
 csv_to_parquet(
-  url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
   path_to_parquet = tempdir(),
   compression = "gzip",
   compression_level = 5
