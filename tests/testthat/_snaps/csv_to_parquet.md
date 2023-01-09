@@ -31,7 +31,7 @@
 # Checks message is displayed with url_to_csv argument
 
     Code
-      csv_to_parquet(url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+      csv_to_parquet(url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
         path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
