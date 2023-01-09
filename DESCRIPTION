@@ -5,7 +5,7 @@ Version: 0.4.0
 Author: c(
     person(
       "Damien", "Dotta",
-      email = "damien.dotta@insee.fr",
+      email = "damien.dotta@live.fr",
       role = c("aut", "cre")
     )
 Maintainer: Damien Dotta <damien.dotta@live.fr>
