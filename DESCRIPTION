@@ -1,16 +1,15 @@
 Package: parquetize
 Type: Package
-Title: Functions to convert files to parquet format
+Title: Convert Files to Parquet Format
 Version: 0.4.0
-Author: c(
-      person("Damien", "Dotta",
-      email = "damien.dotta@live.fr",
-      role = c("aut", "cre"))
-    )
-Maintainer: Damien Dotta <damien.dotta@live.fr>
-Description: This package contains functions that allow to convert files to parquet format.
-    The files to convert can be of several formats (csv, RData, rds, SAS, SPSS...).
-License: file LICENSE
+Authors@R:
+    c(person(given = "Damien",
+             family = "Dotta",
+             role = c("aut", "cre"),
+             email = "damien.dotta@live.fr"))
+Description: Convert files to parquet format.
+    The files to convert can be of several formats (csv, duckdb, RData, rds, RSQLite, json, ndjson, SAS, SPSS...).
+License: Apache License (>= 2.0) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.2

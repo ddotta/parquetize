@@ -22,7 +22,7 @@ library(parquetize)
 
 ## With `table_to_parquet()`
 
-For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `by_chunk=TRUE` in the [`table_to_parquet()`]((https://ddotta.github.io/parquetize/reference/table_to_parquet.html)) function. 
+For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `by_chunk=TRUE` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
 The native behavior of this function (and all other functions in the package) is to load the entire table to be converted into R and then write it to disk (in a single file or a partitioned directory).  
 
 When handling very large files, the risk that frequently occurs is that the R session aborts because it cannot load the entire database into memory.
