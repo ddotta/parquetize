@@ -2,10 +2,10 @@ Package: parquetize
 Type: Package
 Title: Functions to convert files to parquet format
 Version: 0.4.0
-Author: c(
-      "Damien", "Dotta",
+Author@R: c(
+      person("Damien", "Dotta",
       email = "damien.dotta@live.fr",
-      role = c("aut", "cre")
+      role = c("aut", "cre"))
     )
 Maintainer: Damien Dotta <damien.dotta@live.fr>
 Description: This package contains functions that allow to convert files to parquet format.
