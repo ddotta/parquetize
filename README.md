@@ -3,7 +3,7 @@
 language](https://img.shields.io/github/languages/top/ddotta/parquetize)
 [![R check
 status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](https://github.com/ddotta/parquetize/actions/workflows/check-release.yaml)
-[![codecov](https://codecov.io/gh/ddotta/parquetize/branch/main/graph/badge.svg?token=25MHI8O62M)](https://codecov.io/gh/ddotta/parquetize/)
+[![codecov](https://codecov.io/gh/ddotta/parquetize/branch/main/graph/badge.svg?token=25MHI8O62M)](https://app.codecov.io/gh/ddotta/parquetize)
 [![CodeFactor](https://www.codefactor.io/repository/github/ddotta/parquetize/badge)](https://www.codefactor.io/repository/github/ddotta/parquetize)
 <!-- badges: end -->
 
