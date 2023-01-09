@@ -173,7 +173,7 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpTroIAW</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpXJo5xM</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local csv file  to a partitioned parquet file  :</span></span></span>
@@ -186,19 +186,21 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpTroIAW</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpXJo5xM</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a csv file with "gzip" compression :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  url_to_csv <span class="op">=</span> <span class="st">"https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv"</span>,</span></span>
+<span class="r-in"><span>  url_to_csv <span class="op">=</span></span></span>
+<span class="r-in"><span>  <span class="st">"https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv"</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  compression <span class="op">=</span> <span class="st">"gzip"</span>,</span></span>
 <span class="r-in"><span>  compression_level <span class="op">=</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in open.connection(structure(4L, class = c("curl", "connection"), conn_id = &lt;pointer: 0x2c4&gt;),     "rb"):</span> Timeout was reached: [www.insee.fr] Failed to connect to www.insee.fr port 443 after 7590 ms: Connection timed out</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpXJo5xM</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a zipped file :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -209,7 +211,8 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl_download(url_to_csv, tempfile()):</span> Timeout was reached: [] Failed to connect to www.insee.fr port 443 after 7544 ms: Connection timed out</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpXJo5xM</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
