@@ -29,7 +29,7 @@ test_that("Checks message is displayed with path_to_csv argument", {
 test_that("Checks message is displayed with url_to_csv argument", {
   expect_snapshot(
     csv_to_parquet(
-      url_to_csv = "https://stats.govt.nz/assets/Uploads/Research-and-development-survey/Research-and-development-survey-2021/Download-data/research-and-development-survey-2021-csv.csv",
+      url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
       path_to_parquet = "Data"
     )
   )
