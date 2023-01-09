@@ -78,7 +78,8 @@ table_to_parquet(
   path_to_parquet = tempdir()
 )
 
-# Reading SAS file by chunk and with encoding and conversion from a SAS file to a single parquet file :
+# Reading SAS file by chunk and with encoding and conversion
+# from a SAS file to a single parquet file :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
