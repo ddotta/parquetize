@@ -93,7 +93,8 @@ csv_to_parquet(
 # Conversion from a URL and a csv file with "gzip" compression :
 
 csv_to_parquet(
-  url_to_csv = "https://www.insee.fr/fr/statistiques/fichier/6051727/departement_2022.csv",
+  url_to_csv =
+  "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
   path_to_parquet = tempdir(),
   compression = "gzip",
   compression_level = 5
