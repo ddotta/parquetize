@@ -1,6 +1,7 @@
 if (file.exists('Data')==FALSE) {
   dir.create("Data")
 }
+options(timeout=200)
 
 test_that("Checks arguments are correctly filled in", {
   expect_snapshot(
