@@ -6,6 +6,9 @@
 #' directory. This function make them easy to access
 #'
 #' @param file Name of file. If `NULL`, the example files will be listed.
+#
+#' @return A character string
+#'
 #' @export
 #' @examples
 #' parquetize_example()
