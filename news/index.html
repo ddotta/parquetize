@@ -48,13 +48,13 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Changelog</h1>
-      
+      <small>Source: <a href="https://github.com/ddotta/parquetize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="parquetize-040">parquetize 0.4.0<a class="anchor" aria-label="anchor" href="#parquetize-040"></a></h2>
 <p><strong>This release includes an important feature :</strong></p>
-<p>The <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> function can now convert tables to parquet format with less memory consumption. Useful for huge tables and for computers with little RAM. (#15) A vignette has been written about it. See <a href="https://ddotta.github.io/parquetize/articles/aa-conversions.html" class="external-link">here</a>.</p>
+<p>The <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> function can now convert tables to parquet format with less memory consumption. Useful for huge tables and for computers with little RAM. (<a href="https://github.com/ddotta/parquetize/issues/15" class="external-link">#15</a>) A vignette has been written about it. See <a href="https://ddotta.github.io/parquetize/articles/aa-conversions.html" class="external-link">here</a>.</p>
 <ul><li>Removal of the <code>nb_rows</code> argument in the <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> function</li>
 <li>Replaced by new arguments <code>by_chunk</code>, <code>chunk_size</code> and <code>skip</code> (see documentation)</li>
 <li>Progress bars are now managed with <a href="https://github.com/r-lib/cli" class="external-link">{cli} package</a>
@@ -70,8 +70,8 @@
 <ul><li>Added <code><a href="../reference/rds_to_parquet.html">rds_to_parquet()</a></code> function to convert rds files to parquet format.</li>
 <li>Added <code><a href="../reference/json_to_parquet.html">json_to_parquet()</a></code> function to convert json and ndjson files to parquet format.</li>
 <li>Added the possibility to convert a csv file to a partitioned parquet file.</li>
-<li>Improving code coverage (#9)</li>
-<li>Check if <code>path_to_parquet</code> exists in functions <code><a href="../reference/csv_to_parquet.html">csv_to_parquet()</a></code> or <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> (@py-b)</li>
+<li>Improving code coverage (<a href="https://github.com/ddotta/parquetize/issues/9" class="external-link">#9</a>)</li>
+<li>Check if <code>path_to_parquet</code> exists in functions <code><a href="../reference/csv_to_parquet.html">csv_to_parquet()</a></code> or <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> (<a href="https://github.com/py-b" class="external-link">@py-b</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="parquetize-010">parquetize 0.1.0<a class="anchor" aria-label="anchor" href="#parquetize-010"></a></h2>
