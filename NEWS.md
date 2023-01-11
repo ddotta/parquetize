@@ -1,3 +1,7 @@
+# parquetize 0.5.0
+
+This release includes corrections for CRAN submission.
+
 # parquetize 0.4.0
 
 **This release includes an important feature :**
