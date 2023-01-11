@@ -10,7 +10,7 @@ Authors@R:
 Description: Collection of functions to get files in parquet format.
     The files to convert can be of several formats 
     (csv, duckdb, RData, rds, RSQLite, json, ndjson, SAS, SPSS...).
-License: Apache License (>= 2.0) | file LICENSE
+License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ddotta/parquetize
