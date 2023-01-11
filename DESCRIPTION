@@ -7,7 +7,7 @@ Authors@R:
              family = "Dotta",
              role = c("aut", "cre"),
              email = "damien.dotta@live.fr"))
-Description: Convert files to parquet format.
+Description: Collection of functions to get files in parquet format.
     The files to convert can be of several formats 
     (csv, duckdb, RData, rds, RSQLite, json, ndjson, SAS, SPSS...).
 License: Apache License (>= 2.0) | file LICENSE
