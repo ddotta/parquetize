@@ -8,7 +8,7 @@ Authors@R:
              role = c("aut", "cre"),
              email = "damien.dotta@live.fr"))
 Description: Collection of functions to get files in parquet format.
-    Parquet is a columnar storage file format <[https://parquet.apache.org/)>. 
+    Parquet is a columnar storage file format <https://parquet.apache.org/>. 
     The files to convert can be of several formats 
     ("csv", "duckdb", "RData", "rds", "RSQLite", 
     "json", "ndjson", "SAS", "SPSS"...).
