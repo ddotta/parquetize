@@ -14,25 +14,23 @@ R package that allows to convert databases of different formats (csv, SAS, SPSS,
 
 ## Installation
 
+To install `parquetize` from CRAN :  
+
+``` r
+install.packages("parquetize")
+```
+
+Or alternatively to install the development version from GitHub :  
+
 ``` r
 remotes::install_github("ddotta/parquetize")
 ```
 
+Then to load it :  
+
 ``` r
 library(parquetize)
 ```
-
-<details>
-  <summary>For the French Insee agents who want to use the package with AUS</summary>
-  
-```r
-# install.packages(c("haven","arrow","curl","readr","dplyr","jsonlite","DBI","duckdb","RSQLite"))
-install.packages("parquetize", 
-                 repos = "https://nexus.insee.fr/repository/r-local", 
-                 type = "source") 
-```
-</details>
-
 
 ## Why this package ?
 
