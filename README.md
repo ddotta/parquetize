@@ -12,7 +12,7 @@ status](https://github.com/ddotta/parquetize/workflows/R-CMD-check/badge.svg)](h
 :package: Package `parquetize` <img src="man/figures/hex_parquetize.png" width=110 align="right"/>
 ======================================
 
-R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, duckdb, sqlite, JSON, ndJSON) to [parquet](https://parquet.apache.org/) format in a same function.
+R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, sqlite, JSON, ndJSON) to [parquet](https://parquet.apache.org/) format in a same function.
 
 ## Installation
 
@@ -36,11 +36,11 @@ library(parquetize)
 
 ## Why this package ?
 
-This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite), [RSQLite](https://github.com/r-dbi/RSQLite), [duckdb](https://github.com/cran/duckdb) and [arrow](https://github.com/apache/arrow) packages.
+This package is a simple wrapper of some very useful functions from the [haven](https://github.com/tidyverse/haven), [readr](https://github.com/tidyverse/readr/), [jsonlite](https://github.com/jeroen/jsonlite), [RSQLite](https://github.com/r-dbi/RSQLite) and [arrow](https://github.com/apache/arrow) packages.
 
 While working, I realized that I was often repeating the same operation when working with parquet files : 
 
-- I import the file in R with {haven}, {jsonlite}, {readr}, {DBI}, {RSQLite} or {duckdb}.
+- I import the file in R with {haven}, {jsonlite}, {readr}, {DBI} or {RSQLite}.
 - And I export the file in parquet format
 
 As a fervent of the DRY principle (don't repeat yourself) the exported functions of this package make my life easier and **execute these operations within the same function**.  
@@ -55,7 +55,6 @@ As a fervent of the DRY principle (don't repeat yourself) the exported functions
 - [table_to_parquet()](https://ddotta.github.io/parquetize/reference/table_to_parquet.html)
     - **The other benefit of this function** is that it handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases. To avoid overcharging R's RAM for huge table, the conversion can be done by chunk. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html)
 - [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html)
-- [duckdb_to_parquet()](https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html)
 
     
 For more details, see the documentation and examples :  
@@ -63,8 +62,7 @@ For more details, see the documentation and examples :
 - [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples).  
 - [json_to_parquet()](https://ddotta.github.io/parquetize/reference/json_to_parquet.html#ref-examples).  
 - [rds_to_parquet()](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html#ref-examples).  
-- [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples)  
-- [duckdb_to_parquet()](https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html#ref-examples).
+- [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples).
 
 ## Example
 

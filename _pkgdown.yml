@@ -17,7 +17,6 @@ reference:
       - rds_to_parquet
       - table_to_parquet
       - sqlite_to_parquet
-      - duckdb_to_parquet
   - title: Other functions
     contents:
       - rbind_parquet
