@@ -43,6 +43,7 @@ Two conversions possibilities are offered :
 }
 \examples{
 
+\dontrun{
 # Conversion from a local duckdb file to a single parquet file :
 
 duckdb_to_parquet(
@@ -60,4 +61,5 @@ duckdb_to_parquet(
   partition = "yes",
   partitioning =  c("Species")
 )
+}
 }
