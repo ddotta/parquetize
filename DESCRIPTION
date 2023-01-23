@@ -1,7 +1,7 @@
 Package: parquetize
 Type: Package
 Title: Convert Files to Parquet Format
-Version: 0.5.0
+Version: 0.5.1
 Authors@R:
     c(person(given = "Damien",
              family = "Dotta",
@@ -10,7 +10,7 @@ Authors@R:
 Description: Collection of functions to get files in parquet format.
     Parquet is a columnar storage file format <https://parquet.apache.org/>. 
     The files to convert can be of several formats 
-    ("csv", "duckdb", "RData", "rds", "RSQLite", 
+    ("csv", "RData", "rds", "RSQLite", 
     "json", "ndjson", "SAS", "SPSS"...).
 License: Apache License (>= 2.0)
 Encoding: UTF-8
@@ -32,7 +32,6 @@ Imports:
     dplyr,
     jsonlite,
     DBI,
-    duckdb,
     RSQLite,
     cli
 VignetteBuilder: knitr

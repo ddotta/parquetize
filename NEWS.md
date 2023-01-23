@@ -1,3 +1,8 @@
+# parquetize 0.5.1
+
+This release removes `duckdb_to_parquet()` function on the advice of Brian Ripley from CRAN.  
+Indeed, the storage of DuckDB is not yet stable. The storage will be stabilized when version 1.0 releases.
+
 # parquetize 0.5.0
 
 This release includes corrections for CRAN submission.
