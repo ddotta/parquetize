@@ -30,6 +30,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' # Conversion from a local duckdb file to a single parquet file :
 #'
 #' duckdb_to_parquet(
@@ -47,6 +48,7 @@
 #'   partition = "yes",
 #'   partitioning =  c("Species")
 #' )
+#' }
 
 duckdb_to_parquet <- function(
     path_to_duckdb,
