@@ -8,7 +8,7 @@
 <meta name="description" content='Collection of functions to get files in parquet format.
     Parquet is a columnar storage file format &lt;https://parquet.apache.org/&gt;. 
     The files to convert can be of several formats 
-    ("csv", "duckdb", "RData", "rds", "RSQLite", 
+    ("csv", "RData", "rds", "RSQLite", 
     "json", "ndjson", "SAS", "SPSS"...).'>
 <title>Convert Files to Parquet Format • parquetize</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +19,7 @@
 <meta property="og:description" content='Collection of functions to get files in parquet format.
     Parquet is a columnar storage file format &lt;https://parquet.apache.org/&gt;. 
     The files to convert can be of several formats 
-    ("csv", "duckdb", "RData", "rds", "RSQLite", 
+    ("csv", "RData", "rds", "RSQLite", 
     "json", "ndjson", "SAS", "SPSS"...).'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@
 <div class="page-header"><h1 id="package-package-parquetize-">
 <span class="emoji" data-emoji="package">📦</span> Package <code>parquetize</code> <img src="reference/figures/hex_parquetize.png" width="110" align="right"><a class="anchor" aria-label="anchor" href="#package-package-parquetize-"></a>
 </h1></div>
-<p>R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, duckdb, sqlite, JSON, ndJSON) to <a href="https://parquet.apache.org/" class="external-link">parquet</a> format in a same function.</p>
+<p>R package that allows to convert databases of different formats (csv, SAS, SPSS, Stata, rds, sqlite, JSON, ndJSON) to <a href="https://parquet.apache.org/" class="external-link">parquet</a> format in a same function.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -97,10 +97,10 @@
 <div class="section level2">
 <h2 id="why-this-package-">Why this package ?<a class="anchor" aria-label="anchor" href="#why-this-package-"></a>
 </h2>
-<p>This package is a simple wrapper of some very useful functions from the <a href="https://github.com/tidyverse/haven" class="external-link">haven</a>, <a href="https://github.com/tidyverse/readr/" class="external-link">readr</a>, <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a>, <a href="https://github.com/r-dbi/RSQLite" class="external-link">RSQLite</a>, <a href="https://github.com/cran/duckdb" class="external-link">duckdb</a> and <a href="https://github.com/apache/arrow" class="external-link">arrow</a> packages.</p>
+<p>This package is a simple wrapper of some very useful functions from the <a href="https://github.com/tidyverse/haven" class="external-link">haven</a>, <a href="https://github.com/tidyverse/readr/" class="external-link">readr</a>, <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a>, <a href="https://github.com/r-dbi/RSQLite" class="external-link">RSQLite</a> and <a href="https://github.com/apache/arrow" class="external-link">arrow</a> packages.</p>
 <p>While working, I realized that I was often repeating the same operation when working with parquet files :</p>
 <ul>
-<li>I import the file in R with {haven}, {jsonlite}, {readr}, {DBI}, {RSQLite} or {duckdb}.</li>
+<li>I import the file in R with {haven}, {jsonlite}, {readr}, {DBI} or {RSQLite}.</li>
 <li>And I export the file in parquet format</li>
 </ul>
 <p>As a fervent of the DRY principle (don’t repeat yourself) the exported functions of this package make my life easier and <strong>execute these operations within the same function</strong>.</p>
@@ -133,15 +133,13 @@
 </ul>
 </li>
 <li><a href="https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html" class="external-link">sqlite_to_parquet()</a></li>
-<li><a href="https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html" class="external-link">duckdb_to_parquet()</a></li>
 </ul>
 <p>For more details, see the documentation and examples :<br>
 - <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html#ref-examples" class="external-link">table_to_parquet()</a>.<br>
 - <a href="https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples" class="external-link">csv_to_parquet()</a>.<br>
 - <a href="https://ddotta.github.io/parquetize/reference/json_to_parquet.html#ref-examples" class="external-link">json_to_parquet()</a>.<br>
 - <a href="https://ddotta.github.io/parquetize/reference/rds_to_parquet.html#ref-examples" class="external-link">rds_to_parquet()</a>.<br>
-- <a href="https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples" class="external-link">sqlite_to_parquet()</a><br>
-- <a href="https://ddotta.github.io/parquetize/reference/duckdb_to_parquet.html#ref-examples" class="external-link">duckdb_to_parquet()</a>.</p>
+- <a href="https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples" class="external-link">sqlite_to_parquet()</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
