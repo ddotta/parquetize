@@ -7,31 +7,27 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
 #' @param chunk_size Number of lines that defines the size of the chunk.
 #' @param skip Number of lines to ignore when converting.
-#' @param encoding string that indicates the character encoding for the input file.
 #'
 #'
 #' @noRd
-bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip, encoding = "utf-8") {
+bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip) {
 
   if (file_format %in% c("SAS")) {
 
     tbl <- read_sas(data_file = path_to_table,
                     skip = skip,
-                    n_max = chunk_size,
-                    encoding = encoding)
+                    n_max = chunk_size)
   } else if (file_format %in% c("SPSS")) {
 
     tbl <- read_sav(file = path_to_table,
                     skip = skip,
-                    n_max = chunk_size,
-                    encoding = encoding)
+                    n_max = chunk_size)
 
   } else if (file_format %in% c("Stata")) {
 
     tbl <- read_dta(file = path_to_table,
                     skip = skip,
-                    n_max = chunk_size,
-                    encoding = encoding)
+                    n_max = chunk_size)
   }
 
   not_completed <- nrow(tbl) != 0
