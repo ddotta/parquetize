@@ -1,3 +1,7 @@
+# parquetize 0.5.2
+
+This release fixes the behaviour of `table_to_parquet()` function when the argument `by_chunk` is TRUE.
+
 # parquetize 0.5.1
 
 This release removes `duckdb_to_parquet()` function on the advice of Brian Ripley from CRAN.  
