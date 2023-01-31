@@ -57,13 +57,9 @@
         package = "haven"), path_to_parquet = "Data", by_chunk = TRUE, chunk_size = 50,
       encoding = "utf-8")
     Message <cliMessage>
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris1-50.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris51-100.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris101-150.parquet
-      Conversion completed !
 
 # Checks message is displayed with by adding partition and partitioning argument
 
@@ -84,13 +80,9 @@
         package = "haven"), path_to_parquet = "Data", by_chunk = TRUE, chunk_size = 50,
       partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris1-50.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris51-100.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris101-150.parquet
-      Conversion completed !
 
 # Checks message is displayed with SAS by adding chunk_size argument
 
@@ -98,13 +90,9 @@
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
         package = "haven"), path_to_parquet = "Data", by_chunk = TRUE, chunk_size = 50)
     Message <cliMessage>
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris1-50.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris51-100.parquet
-      Conversion completed !
       v The SAS file is available in parquet format under Data/iris101-150.parquet
-      Conversion completed !
 
 # Checks message is displayed with SPSS by adding nb_rows, partition and partitioning argument
 
