@@ -202,11 +202,7 @@ table_to_parquet <- function(
 
   if (isTRUE(by_chunk)) {
 
-    if (skip==0) {
-
-      cli_progress_message("Conversion completed !")
-
-    } else {
+    if (skip>0) {
 
       cli_progress_bar("Converting table", clear = TRUE)
 
