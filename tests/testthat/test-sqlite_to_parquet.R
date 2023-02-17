@@ -17,6 +17,15 @@ test_that("Checks arguments are correctly filled in", {
   )
 })
 
+test_that("Check if extension used in path_to_sqlite is correct", {
+  expect_snapshot(
+    sqlite_to_parquet(
+      path_to_sqlite = system.file("extdata","iris.sqliteee",package = "parquetize")
+    ),
+    error = TRUE
+  )
+})
+
 test_that("Checks message is displayed with sqlite file", {
   expect_snapshot(
     sqlite_to_parquet(
