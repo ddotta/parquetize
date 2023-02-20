@@ -39,23 +39,37 @@
     Error <simpleError>
       
 
-# Checks message is displayed with SAS file and only path_to_table and path_to_parquet argument
+# Checks argument columns is a character vector
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", )
+        package = "haven"), path_to_parquet = "Data_test", columns = matrix(1:10))
     Message <cliMessage>
+      x Be careful, the argument columns must be a character vector
       Reading data...
-      Writing data...
-      v The SAS file is available in parquet format under Data_test
-      Writing data...
+    Warning <lifecycle_warning_deprecated>
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(columns)
+      
+        # Now:
+        data %>% select(all_of(columns))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+    Error <vctrs_error_subscript_type>
+      Can't subset columns with `columns`.
+      x Subscript `columns` must be a simple vector, not a matrix.
 
 # Checks message is displayed when we select a few columns
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", columns = c("Species",
-        "Petal_Length"))
+        package = "haven"), path_to_parquet = "Data_test", columns = all_of(c(
+        "Species", "Petal_Length")))
+    Warning <lifecycle_warning_deprecated>
+      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
+      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
     Message <cliMessage>
       Reading data...
     Warning <lifecycle_warning_deprecated>
@@ -77,7 +91,10 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sav", package = "haven"),
-      path_to_parquet = "Data_test", columns = c("Species", "Petal.Length"))
+      path_to_parquet = "Data_test", columns = all_of(c("Species", "Petal.Length")))
+    Warning <lifecycle_warning_deprecated>
+      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
+      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
     Message <cliMessage>
       Reading data...
     Warning <lifecycle_warning_deprecated>
@@ -99,7 +116,10 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.dta", package = "haven"),
-      path_to_parquet = "Data_test", columns = c("species", "petallength"))
+      path_to_parquet = "Data_test", columns = all_of(c("species", "petallength")))
+    Warning <lifecycle_warning_deprecated>
+      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
+      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
     Message <cliMessage>
       Reading data...
     Warning <lifecycle_warning_deprecated>

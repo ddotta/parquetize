@@ -46,7 +46,8 @@ test_that("Checks argument columns is a character vector", {
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       columns = matrix(1:10)
-    )
+    ),
+    error = TRUE
   )
 })
 
@@ -56,7 +57,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = c("Species","Petal_Length")
+      columns = all_of(c("Species","Petal_Length"))
     )
   )
 
@@ -64,7 +65,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sav", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = c("Species","Petal.Length")
+      columns = all_of(c("Species","Petal.Length"))
     )
   )
 
@@ -72,7 +73,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.dta", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = c("species","petallength")
+      columns = all_of(c("species","petallength"))
     )
   )
 
