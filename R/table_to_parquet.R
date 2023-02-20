@@ -119,7 +119,7 @@ table_to_parquet <- function(
   }
 
   # Check if columns argument is a character vector
-  if (isFALSE(all(is.vector(columns) & is.character(columns)))) {
+  if (isFALSE(is.vector(columns) & is.character(columns))) {
     cli_alert_danger("Be careful, the argument columns must be a character vector")
   }
 

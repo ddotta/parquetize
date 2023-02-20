@@ -69,3 +69,27 @@ test_that("Checks message is displayed with by adding partition and partitioning
     )
   )
 })
+
+test_that("Checks argument columns is a character vector", {
+
+  expect_snapshot(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_parquet = "Data_test",
+      columns = matrix(1:10)
+    ),
+    error = TRUE
+  )
+})
+
+test_that("Checks message is displayed when we select a few columns", {
+
+  expect_snapshot(
+    csv_to_parquet(
+      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_parquet = "Data_test",
+      columns = all_of(c("REG","LIBELLE"))
+    )
+  )
+
+})
