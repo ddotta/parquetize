@@ -9,7 +9,6 @@ docs
 inst/doc
 
 # This folders
-Data/
 tests/testthat/output/
 
 # Files with this extensions
