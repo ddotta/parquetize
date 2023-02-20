@@ -1,6 +1,9 @@
 # parquetize 0.5.2
 
-This release fixes the behaviour of `table_to_parquet()` function when the argument `by_chunk` is TRUE.
+This release includes :  
+
+- The behaviour of `table_to_parquet()` function has been fixed when the argument `by_chunk` is TRUE.  
+- The example files in parquet format of the iris table have been migrated to the `inst/extdata` directory.
 
 # parquetize 0.5.1
 
