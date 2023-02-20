@@ -1,5 +1,5 @@
-if (file.exists('Data')==FALSE) {
-  dir.create("Data")
+if (file.exists('Data_test')==FALSE) {
+  dir.create("Data_test")
 }
 options(timeout=200)
 
@@ -12,7 +12,7 @@ test_that("Checks arguments are correctly filled in", {
   )
   expect_snapshot(
     csv_to_parquet(
-      path_to_parquet = "Data"
+      path_to_parquet = "Data_test"
     ),
     error = TRUE
   )
@@ -22,7 +22,7 @@ test_that("Checks message is displayed with path_to_csv argument", {
   expect_snapshot(
     csv_to_parquet(
       path_to_csv = parquetize_example("region_2022.csv"),
-      path_to_parquet = "Data"
+      path_to_parquet = "Data_test"
     )
   )
 })
@@ -31,7 +31,7 @@ test_that("Checks message is displayed with url_to_csv argument", {
   expect_snapshot(
     csv_to_parquet(
       url_to_csv = "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
-      path_to_parquet = "Data"
+      path_to_parquet = "Data_test"
     )
   )
 })
@@ -42,7 +42,7 @@ test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip
       url_to_csv = "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip",
       csv_as_a_zip = TRUE,
       filename_in_zip = "machine-readable-business-employment-data-june-2022-quarter.csv",
-      path_to_parquet = "Data"
+      path_to_parquet = "Data_test"
     )
   )
 })
@@ -51,7 +51,7 @@ test_that("Checks message is displayed with compression and compression_level ar
   expect_snapshot(
     csv_to_parquet(
       path_to_csv = parquetize_example("region_2022.csv"),
-      path_to_parquet = "Data",
+      path_to_parquet = "Data_test",
       compression = "gzip",
       compression_level = 5
     )
@@ -63,7 +63,7 @@ test_that("Checks message is displayed with by adding partition and partitioning
   expect_snapshot(
     csv_to_parquet(
       path_to_csv = parquetize_example("region_2022.csv"),
-      path_to_parquet = "Data",
+      path_to_parquet = "Data_test",
       partition = "yes",
       partitioning =  c("REG")
     )

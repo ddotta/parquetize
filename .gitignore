@@ -9,6 +9,7 @@ docs
 inst/doc
 
 # This folders
+Data/
 Data_test/
 tests/testthat/output/
 

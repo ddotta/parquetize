@@ -1,4 +1,4 @@
-if (file.exists('Data')==FALSE) {
+if (file.exists('Data_test')==FALSE) {
   dir.create("Data_test")
 }
 
