@@ -42,7 +42,7 @@ test_that("Checks message is displayed with url_to_csv argument and csv_as_a_zip
       url_to_csv = "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip",
       csv_as_a_zip = TRUE,
       filename_in_zip = "machine-readable-business-employment-data-june-2022-quarter.csv",
-      path_to_parquet = "Data_test"
+      path_to_parquet = "Data"
     )
   )
 })
