@@ -30,7 +30,6 @@ Imports:
     arrow,
     curl,
     readr,
-    dplyr,
     jsonlite,
     DBI,
     RSQLite,
