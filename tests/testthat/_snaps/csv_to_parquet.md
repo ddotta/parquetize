@@ -43,10 +43,10 @@
     Code
       csv_to_parquet(url_to_csv = "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip",
         csv_as_a_zip = TRUE, filename_in_zip = "machine-readable-business-employment-data-june-2022-quarter.csv",
-        path_to_parquet = "Data_test")
+        path_to_parquet = "Data")
     Message <cliMessage>
       Reading data...
-      v The csv file is available in parquet format under Data_test
+      v The csv file is available in parquet format under Data
       Reading data...
 
 # Checks message is displayed with compression and compression_level arguments
