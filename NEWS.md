@@ -2,6 +2,7 @@
 
 This release includes :  
 
+- Added columns selection to table_to_parquet() and csv_to_parquet() functions #20
 - The behaviour of `table_to_parquet()` function has been fixed when the argument `by_chunk` is TRUE.  
 - The example files in parquet format of the iris table have been migrated to the `inst/extdata` directory.
 
