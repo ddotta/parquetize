@@ -26,6 +26,7 @@
 #' @param csv_as_a_zip boolean that indicates if the csv is stored in a zip
 #' @param filename_in_zip name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
+#' @param columns character vector of columns to select from the input file (by default, all columns are selected).
 #' @param compression compression algorithm. Default "snappy".
 #' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
@@ -58,6 +59,15 @@
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
 #'   path_to_parquet = tempdir()
+#' )
+#'
+#' # Conversion from a local csv file to a single parquet file and select only
+#' # fex columns :
+#'
+#' csv_to_parquet(
+#'   path_to_csv = parquetize_example("region_2022.csv"),
+#'   path_to_parquet = tempdir(),
+#'   columns = c("REG","LIBELLE")
 #' )
 #'
 #' # Conversion from a local csv file  to a partitioned parquet file  :
@@ -94,6 +104,7 @@ csv_to_parquet <- function(
     csv_as_a_zip = FALSE,
     filename_in_zip,
     path_to_parquet,
+    columns = "all",
     compression = "snappy",
     compression_level = NULL,
     partition = "no",
@@ -122,15 +133,34 @@ csv_to_parquet <- function(
     dir.create(path_to_parquet, recursive = TRUE)
   }
 
+  # Check if columns argument is a character vector
+  if (isFALSE(is.vector(columns) & is.character(columns))) {
+    cli_alert_danger("Be careful, the argument columns must be a character vector")
+  }
+
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
   if (missing(path_to_csv)==FALSE) {
 
-    csv_output <- read_delim(file = path_to_csv,
-                             locale = locale(encoding = encoding),
-                             lazy = TRUE,
-                             show_col_types = FALSE)
+    # If we want to keep all columns
+    if (identical(columns,"all")) {
+
+      csv_output <- read_delim(file = path_to_csv,
+                               locale = locale(encoding = encoding),
+                               lazy = TRUE,
+                               show_col_types = FALSE)
+
+      # If you select the columns to be kept
+    } else {
+
+      csv_output <- read_delim(file = path_to_csv,
+                               locale = locale(encoding = encoding),
+                               lazy = TRUE,
+                               show_col_types = FALSE,
+                               col_select = columns)
+
+    }
 
     Sys.sleep(0.01)
     cli_progress_message("Writing data...")
@@ -141,10 +171,24 @@ csv_to_parquet <- function(
 
     if (csv_as_a_zip==FALSE) {
 
-      csv_output <- read_delim(file = url_to_csv,
-                               locale = locale(encoding = encoding),
-                               lazy = TRUE,
-                               show_col_types = FALSE)
+      # If we want to keep all columns
+      if (identical(columns,"all")) {
+
+        csv_output <- read_delim(file = url_to_csv,
+                                 locale = locale(encoding = encoding),
+                                 lazy = TRUE,
+                                 show_col_types = FALSE)
+
+        # If you select the columns to be kept
+      } else {
+
+        csv_output <- read_delim(file = url_to_csv,
+                                 locale = locale(encoding = encoding),
+                                 lazy = TRUE,
+                                 show_col_types = FALSE,
+                                 col_select = columns)
+
+      }
 
       parquetname <- paste0(gsub("\\..*","",sub(".*/","", url_to_csv)),".parquet")
 
@@ -154,10 +198,24 @@ csv_to_parquet <- function(
       csv_file <- unzip(zipfile=zip_file,exdir=tempfile())
       names(csv_file) <- sub('.*/', '', csv_file)
 
-      csv_output <- read_delim(file = csv_file[[filename_in_zip]],
-                               locale = locale(encoding = encoding),
-                               lazy = TRUE,
-                               show_col_types = FALSE)
+      # If we want to keep all columns
+      if (identical(columns,"all")) {
+
+        csv_output <- read_delim(file = csv_file[[filename_in_zip]],
+                                 locale = locale(encoding = encoding),
+                                 lazy = TRUE,
+                                 show_col_types = FALSE)
+
+        # If you select the columns to be kept
+      } else {
+
+        csv_output <- read_delim(file = csv_file[[filename_in_zip]],
+                                 locale = locale(encoding = encoding),
+                                 lazy = TRUE,
+                                 show_col_types = FALSE,
+                                 col_select = columns)
+
+      }
 
       parquetname <- paste0(gsub("\\..*","",filename_in_zip),".parquet")
     }
