@@ -11,7 +11,7 @@
 ---
 
     Code
-      sqlite_to_parquet(path_to_parquet = "Data")
+      sqlite_to_parquet(path_to_parquet = "Data_test")
     Message <cliMessage>
       x Be careful, the argument path_to_sqlite must be filled in
     Error <simpleError>
@@ -32,22 +32,22 @@
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
-        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data")
+        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data_test")
     Message <cliMessage>
       Reading data...
       Writing data...
-      v The iris table from your sqlite file is available in parquet format under Data
+      v The iris table from your sqlite file is available in parquet format under Data_test
       Writing data...
 
 # Checks message is displayed with by adding partition and partitioning argument
 
     Code
       sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
-        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data",
+        package = "parquetize"), table_in_sqlite = "iris", path_to_parquet = "Data_test",
       partition = "yes", partitioning = c("Species"))
     Message <cliMessage>
       Reading data...
       Writing data...
-      v The iris table from your sqlite file is available in parquet format under Data
+      v The iris table from your sqlite file is available in parquet format under Data_test
       Writing data...
 
