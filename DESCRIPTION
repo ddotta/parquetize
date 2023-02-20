@@ -33,5 +33,6 @@ Imports:
     jsonlite,
     DBI,
     RSQLite,
-    cli
+    cli,
+    dplyr
 VignetteBuilder: knitr
