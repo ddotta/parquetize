@@ -22,6 +22,7 @@
 #'
 #' @param path_to_table string that indicates the path to the input file (don't forget the extension).
 #' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
+#' @param columns character vector of columns to select from the input file (by default, all columns are selected).
 #' @param by_chunk Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.
 #' @param chunk_size this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.
 #' @param skip By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.
@@ -72,6 +73,15 @@
 #'   encoding = "utf-8"
 #' )
 #'
+#' # Conversion from a SAS file to a single parquet file and select only
+#' #few columns  :
+#'
+#' table_to_parquet(
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   columns = c("Species","Petal_Length")
+#' )
+#'
 #' # Conversion from a SAS file to a partitioned parquet file  :
 #'
 #' table_to_parquet(
@@ -84,6 +94,7 @@
 table_to_parquet <- function(
     path_to_table,
     path_to_parquet,
+    columns = "all",
     by_chunk = FALSE,
     chunk_size,
     skip = 0,
@@ -107,6 +118,11 @@ table_to_parquet <- function(
     dir.create(path_to_parquet, recursive = TRUE)
   }
 
+  # Check if columns argument is a character vector
+  if (isFALSE(all(is.vector(columns) & is.character(columns)))) {
+    cli_alert_danger("Be careful, the argument columns must be a character vector")
+  }
+
   # Check if chunk_size argument is filled in by_chunk argument is TRUE
   if (by_chunk==TRUE & missing(chunk_size)) {
     cli_alert_danger("Be careful, if you want to do a conversion by chunk then the argument chunk_size must be filled in")
@@ -115,6 +131,7 @@ table_to_parquet <- function(
   # Check if skip argument is correctly filled in by_chunk argument is TRUE
   if (by_chunk==TRUE & skip<0) {
     cli_alert_danger("Be careful, if you want to do a conversion by chunk then the argument skip must be must be greater than 0")
+    stop("")
   }
 
   # If by_chunk argument is TRUE and partition argument is equal to "yes" then partition is forced to "no"
@@ -135,8 +152,20 @@ table_to_parquet <- function(
       Sys.sleep(0.01)
       cli_progress_message("Reading data...")
 
-      table_output <- read_sas(data_file = path_to_table,
-                               encoding = encoding)
+      # If we want to keep all columns
+      if (identical(columns,"all")) {
+
+        table_output <- read_sas(data_file = path_to_table,
+                                 encoding = encoding)
+
+      # If you select the columns to be kept
+      } else {
+
+        table_output <- read_sas(data_file = path_to_table,
+                                 encoding = encoding,
+                                 col_select = columns)
+
+      }
 
       table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 
@@ -151,8 +180,20 @@ table_to_parquet <- function(
       Sys.sleep(0.02)
       cli_progress_message("Reading data...")
 
-      table_output <- read_sav(file = path_to_table,
-                               encoding = encoding)
+      # If we want to keep all columns
+      if (identical(columns,"all")) {
+
+        table_output <- read_sav(file = path_to_table,
+                                 encoding = encoding)
+
+        # If you select the columns to be kept
+      } else {
+
+        table_output <- read_sav(file = path_to_table,
+                                 encoding = encoding,
+                                 col_select = columns)
+
+      }
 
       table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 
@@ -167,8 +208,20 @@ table_to_parquet <- function(
       Sys.sleep(0.01)
       cli_progress_message("Reading data...")
 
-      table_output <- read_dta(file = path_to_table,
-                               encoding = encoding)
+      # If we want to keep all columns
+      if (identical(columns,"all")) {
+
+        table_output <- read_dta(file = path_to_table,
+                                 encoding = encoding)
+
+        # If you select the columns to be kept
+      } else {
+
+        table_output <- read_dta(file = path_to_table,
+                                 encoding = encoding,
+                                 col_select = columns)
+
+      }
 
       table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 

@@ -19,6 +19,7 @@ test_that("Checks arguments are filled in", {
   )
   expect_snapshot(
     table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       encoding = "utf-8",
       by_chunk = TRUE
@@ -27,23 +28,54 @@ test_that("Checks arguments are filled in", {
   )
   expect_snapshot(
     table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       encoding = "utf-8",
       by_chunk = TRUE,
+      chunk_size = 50,
       skip = -100
     ),
     error = TRUE
   )
 })
 
-test_that("Checks message is displayed with SAS file and only path_to_table and path_to_parquet argument", {
+test_that("Checks argument columns is a character vector", {
 
   expect_snapshot(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
+      columns = matrix(1:10)
     )
   )
+})
+
+test_that("Checks message is displayed when we select a few columns", {
+
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = "Data_test",
+      columns = c("Species","Petal_Length")
+    )
+  )
+
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sav", package = "haven"),
+      path_to_parquet = "Data_test",
+      columns = c("Species","Petal.Length")
+    )
+  )
+
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.dta", package = "haven"),
+      path_to_parquet = "Data_test",
+      columns = c("species","petallength")
+    )
+  )
+
 })
 
 test_that("Checks message is displayed with by adding chunk_size to TRUE and encoding argument", {

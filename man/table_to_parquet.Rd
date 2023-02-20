@@ -7,6 +7,7 @@
 table_to_parquet(
   path_to_table,
   path_to_parquet,
+  columns = "all",
   by_chunk = FALSE,
   chunk_size,
   skip = 0,
@@ -19,6 +20,8 @@ table_to_parquet(
 \item{path_to_table}{string that indicates the path to the input file (don't forget the extension).}
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet files will be stored.}
+
+\item{columns}{character vector of columns to select from the input file (by default, all columns are selected).}
 
 \item{by_chunk}{Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.}
 
@@ -87,6 +90,15 @@ table_to_parquet(
   by_chunk = TRUE,
   chunk_size = 50,
   encoding = "utf-8"
+)
+
+# Conversion from a SAS file to a single parquet file and select only
+#few columns  :
+
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempdir(),
+  columns = c("Species","Petal_Length")
 )
 
 # Conversion from a SAS file to a partitioned parquet file  :
