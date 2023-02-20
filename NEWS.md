@@ -2,7 +2,7 @@
 
 This release includes :  
 
-- Added columns selection to table_to_parquet() and csv_to_parquet() functions #20
+- Added columns selection to `table_to_parquet()` and `csv_to_parquet()` functions #20
 - The example files in parquet format of the iris table have been migrated to the `inst/extdata` directory.
 
 # parquetize 0.5.2
