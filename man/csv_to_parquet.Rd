@@ -10,6 +10,7 @@ csv_to_parquet(
   csv_as_a_zip = FALSE,
   filename_in_zip,
   path_to_parquet,
+  columns = "all",
   compression = "snappy",
   compression_level = NULL,
   partition = "no",
@@ -27,6 +28,8 @@ csv_to_parquet(
 \item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.}
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
+
+\item{columns}{character vector of columns to select from the input file (by default, all columns are selected).}
 
 \item{compression}{compression algorithm. Default "snappy".}
 
@@ -80,6 +83,15 @@ then use the function with the argument `path_to_csv`.
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
   path_to_parquet = tempdir()
+)
+
+# Conversion from a local csv file to a single parquet file and select only
+# fex columns :
+
+csv_to_parquet(
+  path_to_csv = parquetize_example("region_2022.csv"),
+  path_to_parquet = tempdir(),
+  columns = c("REG","LIBELLE")
 )
 
 # Conversion from a local csv file  to a partitioned parquet file  :
