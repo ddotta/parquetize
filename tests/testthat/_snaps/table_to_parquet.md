@@ -153,7 +153,7 @@
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
         package = "haven"), path_to_parquet = "Data_test", partition = "yes",
-      partitioning = c("Species"))
+      partitioning = "Species")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -165,7 +165,7 @@
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
         package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
-      chunk_size = 50, partition = "yes", partitioning = c("Species"))
+      chunk_size = 50, partition = "yes", partitioning = "Species")
     Message <cliMessage>
       v The SAS file is available in parquet format under Data_test/iris1-50.parquet
       v The SAS file is available in parquet format under Data_test/iris51-100.parquet
@@ -186,7 +186,7 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sav", package = "haven"),
-      path_to_parquet = "Data_test", partition = "yes", partitioning = c("Species"))
+      path_to_parquet = "Data_test", partition = "yes", partitioning = "Species")
     Message <cliMessage>
       Reading data...
       Writing data...
@@ -208,7 +208,7 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.dta", package = "haven"),
-      path_to_parquet = "Data_test", partition = "yes", partitioning = c("species"))
+      path_to_parquet = "Data_test", partition = "yes", partitioning = "species")
     Message <cliMessage>
       Reading data...
       Writing data...
