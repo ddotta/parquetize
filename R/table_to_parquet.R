@@ -143,7 +143,7 @@ table_to_parquet <- function(
 
   extension <- sub(".*\\.","",sub(".*/","", path_to_table))
 
-  if (extension %in% c("sas7bdat")) {
+  if (extension == "sas7bdat") {
 
     file_format <- "SAS"
 
@@ -171,7 +171,7 @@ table_to_parquet <- function(
 
     }
 
-  } else if (extension %in% c("sav")) {
+  } else if (extension == "sav") {
 
     file_format <- "SPSS"
 
@@ -199,7 +199,7 @@ table_to_parquet <- function(
 
     }
 
-  } else if (extension %in% c("dta")) {
+  } else if (extension == "dta") {
 
     file_format <- "Stata"
 
@@ -229,7 +229,7 @@ table_to_parquet <- function(
 
   }
 
-  if (isFALSE(by_chunk) & partition %in% c("no")) {
+  if (isFALSE(by_chunk) & partition == "no") {
 
     Sys.sleep(0.01)
     cli_progress_message("Writing data...")
@@ -241,7 +241,7 @@ table_to_parquet <- function(
 
     cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
 
-  } else if (isFALSE(by_chunk) & partition %in% c("yes")) {
+  } else if (isFALSE(by_chunk) & partition == "yes") {
 
     Sys.sleep(0.01)
     cli_progress_message("Writing data...")

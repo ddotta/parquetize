@@ -76,10 +76,10 @@ json_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
-  if (format %in% c("json")) {
+  if (format == "json") {
     json_output <- jsonlite::read_json(path = path_to_json,
                                        simplifyVector = TRUE)
-  } else if (format %in% c("ndjson")) {
+  } else if (format == "ndjson") {
     json_output <- read_json_arrow(file = path_to_json,
                                    as_data_frame = TRUE)
   }
@@ -89,13 +89,13 @@ json_to_parquet <- function(
 
   parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_json)),".parquet")
 
-  if (partition %in% c("no")) {
+  if (partition == "no") {
 
     parquetfile <- write_parquet(json_output,
                                  sink = file.path(path_to_parquet,
                                                   parquetname))
 
-  } else if (partition %in% c("yes")) {
+  } else if (partition == "yes") {
 
     parquetfile <- write_dataset(json_output,
                                  path = path_to_parquet,
@@ -104,9 +104,9 @@ json_to_parquet <- function(
   }
 
   cli_alert_success(paste0("\nThe ",
-                           if (format %in% c("json")) {
+                           if (format == "json") {
                              "json"
-                           } else if (format %in% c("ndjson")) {
+                           } else if (format == "ndjson") {
                              "ndjson"
                            },
                            " file is available in parquet format under {path_to_parquet}"))
