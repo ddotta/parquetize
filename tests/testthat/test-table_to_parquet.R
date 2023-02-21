@@ -99,7 +99,7 @@ test_that("Checks message is displayed with by adding partition and partitioning
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       partition = "yes",
-      partitioning =  c("Species")
+      partitioning =  "Species"
     )
   )
 })
@@ -113,7 +113,7 @@ test_that("Checks message is displayed with SAS by adding chunk_size, partition 
       by_chunk = TRUE,
       chunk_size = 50,
       partition = "yes",
-      partitioning =  c("Species")
+      partitioning =  "Species"
     )
   )
 })
@@ -138,7 +138,7 @@ test_that("Checks message is displayed with SPSS by adding nb_rows, partition an
       path_to_table = system.file("examples","iris.sav", package = "haven"),
       path_to_parquet = "Data_test",
       partition = "yes",
-      partitioning =  c("Species")
+      partitioning = "Species"
     )
   )
 })
@@ -160,7 +160,7 @@ test_that("Checks message is displayed with Stata by adding partition and partit
       path_to_table = system.file("examples","iris.dta", package = "haven"),
       path_to_parquet = "Data_test",
       partition = "yes",
-      partitioning =  c("species")
+      partitioning =  "species"
     )
   )
 })
