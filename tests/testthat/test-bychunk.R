@@ -29,7 +29,7 @@ test_that("Checks bychunk works for SAS file", {
 
   expect_equal(
     test_data3,
-    TRUE)
+    FALSE)
 
   test_data4 <- bychunk(file_format = "SAS", path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
                        path_to_parquet = "Data",
@@ -69,7 +69,7 @@ test_that("Checks bychunk works for SPSS file", {
 
   expect_equal(
     test_data3,
-    TRUE)
+    FALSE)
 
   test_data4 <- bychunk(file_format = "SPSS", path_to_table = system.file("examples","iris.sav", package = "haven"),
                        path_to_parquet = "Data",
@@ -109,7 +109,7 @@ test_that("Checks bychunk works for Stata file", {
 
   expect_equal(
     test_data3,
-    TRUE)
+    FALSE)
 
   test_data4 <- bychunk(file_format = "Stata", path_to_table = system.file("examples","iris.dta", package = "haven"),
                        path_to_parquet = "Data",

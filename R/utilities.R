@@ -30,10 +30,7 @@ bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, ski
                     n_max = chunk_size)
   }
 
-  not_completed <- nrow(tbl) != 0
-
-  if (isTRUE(not_completed)) {
-
+  if (nrow(tbl) != 0) {
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)))
     parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+chunk_size),".parquet")
 
@@ -41,9 +38,9 @@ bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, ski
                   sink = file.path(path_to_parquet,
                                    parquetizename)
     )
-
     cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}/{parquetizename}")
   }
 
-  return(not_completed)
+  completed <- nrow(tbl) < chunk_size
+  return(!completed)
 }
