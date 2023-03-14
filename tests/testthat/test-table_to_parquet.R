@@ -104,7 +104,7 @@ test_that("Checks message is displayed with by adding partition and partitioning
   )
 })
 
-test_that("Checks message is displayed with SAS by adding chunk_size, partition and partitioning argument", {
+test_that("Checks we fail with SAS by adding chunk_size, partition and partitioning argument", {
 
   expect_snapshot(
     table_to_parquet(
@@ -114,7 +114,8 @@ test_that("Checks message is displayed with SAS by adding chunk_size, partition 
       chunk_size = 50,
       partition = "yes",
       partitioning =  "Species"
-    )
+    ),
+    error = TRUE
   )
 })
 
