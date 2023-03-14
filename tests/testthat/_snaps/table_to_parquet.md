@@ -160,16 +160,16 @@
       v The SAS file is available in parquet format under Data_test
       Writing data...
 
-# Checks message is displayed with SAS by adding chunk_size, partition and partitioning argument
+# Checks we fail with SAS by adding chunk_size, partition and partitioning argument
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
         package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
       chunk_size = 50, partition = "yes", partitioning = "Species")
     Message <cliMessage>
-      v The SAS file is available in parquet format under Data_test/iris1-50.parquet
-      v The SAS file is available in parquet format under Data_test/iris51-100.parquet
-      v The SAS file is available in parquet format under Data_test/iris101-150.parquet
+      x Be careful, when by_chunk is TRUE partition and partitioning can not be used
+    Error <simpleError>
+      
 
 # Checks message is displayed with SAS by adding chunk_size argument
 

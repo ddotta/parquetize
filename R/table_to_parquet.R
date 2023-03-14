@@ -28,7 +28,7 @@
 #' @param skip By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' Be careful, if `by_chunk` argument is not NULL then a single parquet file will be created.
+#' Be careful, this argument can not be "yes" if `by_chunk` argument is not NULL.
 #' @param encoding string that indicates the character encoding for the input file.
 #' @param ... additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
@@ -134,9 +134,10 @@ table_to_parquet <- function(
     stop("")
   }
 
-  # If by_chunk argument is TRUE and partition argument is equal to "yes" then partition is forced to "no"
+  # If by_chunk argument is TRUE and partition argument is equal to "yes" we fail
   if (by_chunk==TRUE & partition == "yes") {
-    partition <- "no"
+  cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
+    stop("")
   }
 
   parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)),".parquet")
