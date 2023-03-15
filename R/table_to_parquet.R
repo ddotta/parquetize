@@ -146,9 +146,9 @@ table_to_parquet <- function(
     stop("")
   }
 
-  # If by_chunk argument is TRUE and partition argument is equal to "yes" we fail
+  # If by_chunk argument is TRUE and partition argument is equal to "yes" it fails
   if (by_chunk==TRUE & partition == "yes") {
-  cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
+  cli_alert_danger("Be careful, when by_chunk is TRUE, partition and partitioning can not be used")
     stop("")
   }
 
