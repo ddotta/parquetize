@@ -1,10 +1,11 @@
 # parquetize devel
 
-This release allow the user to pass argument to write_parquet when using
-by_chunk (in the ellipsis). Can be used for example to pass `compression` and
-`compression_level`
+This release includes :  
 
-Passing `by_chunk=TRUE` and `partition=yes` to `table_to_parquet` is no longer
+- The functionality for users to pass argument to `write_parquet()` when using
+by_chunk argument (in the ellipsis). Can be used for example to pass `compression` and
+`compression_level`.
+_ Passing `by_chunk=TRUE` and `partition=yes` to `table_to_parquet()` is no longer 
 possible.
 
 # parquetize 0.5.4
