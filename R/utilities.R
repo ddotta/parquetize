@@ -10,7 +10,7 @@
 #'
 #'
 #' @noRd
-bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip) {
+bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip, ...) {
 
   if (file_format %in% c("SAS")) {
 
@@ -36,7 +36,8 @@ bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, ski
 
     write_parquet(tbl,
                   sink = file.path(path_to_parquet,
-                                   parquetizename)
+                                   parquetizename),
+                  ...
     )
     cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}/{parquetizename}")
   }
