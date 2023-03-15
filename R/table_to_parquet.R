@@ -73,6 +73,18 @@
 #'   encoding = "utf-8"
 #' )
 #'
+#' # Reading SAS file by chunk and conversion to multiple files with zstd
+#' # compression level 10
+#'
+#' table_to_parquet(
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   by_chunk = TRUE,
+#'   chunk_size = 50,
+#'   compression = "zstd",
+#'   compression_level = 10
+#' )
+#'
 #' # Conversion from a SAS file to a single parquet file and select only
 #' #few columns  :
 #'
@@ -263,9 +275,9 @@ table_to_parquet <- function(
 
     }
 
-    if (isTRUE(bychunk(file_format = file_format, path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size))) {
+    if (isTRUE(bychunk(file_format = file_format, path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
 
-      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size)
+      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size, ...)
 
     }
 
