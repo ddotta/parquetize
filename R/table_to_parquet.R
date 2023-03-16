@@ -189,9 +189,9 @@ table_to_parquet <- function(
   extension <- tools::file_ext(path_to_table)
   parquetname <- gsub(paste0(extension, "$"), "parquet", basename(path_to_table))
 
-  if (extension == "sas7bdat") {
+  file_format <- get_file_format(path_to_table)
 
-    file_format <- "SAS"
+  if (extension == "sas7bdat") {
 
     if (isFALSE(by_chunk)) {
 
@@ -219,8 +219,6 @@ table_to_parquet <- function(
 
   } else if (extension == "sav") {
 
-    file_format <- "SPSS"
-
     if (isFALSE(by_chunk)) {
 
       Sys.sleep(0.02)
@@ -246,8 +244,6 @@ table_to_parquet <- function(
     }
 
   } else if (extension == "dta") {
-
-    file_format <- "Stata"
 
     if (isFALSE(by_chunk)) {
 
@@ -314,7 +310,7 @@ table_to_parquet <- function(
 
     }
 
-    if (isTRUE(bychunk(file_format = file_format, path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
+    if (isTRUE(bychunk(path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
 
       Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size, ...)
 
