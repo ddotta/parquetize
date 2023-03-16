@@ -9,6 +9,8 @@ table_to_parquet(
   path_to_parquet,
   columns = "all",
   by_chunk = FALSE,
+  chunk_memory_size,
+  chunk_memory_sample_lines = 10000,
   chunk_size,
   skip = 0,
   partition = "no",
@@ -25,7 +27,11 @@ table_to_parquet(
 
 \item{by_chunk}{Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.}
 
-\item{chunk_size}{this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.}
+\item{chunk_memory_size}{memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.}
+
+\item{chunk_memory_sample_lines}{number of lines to read to evaluate chunk_memory_size. Default to 10 000.}
+
+\item{chunk_size}{Number of lines that defines the size of the chunk. this argument can not be set with if chunk_memory_size is used}
 
 \item{skip}{By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.}
 
@@ -81,6 +87,15 @@ table_to_parquet(
   path_to_parquet = tempdir()
 )
 
+# Reading SPSS file by chunk and convert in parquet files of roughly 50Mb of
+# data when converted in tibble
+
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_parquet = tempdir(),
+  by_chunk = TRUE,
+  chunk_memory_size = 50,
+)
 # Reading SAS file by chunk and with encoding and conversion
 # from a SAS file to a single parquet file :
 
