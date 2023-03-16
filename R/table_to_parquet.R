@@ -24,7 +24,9 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
 #' @param columns character vector of columns to select from the input file (by default, all columns are selected).
 #' @param by_chunk Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.
-#' @param chunk_size this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.
+#' @param chunk_memory_size memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.
+#' @param chunk_memory_sample_lines number of lines to read to evaluate chunk_memory_size. Default to 10 000.
+#' @param chunk_size Number of lines that defines the size of the chunk. this argument can not be set with if chunk_memory_size is used
 #' @param skip By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
@@ -62,6 +64,15 @@
 #'   path_to_parquet = tempdir()
 #' )
 #'
+#' # Reading SPSS file by chunk and convert in parquet files of roughly 50Mb of
+#' # data when converted in tibble
+#'
+#' table_to_parquet(
+#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   by_chunk = TRUE,
+#'   chunk_memory_size = 50,
+#' )
 #' # Reading SAS file by chunk and with encoding and conversion
 #' # from a SAS file to a single parquet file :
 #'
@@ -108,6 +119,8 @@ table_to_parquet <- function(
     path_to_parquet,
     columns = "all",
     by_chunk = FALSE,
+    chunk_memory_size,
+    chunk_memory_sample_lines = 10000,
     chunk_size,
     skip = 0,
     partition = "no",
@@ -135,9 +148,9 @@ table_to_parquet <- function(
     cli_alert_danger("Be careful, the argument columns must be a character vector")
   }
 
-  # Check if chunk_size argument is filled in by_chunk argument is TRUE
-  if (by_chunk==TRUE & missing(chunk_size)) {
-    cli_alert_danger("Be careful, if you want to do a conversion by chunk then the argument chunk_size must be filled in")
+  # Check if chunk_size or check_memory_size argument is filled in by_chunk argument is TRUE
+  if (by_chunk==TRUE & missing(chunk_size) & missing(chunk_memory_size)) {
+    cli_alert_danger("Be careful, if you want to do a conversion by chunk one of the arguments chunk_memory_size or chunk_size must be filled in")
   }
 
   # Check if skip argument is correctly filled in by_chunk argument is TRUE
@@ -148,7 +161,13 @@ table_to_parquet <- function(
 
   # If by_chunk argument is TRUE and partition argument is equal to "yes" it fails
   if (by_chunk==TRUE & partition == "yes") {
-  cli_alert_danger("Be careful, when by_chunk is TRUE, partition and partitioning can not be used")
+  cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
+    stop("")
+  }
+
+  # chunk_size and chunk_memory_size can not be used together so fails
+  if (by_chunk==TRUE & !missing(chunk_size) & !missing(chunk_memory_size)) {
+    cli_alert_danger("Be careful, chunk_size and chunk_memory_size can not be used together")
     stop("")
   }
 
@@ -268,6 +287,12 @@ table_to_parquet <- function(
   }
 
   if (isTRUE(by_chunk)) {
+
+    if (missing(chunk_size)) {
+      chunk_size <- get_lines_for_memory(path_to_table,
+                                         chunk_memory_size = chunk_memory_size,
+                                         sample_lines = chunk_memory_sample_lines)
+    }
 
     if (skip>0) {
 
