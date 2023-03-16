@@ -191,33 +191,24 @@ table_to_parquet <- function(
 
   file_format <- get_file_format(path_to_table)
 
-  if (extension %in% c("sas7bdat", "sav", "dta")) {
+  if (isFALSE(by_chunk)) {
     read_method <- get_read_function_for_file(path_to_table)
 
-    if (isFALSE(by_chunk)) {
+    Sys.sleep(0.01)
+    cli_progress_message("Reading data...")
 
-      Sys.sleep(0.01)
-      cli_progress_message("Reading data...")
-
-      # If we want to keep all columns
-      if (identical(columns,"all")) {
-
-        table_output <- read_method(path_to_table,
-                                    encoding = encoding)
-
-      # If you select the columns to be kept
-      } else {
-
-        table_output <- read_method(path_to_table,
-                                    encoding = encoding,
-                                    col_select = columns)
-
-      }
-
-      table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
-
+    # If we want to keep all columns
+    if (identical(columns,"all")) {
+      table_output <- read_method(path_to_table,
+                                  encoding = encoding)
+    # If you select the columns to be kept
+    } else {
+      table_output <- read_method(path_to_table,
+                                  encoding = encoding,
+                                  col_select = columns)
     }
 
+    table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
   }
 
   if (isFALSE(by_chunk) & partition == "no") {
