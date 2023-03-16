@@ -29,13 +29,53 @@ When handling very large files, the risk that frequently occurs is that the R se
 This risk is even more present if you work locally on your computer and it can be limited if you work on remote servers.  
 `table_to_parquet()` offers this solution which answers a need expressed by parquetize users.  
 
-**The idea is to split the very large table into "chunks" based on the number of rows in the table in order to be able to simultaneously :**  
+**The idea is to split the very large table into "chunks" based on memory consuption of input data or on the number of rows in the table in order to be able to simultaneously :**  
 - **read a chunk of the very large database**  
 - **write this chunk in the floor file**
 
 Tip: The number of lines that each chunk must contain must be supported by the RAM of your computer/server. Ideally, the number of chunks to be defined must be limited. It should be in tens and not hundreds to limit the number of intermediate files (see example below).  
 
-Here is an example from the documentation using the iris table. 
+Here are examples from the documentation using the iris table. There's two ways to split output files :
+
+* by memory consumption
+* by number of lines
+
+### spliting data by memory consumption
+
+`table_to_parquet` can guess the number of lines to put in a file based on the
+memory consuption with the argument `chunk_memory_size` expressed in Mb.
+
+Here we cut the 150 rows into chunks of roughly 5 Kb when a file is loaded as a
+tibble. In this example we get 2 parquet files of 89 lines called
+`iris1-89.parquet` and `iris90-178.parquet`
+
+```{r iris-memory-example}
+table_to_parquet(
+  path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempfile(),
+  by_chunk = TRUE,
+  chunk_memory_size = 5 / 1024,
+  encoding = "utf-8"
+)
+```
+
+In real life, you should use a `chunk_memory_size` in the Gb range, for example
+with a SAS file of 50 000 000 lines and using chunk_memory_size of 5000 Mb :
+
+
+```{r real-memory-example, eval=FALSE}
+  table_to_parquet(
+  path_to_table = "myhugefile.sas7bdat",
+  path_to_parquet = tempdir(),
+  by_chunk = TRUE,
+  chunk_memory_size = 5000,
+  encoding = "utf-8"
+)
+```
+
+
+### splitting data by number of lines
+
 Here we cut the 150 rows into 3 chunks of 50 rows. In this example we get 3 parquet files of 50 lines called `iris1-50.parquet`, `iris51-100.parquet` and `iris101-151.parquet`
 
 ```{r iris-example, eval=FALSE}
