@@ -186,9 +186,8 @@ table_to_parquet <- function(
     stop("")
   }
 
-  parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)),".parquet")
-
-  extension <- sub(".*\\.","",sub(".*/","", path_to_table))
+  extension <- tools::file_ext(path_to_table)
+  parquetname <- gsub(paste0(extension, "$"), "parquet", basename(path_to_table))
 
   if (extension == "sas7bdat") {
 
