@@ -222,30 +222,18 @@ table_to_parquet <- function(
 
   table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 
+  Sys.sleep(0.01)
+  cli_progress_message("Writing data...")
 
   if (partition == "no") {
-    Sys.sleep(0.01)
-
-    cli_progress_message("Writing data...")
-
     parquetfile <- write_parquet(table_output,
                                  sink = file.path(path_to_parquet,
                                                   parquetname),
                                  ...)
-
-    cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
-
   } else if (partition == "yes") {
-
-    Sys.sleep(0.01)
-    cli_progress_message("Writing data...")
-
     parquetfile <- write_dataset(table_output,
                                  path = path_to_parquet,
                                  ...)
-
-    cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
-
   }
-
+  cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
 }
