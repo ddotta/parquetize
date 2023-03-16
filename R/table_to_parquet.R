@@ -176,7 +176,7 @@ table_to_parquet <- function(
 
   # If by_chunk argument is TRUE and partition argument is equal to "yes" it fails
   if (by_chunk==TRUE & partition == "yes") {
-  cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
+    cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
     stop("")
   }
 
@@ -191,29 +191,41 @@ table_to_parquet <- function(
 
   file_format <- get_file_format(path_to_table)
 
-  if (isFALSE(by_chunk)) {
-    read_method <- get_read_function_for_file(path_to_table)
-
-    Sys.sleep(0.01)
-    cli_progress_message("Reading data...")
-
-    # If we want to keep all columns
-    if (identical(columns,"all")) {
-      table_output <- read_method(path_to_table,
-                                  encoding = encoding)
-    # If you select the columns to be kept
-    } else {
-      table_output <- read_method(path_to_table,
-                                  encoding = encoding,
-                                  col_select = columns)
+  if (isTRUE(by_chunk)) {
+    if (missing(chunk_size)) {
+      chunk_size <- get_lines_for_memory(path_to_table,
+                                         chunk_memory_size = chunk_memory_size,
+                                         sample_lines = chunk_memory_sample_lines)
     }
 
-    table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
+    if (isTRUE(bychunk(path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
+      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size, ...)
+    }
+    return(invisible(TRUE))
   }
 
-  if (isFALSE(by_chunk) & partition == "no") {
+  read_method <- get_read_function_for_file(path_to_table)
 
+  Sys.sleep(0.01)
+  cli_progress_message("Reading data...")
+
+  # If we want to keep all columns
+  if (identical(columns,"all")) {
+    table_output <- read_method(path_to_table,
+                                encoding = encoding)
+    # If you select the columns to be kept
+  } else {
+    table_output <- read_method(path_to_table,
+                                encoding = encoding,
+                                col_select = columns)
+  }
+
+  table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
+
+
+  if (partition == "no") {
     Sys.sleep(0.01)
+
     cli_progress_message("Writing data...")
 
     parquetfile <- write_parquet(table_output,
@@ -223,7 +235,7 @@ table_to_parquet <- function(
 
     cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
 
-  } else if (isFALSE(by_chunk) & partition == "yes") {
+  } else if (partition == "yes") {
 
     Sys.sleep(0.01)
     cli_progress_message("Writing data...")
@@ -236,27 +248,4 @@ table_to_parquet <- function(
 
   }
 
-  if (isTRUE(by_chunk)) {
-
-    if (missing(chunk_size)) {
-      chunk_size <- get_lines_for_memory(path_to_table,
-                                         chunk_memory_size = chunk_memory_size,
-                                         sample_lines = chunk_memory_sample_lines)
-    }
-
-    if (skip>0) {
-
-      cli_progress_bar("Converting table", clear = TRUE)
-
-    }
-
-    if (isTRUE(bychunk(path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
-
-      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size, ...)
-
-    }
-
-  }
-
 }
-
