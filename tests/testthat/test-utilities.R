@@ -12,6 +12,7 @@ test_that("test get_read_function_by_extension returns the good method", {
   expect_s3_class(fun(file), "tbl")
 })
 
+
 test_that("tests get_read_function_by_extension fails when needed", {
   expect_snapshot(
     get_read_function_for_file("/some/bad/file/without_extension"),
@@ -20,6 +21,11 @@ test_that("tests get_read_function_by_extension fails when needed", {
 
   expect_snapshot(
     get_read_function_for_file("/some/bad/file/with_bad_extension"),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    get_read_function_for_file("/some/bad/file/with_bad_extension.xlsx"),
     error = TRUE
   )
 })
