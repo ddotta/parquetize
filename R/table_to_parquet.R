@@ -26,7 +26,7 @@
 #' @param by_chunk Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.
 #' @param chunk_memory_size memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.
 #' @param chunk_memory_sample_lines number of lines to read to evaluate chunk_memory_size. Default to 10 000.
-#' @param chunk_size Number of lines that defines the size of the chunk. this argument can not be set with if chunk_memory_size is used
+#' @param chunk_size Number of lines that defines the size of the chunk. This argument can not be filled in if chunk_memory_size is used
 #' @param skip By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
