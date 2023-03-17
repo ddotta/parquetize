@@ -92,6 +92,19 @@ test_that("Checks message is displayed with by adding chunk_size to TRUE and enc
   )
 })
 
+test_that("Checks message is displayed by adding chunk_memory_size", {
+
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = "Data_test",
+      by_chunk = TRUE,
+      chunk_memory_size = 5 / 1024,
+    )
+  )
+})
+
+
 test_that("Checks message is displayed with by adding partition and partitioning argument", {
 
   expect_snapshot(

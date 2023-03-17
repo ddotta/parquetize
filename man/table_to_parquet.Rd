@@ -9,6 +9,8 @@ table_to_parquet(
   path_to_parquet,
   columns = "all",
   by_chunk = FALSE,
+  chunk_memory_size,
+  chunk_memory_sample_lines = 10000,
   chunk_size,
   skip = 0,
   partition = "no",
@@ -17,25 +19,31 @@ table_to_parquet(
 )
 }
 \arguments{
-\item{path_to_table}{string that indicates the path to the input file (don't forget the extension).}
+\item{path_to_table}{String that indicates the path to the input file (don't forget the extension).}
 
-\item{path_to_parquet}{string that indicates the path to the directory where the parquet files will be stored.}
+\item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
-\item{columns}{character vector of columns to select from the input file (by default, all columns are selected).}
+\item{columns}{Character vector of columns to select from the input file (by default, all columns are selected).}
 
 \item{by_chunk}{Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.}
 
-\item{chunk_size}{this argument must be filled in if `by_chunk` is TRUE. Number of lines that defines the size of the chunk.}
+\item{chunk_memory_size}{Memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.}
+
+\item{chunk_memory_sample_lines}{Number of lines to read to evaluate chunk_memory_size. Default to 10 000.}
+
+\item{chunk_size}{Number of lines that defines the size of the chunk.
+This argument must be filled in if `by_chunk` is TRUE (otherwise ignored).
+This argument can not be filled in if chunk_memory_size is used.}
 
 \item{skip}{By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.}
 
-\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+\item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 Be careful, this argument can not be "yes" if `by_chunk` argument is not NULL.}
 
-\item{encoding}{string that indicates the character encoding for the input file.}
+\item{encoding}{String that indicates the character encoding for the input file.}
 
-\item{...}{additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
+\item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
 }
 \value{
@@ -81,8 +89,28 @@ table_to_parquet(
   path_to_parquet = tempdir()
 )
 
-# Reading SAS file by chunk and with encoding and conversion
-# from a SAS file to a single parquet file :
+# Reading SPSS file by chunk (using `chunk_size` argument)
+# and conversion to multiple parquet files :
+
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_parquet = tempdir(),
+  by_chunk = TRUE,
+  chunk_size = 50,
+)
+
+# Reading SPSS file by chunk (using `chunk_memory_size` argument)
+# and conversion to multiple parquet files :
+
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_parquet = tempdir(),
+  by_chunk = TRUE,
+  chunk_memory_size = 5 /1024,
+)
+
+# Reading SAS file by chunk with encoding
+# and conversion to a single parquet file :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
@@ -92,8 +120,8 @@ table_to_parquet(
   encoding = "utf-8"
 )
 
-# Reading SAS file by chunk and conversion to multiple files with zstd
-# compression level 10
+# Reading SAS file by chunk
+# and conversion to multiple files with zstd, compression level 10
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
@@ -105,7 +133,7 @@ table_to_parquet(
 )
 
 # Conversion from a SAS file to a single parquet file and select only
-#few columns  :
+# few columns  :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),

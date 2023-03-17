@@ -2,6 +2,7 @@
 
 This release includes :  
 
+- The possibility to chunk parquet by memory size with `table_to_parquet()`: `table_to_parquet()` takes a `chunk_memory_size` argument to convert an input file into parquet file of roughly `chunk_memory_size` Mb size when data are loaded in memory.
 - The functionality for users to pass argument to `write_parquet()` when using
 by_chunk argument (in the ellipsis). Can be used for example to pass `compression` and `compression_level`.
 _ Passing `by_chunk=TRUE` and `partition=yes` to `table_to_parquet()` is no longer 

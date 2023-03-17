@@ -24,9 +24,9 @@
         package = "haven"), path_to_parquet = "Data_test", encoding = "utf-8",
       by_chunk = TRUE)
     Message <cliMessage>
-      x Be careful, if you want to do a conversion by chunk then the argument chunk_size must be filled in
+      x Be careful, if you want to do a conversion by chunk one of the arguments chunk_memory_size or chunk_size must be filled in
     Error <simpleError>
-      argument "chunk_size" is missing, with no default
+      argument "chunk_memory_size" is missing, with no default
 
 ---
 
@@ -148,6 +148,16 @@
       v The SAS file is available in parquet format under Data_test/iris51-100.parquet
       v The SAS file is available in parquet format under Data_test/iris101-150.parquet
 
+# Checks message is displayed by adding chunk_memory_size
+
+    Code
+      table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
+        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
+      chunk_memory_size = 5 / 1024, )
+    Message <cliMessage>
+      v The SAS file is available in parquet format under Data_test/iris1-89.parquet
+      v The SAS file is available in parquet format under Data_test/iris90-150.parquet
+
 # Checks message is displayed with by adding partition and partitioning argument
 
     Code
@@ -160,7 +170,7 @@
       v The SAS file is available in parquet format under Data_test
       Writing data...
 
-# Checks we fail with SAS by adding chunk_size, partition and partitioning argument
+# Checks it fails with SAS by adding chunk_size, partition and partitioning argument
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
