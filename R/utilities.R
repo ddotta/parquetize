@@ -32,7 +32,7 @@ bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, ski
 
   if (nrow(tbl) != 0) {
     parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)))
-    parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+chunk_size),".parquet")
+    parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
 
     write_parquet(tbl,
                   sink = file.path(path_to_parquet,
