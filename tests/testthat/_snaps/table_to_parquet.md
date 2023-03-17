@@ -156,7 +156,7 @@
       chunk_memory_size = 5 / 1024, )
     Message <cliMessage>
       v The SAS file is available in parquet format under Data_test/iris1-89.parquet
-      v The SAS file is available in parquet format under Data_test/iris90-178.parquet
+      v The SAS file is available in parquet format under Data_test/iris90-150.parquet
 
 # Checks message is displayed with by adding partition and partitioning argument
 
