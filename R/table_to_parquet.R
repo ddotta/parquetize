@@ -77,13 +77,15 @@
 #' )
 #'
 #' # Reading SPSS file by chunk (using `chunk_memory_size` argument)
-#' # and conversion to multiple parquet files :
+#' # and conversion to multiple parquet files of 5 Kb when loaded (5 Mb / 1024)
+#' # (in real files, you should use bigger value that fit in memory like 3000
+#' # or 4000) :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempdir(),
 #'   by_chunk = TRUE,
-#'   chunk_memory_size = 5 /1024,
+#'   chunk_memory_size = 5 / 1024,
 #' )
 #'
 #' # Reading SAS file by chunk with encoding
