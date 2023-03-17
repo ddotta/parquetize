@@ -24,7 +24,7 @@
 #' @param path_to_parquet String that indicates the path to the directory where the parquet files will be stored.
 #' @param columns Character vector of columns to select from the input file (by default, all columns are selected).
 #' @param by_chunk Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.
-#' @param chunk_memory_size Memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.
+#' @param chunk_memory_size Memory size (in Mb) in which data of one parquet file should roughly fit. For very small size, data could be a bit larger than given memory.
 #' @param chunk_memory_sample_lines Number of lines to read to evaluate chunk_memory_size. Default to 10 000.
 #' @param chunk_size Number of lines that defines the size of the chunk.
 #' This argument must be filled in if `by_chunk` is TRUE (otherwise ignored).
