@@ -33,8 +33,6 @@ This risk is even more present if you work locally on your computer and it can b
 - **read a chunk of the very large database**  
 - **write this chunk in the floor file**
 
-Tip: The number of lines that each chunk must contain must be supported by the RAM of your computer/server. Ideally, the number of chunks to be defined must be limited. It should be in tens and not hundreds to limit the number of intermediate files (see example below).  
-
 Here are examples from the documentation using the iris table. There's two ways to split output files :
 
 * by memory consumption
@@ -75,6 +73,8 @@ with a SAS file of 50 000 000 lines and using chunk_memory_size of 5000 Mb :
 
 
 ### Splitting data by number of lines
+
+> Tip: The number of lines that each chunk must contain must be supported by the RAM of your computer/server. Ideally, the number of chunks to be defined must be limited. It should be in tens and not hundreds to limit the number of intermediate files (see example below).  
 
 Here we cut the 150 rows into 3 chunks of 50 rows. In this example we get 3 parquet files of 50 lines called `iris1-50.parquet`, `iris51-100.parquet` and `iris101-151.parquet`
 
