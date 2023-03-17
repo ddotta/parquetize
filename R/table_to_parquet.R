@@ -186,11 +186,6 @@ table_to_parquet <- function(
     stop("")
   }
 
-  extension <- tools::file_ext(path_to_table)
-  parquetname <- gsub(paste0(extension, "$"), "parquet", basename(path_to_table))
-
-  file_format <- get_file_format(path_to_table)
-
   if (isTRUE(by_chunk)) {
     if (missing(chunk_size)) {
       chunk_size <- get_lines_for_memory(path_to_table,
@@ -219,21 +214,14 @@ table_to_parquet <- function(
                                 encoding = encoding,
                                 col_select = columns)
   }
-
   table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  if (partition == "no") {
-    parquetfile <- write_parquet(table_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname),
-                                 ...)
-  } else if (partition == "yes") {
-    parquetfile <- write_dataset(table_output,
-                                 path = path_to_parquet,
-                                 ...)
-  }
-  cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}")
+  extension <- tools::file_ext(path_to_table)
+  parquetname <- gsub(paste0(extension, "$"), "parquet", basename(path_to_table))
+  write_data_in_parquet(table_output, path_to_parquet, parquetname, partition, ...)
+
+  cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}")
 }

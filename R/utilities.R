@@ -108,4 +108,24 @@ get_file_format <- function(file_name) {
   file_format_list[[extension]]
 }
 
-
+#' @name write_data
+#'
+#' @title Utility that write parquet file or dataset
+#'
+#' @param data the data to write
+#' @param parquetname the file name for the parquet file
+#' @inheritParams table_to_parquet
+#'
+#' @noRd
+write_data_in_parquet <- function(data, path_to_parquet, parquetname, partition, ...) {
+  if (partition == "no") {
+    parquetfile <- write_parquet(data,
+                                 sink = file.path(path_to_parquet,
+                                                  parquetname),
+                                 ...)
+  } else if (partition == "yes") {
+    parquetfile <- write_dataset(data,
+                                 path = path_to_parquet,
+                                 ...)
+  }
+}
