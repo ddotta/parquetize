@@ -170,7 +170,7 @@
       v The SAS file is available in parquet format under Data_test
       Writing data...
 
-# Checks we fail with SAS by adding chunk_size, partition and partitioning argument
+# Checks it fails with SAS by adding chunk_size, partition and partitioning argument
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",

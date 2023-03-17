@@ -16,3 +16,12 @@
     Error <simpleError>
       
 
+---
+
+    Code
+      get_read_function_for_file("/some/bad/file/with_bad_extension.xlsx")
+    Message <cliMessage>
+      x Be careful, no method to read "/some/bad/file/with_bad_extension.xlsx" file
+    Error <simpleError>
+      
+
