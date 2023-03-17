@@ -20,19 +20,21 @@
 #' This is very useful for huge tables and for computers with little RAM because the conversion is then done
 #' with less memory consumption. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
 #'
-#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
-#' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
-#' @param columns character vector of columns to select from the input file (by default, all columns are selected).
+#' @param path_to_table String that indicates the path to the input file (don't forget the extension).
+#' @param path_to_parquet String that indicates the path to the directory where the parquet files will be stored.
+#' @param columns Character vector of columns to select from the input file (by default, all columns are selected).
 #' @param by_chunk Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.
-#' @param chunk_memory_size memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.
-#' @param chunk_memory_sample_lines number of lines to read to evaluate chunk_memory_size. Default to 10 000.
-#' @param chunk_size Number of lines that defines the size of the chunk. This argument can not be filled in if chunk_memory_size is used
+#' @param chunk_memory_size Memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.
+#' @param chunk_memory_sample_lines Number of lines to read to evaluate chunk_memory_size. Default to 10 000.
+#' @param chunk_size Number of lines that defines the size of the chunk.
+#' This argument must be filled in if `by_chunk` is TRUE (otherwise ignored).
+#' This argument can not be filled in if chunk_memory_size is used.
 #' @param skip By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.
-#' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+#' @param partition String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #' Be careful, this argument can not be "yes" if `by_chunk` argument is not NULL.
-#' @param encoding string that indicates the character encoding for the input file.
-#' @param ... additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
+#' @param encoding String that indicates the character encoding for the input file.
+#' @param ... Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
 #' @return Parquet files, invisibly
@@ -64,17 +66,28 @@
 #'   path_to_parquet = tempdir()
 #' )
 #'
-#' # Reading SPSS file by chunk and convert in parquet files of roughly 50Mb of
-#' # data when converted in tibble
+#' # Reading SPSS file by chunk (using `chunk_size` argument)
+#' # and conversion to multiple parquet files :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempdir(),
 #'   by_chunk = TRUE,
-#'   chunk_memory_size = 50,
+#'   chunk_size = 50,
 #' )
-#' # Reading SAS file by chunk and with encoding and conversion
-#' # from a SAS file to a single parquet file :
+#'
+#' # Reading SPSS file by chunk (using `chunk_memory_size` argument)
+#' # and conversion to multiple parquet files :
+#'
+#' table_to_parquet(
+#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   by_chunk = TRUE,
+#'   chunk_memory_size = 5 /1024,
+#' )
+#'
+#' # Reading SAS file by chunk with encoding
+#' # and conversion to a single parquet file :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
@@ -84,8 +97,8 @@
 #'   encoding = "utf-8"
 #' )
 #'
-#' # Reading SAS file by chunk and conversion to multiple files with zstd
-#' # compression level 10
+#' # Reading SAS file by chunk
+#' # and conversion to multiple files with zstd, compression level 10
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
@@ -97,7 +110,7 @@
 #' )
 #'
 #' # Conversion from a SAS file to a single parquet file and select only
-#' #few columns  :
+#' # few columns  :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
