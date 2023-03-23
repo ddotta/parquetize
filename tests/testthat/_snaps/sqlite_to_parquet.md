@@ -28,6 +28,18 @@
     Error <simpleError>
       argument "path_to_parquet" is missing, with no default
 
+# Check if parquetize fails when table does not exist
+
+    Code
+      sqlite_to_parquet(path_to_sqlite = system.file("extdata", "iris.sqlite",
+        package = "parquetize"), path_to_parquet = "Data_test", table = "nosuchtable")
+    Message <cliMessage>
+      Reading data...
+      x Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file
+      Reading data...
+    Error <simpleError>
+      
+
 # Checks message is displayed with sqlite file
 
     Code

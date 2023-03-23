@@ -26,6 +26,17 @@ test_that("Check if extension used in path_to_sqlite is correct", {
   )
 })
 
+test_that("Check if parquetize fails when table does not exist", {
+  expect_snapshot(
+    sqlite_to_parquet(
+      path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
+      path_to_parquet = "Data_test",
+      table = "nosuchtable"
+    ),
+    error = TRUE
+  )
+})
+
 test_that("Checks message is displayed with sqlite file", {
   expect_snapshot(
     sqlite_to_parquet(

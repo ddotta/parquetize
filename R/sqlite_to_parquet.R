@@ -84,6 +84,7 @@ sqlite_to_parquet <- function(
   list_table <- DBI::dbListTables(con_sqlite)
   if (!(table_in_sqlite %in% list_table)==TRUE) {
     cli_alert_danger("Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file")
+    stop("")
   }
 
   sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
