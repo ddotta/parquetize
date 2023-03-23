@@ -116,6 +116,7 @@ csv_to_parquet <- function(
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
     cli_alert_danger("Be careful, you have to fill in either the path_to_csv or url_to_csv argument")
+    stop("")
   }
 
   # Check if filename_in_zip is filled in when csv_as_a_zip is TRUE

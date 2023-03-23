@@ -13,9 +13,8 @@
       csv_to_parquet(path_to_parquet = "Data_test")
     Message <cliMessage>
       x Be careful, you have to fill in either the path_to_csv or url_to_csv argument
-      Reading data...
     Error <simpleError>
-      object 'csv_output' not found
+      
 
 # Checks message is displayed with path_to_csv argument
 
