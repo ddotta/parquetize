@@ -196,3 +196,49 @@ test_that("Checks we have only selected columns in parquet file", {
     columns
   )
 })
+
+test_that("Checks we have the good number of lines when simple", {
+  test_dir <- "Data_test/simple"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
+  )
+})
+
+test_that("Checks we have the good number of lines when partitionned", {
+  test_dir <- "Data_test/partitionned"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+    partition = "yes",
+    partitioning =  "species"
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
+  )
+})
+
+test_that("Checks we have the good number of lines when chunked", {
+  test_dir <- "Data_test/chunked"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+    by_chunk = TRUE,
+    chunk_size = 49
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
+  )
+})
