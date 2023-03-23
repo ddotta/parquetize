@@ -3,7 +3,7 @@ if (file.exists('Data_test')==FALSE) {
 }
 
 test_that("Checks arguments are correctly filled in", {
-  local_edition(3)
+  testthat::local_edition(3)
   expect_snapshot(
     json_to_parquet(
       path_to_json = system.file("extdata","iris.ndjson",package = "parquetize")
