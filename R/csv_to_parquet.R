@@ -221,22 +221,7 @@ csv_to_parquet <- function(
     }
 
   }
-
-  if (partition %in% c("no")) {
-
-    parquetfile <- write_parquet(csv_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname),
-                                 ...
-    )
-
-  } else if (partition %in% c("yes")) {
-
-    parquetfile <- write_dataset(csv_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
+  parquetfile <- write_data_in_parquet(csv_output, path_to_parquet, parquetname, partition, ...)
 
   cli_alert_success("\nThe csv file is available in parquet format under {path_to_parquet}")
 

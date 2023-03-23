@@ -97,20 +97,7 @@ sqlite_to_parquet <- function(
   cli_progress_message("Writing data...")
 
   parquetname <- get_parquet_file_name(path_to_sqlite)
-
-  if (partition %in% c("no")) {
-
-    parquetfile <- write_parquet(sqlite_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname))
-
-  } else if (partition %in% c("yes")) {
-
-    parquetfile <- write_dataset(sqlite_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
+  parquetfile <- write_data_in_parquet(sqlite_output, path_to_parquet, parquetname, partition, ...)
 
   cli_alert_success(paste0("\nThe ",
                            table_in_sqlite,

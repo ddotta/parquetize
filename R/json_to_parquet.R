@@ -88,20 +88,7 @@ json_to_parquet <- function(
   cli_progress_message("Writing data...")
 
   parquetname <- get_parquet_file_name(path_to_json)
-
-  if (partition == "no") {
-
-    parquetfile <- write_parquet(json_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname))
-
-  } else if (partition == "yes") {
-
-    parquetfile <- write_dataset(json_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
+  parquetfile <- write_data_in_parquet(json_output, path_to_parquet, parquetname, partition, ...)
 
   cli_alert_success(paste0("\nThe ",
                            if (format == "json") {

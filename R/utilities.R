@@ -141,4 +141,5 @@ write_data_in_parquet <- function(data, path_to_parquet, parquetname, partition,
                                  path = path_to_parquet,
                                  ...)
   }
+  parquetfile
 }
