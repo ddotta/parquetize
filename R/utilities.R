@@ -1,37 +1,3 @@
-#' @name bychunk
-#'
-#' @title Utility function that read and write data by chunk
-#'
-#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
-#' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
-#' @param chunk_size Number of lines that defines the size of the chunk.
-#' @param skip Number of lines to ignore when converting.
-#'
-#'
-#' @noRd
-bychunk <- function(path_to_table, path_to_parquet, chunk_size, skip, ...) {
-
-  read_method <- get_read_function_for_file(path_to_table)
-  tbl <- read_method(path_to_table,
-                    skip = skip,
-                    n_max = chunk_size)
-
-  if (nrow(tbl) != 0) {
-    parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)))
-    parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
-
-    write_parquet(tbl,
-                  sink = file.path(path_to_parquet,
-                                   parquetizename),
-                  ...
-    )
-    cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}/{parquetizename}")
-  }
-
-  completed <- nrow(tbl) < chunk_size
-  return(!completed)
-}
-
 #' @name get_lines_for_memory
 #'
 #' @title Utility to guess the number of lines fiting in given memory_size

@@ -184,19 +184,36 @@ table_to_parquet <- function(
   }
 
   if (isTRUE(by_chunk)) {
+    read_method <- get_read_function_for_file(path_to_table)
+
     if (missing(chunk_size)) {
-      read_method <- get_read_function_for_file(path_to_table)
       data <- read_method(path_to_table, n_max = chunk_memory_sample_lines)
       chunk_size <- get_lines_for_memory(data,
                                          chunk_memory_size = chunk_memory_size)
     }
 
-    if (isTRUE(bychunk(path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {
-      Recall(path_to_table, path_to_parquet, by_chunk=TRUE, skip = skip + chunk_size, chunk_size = chunk_size, ...)
-    }
-    return(invisible(TRUE))
-  }
+    parquetname <- paste0(gsub("\\..*","",basename(path_to_table)))
 
+    skip = 0
+    while (TRUE) {
+      tbl <- read_method(path_to_table,
+                         skip = skip,
+                         n_max = chunk_size)
+
+      if (nrow(tbl) != 0) {
+        parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
+        write_parquet(tbl,
+                      sink = file.path(path_to_parquet,
+                                       parquetizename),
+                      ...
+        )
+        cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}/{parquetizename}")
+      }
+      skip <- skip + chunk_size
+
+      if (nrow(tbl) < chunk_size) { return(invisible(TRUE)) }
+    }
+  }
   read_method <- get_read_function_for_file(path_to_table)
 
   Sys.sleep(0.01)
