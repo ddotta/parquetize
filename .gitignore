@@ -12,6 +12,7 @@ inst/doc
 Data/
 Data_test/
 tests/testthat/output/
+tests/testthat/Data/
 
 # Files with this extensions
 *.sas7bdat
