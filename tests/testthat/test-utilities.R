@@ -32,9 +32,11 @@ test_that("tests get_read_function_by_extension fails when needed", {
 
 test_that("test get_lines_for_memory return the good number of lines", {
   file <- system.file("examples","iris.dta", package = "haven")
+  read_method <- get_read_function_for_file(file)
+  data <- read_method(file, n_max = Inf)
 
   expect_equal(
-    get_lines_for_memory(file, chunk_memory_size = 1 / 1024),
+    get_lines_for_memory(data, chunk_memory_size = 1 / 1024),
     16
   )
 })

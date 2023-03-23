@@ -185,9 +185,10 @@ table_to_parquet <- function(
 
   if (isTRUE(by_chunk)) {
     if (missing(chunk_size)) {
-      chunk_size <- get_lines_for_memory(path_to_table,
-                                         chunk_memory_size = chunk_memory_size,
-                                         sample_lines = chunk_memory_sample_lines)
+      read_method <- get_read_function_for_file(path_to_table)
+      data <- read_method(path_to_table, n_max = chunk_memory_sample_lines)
+      chunk_size <- get_lines_for_memory(data,
+                                         chunk_memory_size = chunk_memory_size)
     }
 
     if (isTRUE(bychunk(path_to_table, path_to_parquet, skip = skip, chunk_size = chunk_size, ...))) {

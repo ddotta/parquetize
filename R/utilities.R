@@ -36,19 +36,15 @@ bychunk <- function(path_to_table, path_to_parquet, chunk_size, skip, ...) {
 #'
 #' @title Utility to guess the number of lines fiting in given memory_size
 #'
-#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
+#' @param data a tibble/dataframe of equivalent with the data sample used to guess memory
 #' @param memory_size memory (in Mo) to use for one chunk, default to 4000Mb
-#' @param sample_lines number of line to read to begin. default is 10000
 #'
-#' This method read a sample of `sample_lines` to estimate the number lines that
-#' fit in argument memory_size.
+#' This method tries to estimate the number lines that fit in argument
+#' memory_size
 #'
 #' @noRd
 #' @importFrom utils object.size
-get_lines_for_memory <- function(path_to_table, chunk_memory_size = 4000, sample_lines = 10000) {
-  read_method <- get_read_function_for_file(path_to_table)
-  data <- read_method(path_to_table, n_max = sample_lines)
-
+get_lines_for_memory <- function(data, chunk_memory_size = 4000) {
   data_memory_size <- object.size(data)
   # cosmetic : remove object.size attribute
   attributes(data_memory_size) <- NULL
