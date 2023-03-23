@@ -57,7 +57,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("Species","Petal_Length"))
+      columns = c("Species","Petal_Length")
     )
   )
 
@@ -65,7 +65,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sav", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("Species","Petal.Length"))
+      columns = c("Species","Petal.Length")
     )
   )
 
@@ -73,7 +73,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.dta", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("species","petallength"))
+      columns = c("species","petallength")
     )
   )
 

@@ -209,7 +209,7 @@ table_to_parquet <- function(
   } else {
     table_output <- read_method(path_to_table,
                                 encoding = encoding,
-                                col_select = columns)
+                                col_select = all_of(columns))
   }
   table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 

@@ -155,7 +155,7 @@ csv_to_parquet <- function(
                                locale = locale(encoding = encoding),
                                lazy = TRUE,
                                show_col_types = FALSE,
-                               col_select = columns)
+                               col_select = all_of(columns))
 
     }
 
@@ -183,7 +183,7 @@ csv_to_parquet <- function(
                                  locale = locale(encoding = encoding),
                                  lazy = TRUE,
                                  show_col_types = FALSE,
-                                 col_select = columns)
+                                 col_select = all_of(columns))
 
       }
 
@@ -210,7 +210,7 @@ csv_to_parquet <- function(
                                  locale = locale(encoding = encoding),
                                  lazy = TRUE,
                                  show_col_types = FALSE,
-                                 col_select = columns)
+                                 col_select = all_of(columns))
 
       }
 

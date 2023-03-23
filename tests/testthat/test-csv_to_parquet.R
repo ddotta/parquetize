@@ -88,7 +88,7 @@ test_that("Checks message is displayed when we select a few columns", {
     csv_to_parquet(
       path_to_csv = parquetize_example("region_2022.csv"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("REG","LIBELLE"))
+      columns = c("REG","LIBELLE")
     )
   )
 
