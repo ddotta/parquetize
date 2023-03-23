@@ -27,7 +27,7 @@ table_to_parquet(
 
 \item{by_chunk}{Boolean. By default FALSE. If TRUE then it means that the conversion will be done by chunk.}
 
-\item{chunk_memory_size}{Memory size (in Mb) in which data of one parquet file should roughly fit. In real life data size is always a bit larger.}
+\item{chunk_memory_size}{Memory size (in Mb) in which data of one parquet file should roughly fit. For very small size, data could be a bit larger than given memory.}
 
 \item{chunk_memory_sample_lines}{Number of lines to read to evaluate chunk_memory_size. Default to 10 000.}
 
@@ -100,13 +100,15 @@ table_to_parquet(
 )
 
 # Reading SPSS file by chunk (using `chunk_memory_size` argument)
-# and conversion to multiple parquet files :
+# and conversion to multiple parquet files of 5 Kb when loaded (5 Mb / 1024)
+# (in real files, you should use bigger value that fit in memory like 3000
+# or 4000) :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempdir(),
   by_chunk = TRUE,
-  chunk_memory_size = 5 /1024,
+  chunk_memory_size = 5 / 1024,
 )
 
 # Reading SAS file by chunk with encoding

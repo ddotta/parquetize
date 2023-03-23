@@ -23,9 +23,9 @@ csv_to_parquet(
 
 \item{url_to_csv}{string that indicates the URL of the csv file}
 
-\item{csv_as_a_zip}{boolean that indicates if the csv is stored in a zip}
+\item{csv_as_a_zip}{this argument is no longer used but keep for compatibility (for the moment)}
 
-\item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.}
+\item{filename_in_zip}{name of the csv file in the zip. Required if several csv are included in the zip.}
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
 

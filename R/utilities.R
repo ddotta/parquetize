@@ -105,3 +105,29 @@ write_data_in_parquet <- function(data, path_to_parquet, parquetname, partition,
   }
   parquetfile
 }
+
+#' @name is_remote
+#'
+#' @title Utility to check if file is local or remote
+#'
+#' @param path file's path
+#' @return TRUE if remote, FALSE otherwise
+#'
+#' @noRd
+
+is_remote <- function(path) {
+  grepl('(http|ftp)s?://', path)
+}
+
+#' @name is_zip
+#'
+#' @title Utility to check if file is a zip
+#'
+#' @param path file's path
+#' @return TRUE if zip, FALSE otherwise
+#'
+#' @noRd
+
+is_zip <- function(path) {
+  grepl('\\.zip$', path, ignore.case = TRUE)
+}

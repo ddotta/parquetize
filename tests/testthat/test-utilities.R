@@ -54,4 +54,12 @@ test_that("test get_parquet_name_file works", {
 
 })
 
+test_that("test is_remote works", {
+  expect_true(is_remote("https://my_url/"))
+  expect_true(is_remote("http://my_url/"))
+  expect_true(is_remote("ftp://my_url/"))
+  expect_true(is_remote("ftps://my_url/"))
 
+  expect_false(is_remote("c://my_url/"))
+  expect_false(is_remote("/my_url/"))
+})
