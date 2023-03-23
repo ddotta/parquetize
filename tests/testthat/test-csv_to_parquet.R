@@ -93,3 +93,21 @@ test_that("Checks message is displayed when we select a few columns", {
   )
 
 })
+
+test_that("Checks we have only selected columns in parquet file", {
+  input_file <- parquetize_example("region_2022.csv")
+  parquet_file <- get_parquet_file_name(input_file)
+  path_to_parquet <- "Data_test"
+  columns <- c("REG","LIBELLE")
+
+  csv_to_parquet(
+    path_to_csv = input_file,
+    path_to_parquet = path_to_parquet,
+    columns = columns
+  )
+
+  expect_setequal(
+    names(read_parquet(file.path(path_to_parquet, parquet_file))),
+    columns
+  )
+})

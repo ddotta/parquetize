@@ -178,3 +178,21 @@ test_that("Checks message is displayed with Stata by adding partition and partit
     )
   )
 })
+
+test_that("Checks we have only selected columns in parquet file", {
+  input_file <- system.file("examples","iris.sas7bdat", package = "haven")
+  parquet_file <- get_parquet_file_name(input_file)
+  path_to_parquet <- "Data_test"
+  columns <- c("Species","Sepal_Length")
+
+  table_to_parquet(
+    path_to_table = input_file,
+    path_to_parquet = path_to_parquet,
+    columns = columns
+  )
+
+  expect_setequal(
+    names(read_parquet(file.path(path_to_parquet, parquet_file))),
+    columns
+  )
+})
