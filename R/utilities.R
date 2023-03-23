@@ -108,6 +108,19 @@ get_file_format <- function(file_name) {
   file_format_list[[extension]]
 }
 
+#' @name get_parquet_file_name
+#'
+#' @title Utility that build the parquet file name from input file name
+#'
+#' @param file_name the file name
+#' @return the parquet file name
+#'
+#' @noRd
+get_parquet_file_name <- function(file_name) {
+  extension <- tools::file_ext(file_name)
+  parquetname <- sub(paste0(extension, "$"), "parquet", basename(file_name))
+}
+
 #' @name write_data
 #'
 #' @title Utility that write parquet file or dataset

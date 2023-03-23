@@ -39,3 +39,17 @@ test_that("test get_lines_for_memory return the good number of lines", {
   )
 })
 
+test_that("test get_parquet_name_file works", {
+  expect_equal(
+    get_parquet_file_name("/path/file.csv"),
+    "file.parquet"
+  )
+
+  expect_equal(
+    get_parquet_file_name("/path/csv.csv"),
+    "csv.parquet"
+  )
+
+})
+
+

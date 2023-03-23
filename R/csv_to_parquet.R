@@ -190,7 +190,7 @@ csv_to_parquet <- function(
 
       }
 
-      parquetname <- paste0(gsub("\\..*","",sub(".*/","", url_to_csv)),".parquet")
+      parquetname <- get_parquet_file_name(url_to_csv)
 
     } else if (csv_as_a_zip==TRUE) {
 
@@ -217,7 +217,7 @@ csv_to_parquet <- function(
 
       }
 
-      parquetname <- paste0(gsub("\\..*","",filename_in_zip),".parquet")
+      parquetname <- get_parquet_file_name(filename_in_zip)
     }
 
   }

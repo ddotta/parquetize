@@ -219,8 +219,7 @@ table_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  extension <- tools::file_ext(path_to_table)
-  parquetname <- gsub(paste0(extension, "$"), "parquet", basename(path_to_table))
+  parquetname <- get_parquet_file_name(path_to_table)
   write_data_in_parquet(table_output, path_to_parquet, parquetname, partition, ...)
 
   cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}")

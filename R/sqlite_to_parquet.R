@@ -96,7 +96,7 @@ sqlite_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_sqlite)),".parquet")
+  parquetname <- get_parquet_file_name(path_to_sqlite)
 
   if (partition %in% c("no")) {
 
