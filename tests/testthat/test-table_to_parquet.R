@@ -37,6 +37,15 @@ test_that("Checks arguments are filled in", {
     ),
     error = TRUE
   )
+  expect_snapshot(
+    table_to_parquet(
+      path_to_parquet = "Data_test",
+      by_chunk = TRUE,
+      chunk_size = 50,
+      chunk_memory_size = 50,
+    ),
+    error = TRUE
+  )
 })
 
 test_that("Checks argument columns is a character vector", {

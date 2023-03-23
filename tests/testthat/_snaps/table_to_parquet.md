@@ -39,6 +39,17 @@
     Error <simpleError>
       
 
+---
+
+    Code
+      table_to_parquet(path_to_parquet = "Data_test", by_chunk = TRUE, chunk_size = 50,
+        chunk_memory_size = 50, )
+    Message <cliMessage>
+      x Be careful, the argument path_to_table must be filled in
+      x Be careful, chunk_size and chunk_memory_size can not be used together
+    Error <simpleError>
+      
+
 # Checks argument columns is a character vector
 
     Code
