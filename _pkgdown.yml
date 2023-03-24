@@ -21,3 +21,4 @@ reference:
     contents:
       - rbind_parquet
       - parquetize_example
+      - download_extract

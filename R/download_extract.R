@@ -2,7 +2,7 @@
 #'
 #' This method will download the file or use the local file
 #'
-#' if the file is a zip it :
+#' If the file is a zip it :
 #'
 #' * returns the file if zip is only one file
 #' * returns filename_in_zip if there's more than one file
