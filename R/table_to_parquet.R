@@ -42,6 +42,7 @@
 #' @importFrom haven read_sas read_sav read_dta
 #' @importFrom arrow write_parquet write_dataset
 #' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_progress_bar
+#' @importFrom tidyselect all_of everything
 #' @import dplyr
 #' @export
 #'
@@ -219,16 +220,12 @@ table_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
-  # If we want to keep all columns
-  if (identical(columns,"all")) {
-    table_output <- read_method(path_to_table,
-                                encoding = encoding)
-    # If you select the columns to be kept
-  } else {
-    table_output <- read_method(path_to_table,
-                                encoding = encoding,
-                                col_select = all_of(columns))
-  }
+  table_output <- read_method(
+    path_to_table,
+    encoding = encoding,
+    col_select = if (identical(columns,"all")) everything() else all_of(columns)
+  )
+
   table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
 
   Sys.sleep(0.01)

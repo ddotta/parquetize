@@ -34,5 +34,6 @@ Imports:
     DBI,
     RSQLite,
     cli,
-    dplyr
+    dplyr,
+    tidyselect
 VignetteBuilder: knitr

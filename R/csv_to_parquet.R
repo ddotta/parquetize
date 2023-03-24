@@ -49,6 +49,7 @@
 #' @importFrom arrow write_parquet
 #' @importFrom utils unzip
 #' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success
+#' @importFrom tidyselect all_of everything
 #' @export
 #'
 #' @examples
@@ -142,21 +143,14 @@ csv_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
-  # If we want to keep all columns
-  if (identical(columns,"all")) {
-    csv_output <- read_delim(file = input_file,
-                             locale = locale(encoding = encoding),
-                             lazy = TRUE,
-                             show_col_types = FALSE)
+  csv_output <- read_delim(
+    file = input_file,
+    locale = locale(encoding = encoding),
+    lazy = TRUE,
+    show_col_types = FALSE,
+    col_select = if (identical(columns,"all")) everything() else all_of(columns)
+  )
 
-    # If you select the columns to be kept
-  } else {
-    csv_output <- read_delim(file = input_file,
-                             locale = locale(encoding = encoding),
-                             lazy = TRUE,
-                             show_col_types = FALSE,
-                             col_select = all_of(columns))
-  }
 
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
