@@ -87,13 +87,7 @@ json_to_parquet <- function(
   parquetname <- get_parquet_file_name(path_to_json)
   parquetfile <- write_data_in_parquet(json_output, path_to_parquet, parquetname, partition, ...)
 
-  cli_alert_success(paste0("\nThe ",
-                           if (format == "json") {
-                             "json"
-                           } else if (format == "ndjson") {
-                             "ndjson"
-                           },
-                           " file is available in parquet format under {path_to_parquet}"))
+  cli_alert_success("\nThe {format} file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 

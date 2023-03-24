@@ -97,9 +97,7 @@ sqlite_to_parquet <- function(
   parquetname <- get_parquet_file_name(path_to_sqlite)
   parquetfile <- write_data_in_parquet(sqlite_output, path_to_parquet, parquetname, partition, ...)
 
-  cli_alert_success(paste0("\nThe ",
-                           table_in_sqlite,
-                           " table from your sqlite file is available in parquet format under {path_to_parquet}"))
+  cli_alert_success("\nThe {table_in_sqlite} table from your sqlite file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 
