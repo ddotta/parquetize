@@ -6,7 +6,7 @@
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "path_to_parquet" is missing, with no default
+      
 
 ---
 
@@ -15,7 +15,7 @@
     Message <cliMessage>
       x Be careful, the argument path_to_sqlite must be filled in
     Error <simpleError>
-      argument "path_to_sqlite" is missing, with no default
+      
 
 # Check if extension used in path_to_sqlite is correct
 
@@ -24,9 +24,8 @@
         package = "parquetize"))
     Message <cliMessage>
       x Be careful, the extension used in path_to_sqlite is not correct
-      x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "path_to_parquet" is missing, with no default
+      
 
 # Check if parquetize fails when table does not exist
 

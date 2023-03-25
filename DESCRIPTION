@@ -35,5 +35,6 @@ Imports:
     RSQLite,
     cli,
     dplyr,
-    tidyselect
+    tidyselect,
+    lifecycle
 VignetteBuilder: knitr

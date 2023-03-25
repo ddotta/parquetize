@@ -53,11 +53,13 @@ rds_to_parquet <- function(
   # Check if path_to_rds is missing
   if (missing(path_to_rds)) {
     cli_alert_danger("Be careful, the argument path_to_rds must be filled in")
+    stop("")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
     cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
+    stop("")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)

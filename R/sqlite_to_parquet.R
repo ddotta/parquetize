@@ -61,16 +61,19 @@ sqlite_to_parquet <- function(
   # Check if path_to_sqlite is missing
   if (missing(path_to_sqlite)) {
     cli_alert_danger("Be careful, the argument path_to_sqlite must be filled in")
+    stop("")
   }
 
   # Check if extension used in path_to_sqlite is correct
   if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
     cli_alert_danger("Be careful, the extension used in path_to_sqlite is not correct")
+    stop("")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
     cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
+    stop("")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)

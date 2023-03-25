@@ -28,7 +28,7 @@ test_that("Checks message is displayed with path_to_csv argument", {
   )
 })
 
-test_that("Checks message is displayed with url_to_csv argument", {
+test_that("Checks url_to_csv argument is deprecated", {
   expect_snapshot(
     csv_to_parquet(
       url_to_csv = "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
@@ -36,6 +36,18 @@ test_that("Checks message is displayed with url_to_csv argument", {
     )
   )
 })
+
+test_that("Checks csv_as_a_zip is deprecated", {
+
+  expect_snapshot(
+    csv_to_parquet(
+      path_to_csv = system.file("extdata","mtcars.csv.zip", package = "readr"),
+      path_to_parquet = "Data_test",
+      csv_as_a_zip = TRUE
+    )
+  )
+})
+
 
 test_that("Checks message is displayed with compression and compression_level arguments", {
   expect_snapshot(

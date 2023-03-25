@@ -17,21 +17,20 @@ test_that("Checks arguments are filled in", {
     ),
     error = TRUE
   )
+
   expect_snapshot(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-      path_to_parquet = "Data_test",
-      encoding = "utf-8",
-      by_chunk = TRUE
+      encoding = "utf-8"
     ),
     error = TRUE
   )
+
   expect_snapshot(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       encoding = "utf-8",
-      by_chunk = TRUE,
       chunk_size = 50,
       skip = -100
     ),
@@ -39,12 +38,22 @@ test_that("Checks arguments are filled in", {
   )
   expect_snapshot(
     table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50,
-      chunk_memory_size = 50,
+      chunk_memory_size = 50
     ),
     error = TRUE
+  )
+})
+
+test_that("Checks by_chunk is deprecated", {
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = "Data_test",
+      by_chunk = TRUE
+    )
   )
 })
 
@@ -94,7 +103,6 @@ test_that("Checks message is displayed with by adding chunk_size to TRUE and enc
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50,
       encoding = "utf-8"
     )
@@ -107,7 +115,6 @@ test_that("Checks message is displayed by adding chunk_memory_size", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_memory_size = 5 / 1024,
     )
   )
@@ -132,7 +139,6 @@ test_that("Checks it fails with SAS by adding chunk_size, partition and partitio
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50,
       partition = "yes",
       partitioning =  "Species"
@@ -147,7 +153,6 @@ test_that("Checks message is displayed with SAS by adding chunk_size argument", 
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50
     )
   )
@@ -241,7 +246,6 @@ test_that("Checks we have the good number of lines when chunked", {
   table_to_parquet(
     path_to_table = system.file("examples","iris.dta", package = "haven"),
     path_to_parquet = test_dir,
-    by_chunk = TRUE,
     chunk_size = 49
   )
 
