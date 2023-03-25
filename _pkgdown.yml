@@ -17,6 +17,7 @@ reference:
       - rds_to_parquet
       - table_to_parquet
       - sqlite_to_parquet
+      - dbi_to_parquet
   - title: Other functions
     contents:
       - download_extract
