@@ -16,3 +16,5 @@ tests/testthat/Data/
 
 # Files with this extensions
 *.sas7bdat
+/doc/
+/Meta/
