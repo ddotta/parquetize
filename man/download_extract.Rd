@@ -2,38 +2,59 @@
 % Please edit documentation in R/download_extract.R
 \name{download_extract}
 \alias{download_extract}
-\title{download file and uncompress if needed}
+\title{download and uncompress file if needed}
 \usage{
 download_extract(path, filename_in_zip)
 }
 \arguments{
-\item{path}{the input file}
+\item{path}{the input  file's path or url.}
 
-\item{filename_in_zip}{name of the csv file in the zip. Required if several csv are included in the zip.}
+\item{filename_in_zip}{name of the csv file in the zip. Required if
+several csv are included in the zip.}
 }
 \value{
-the name of a file
+the path to the usable (uncompressed) file, invisibly.
 }
 \description{
-This method will download the file or use the local file
-}
-\details{
-If the file is a zip it :
+This function will download the file if the file is remote and
+  unzip it if it is zipped.  It will just return the input path argument if
+  it's neither. \cr
 
-* returns the file if zip is only one file
-* returns filename_in_zip if there's more than one file
+If the zip contains multiple files, you can use `filename_in_zip` to set the file you want to unzip and use.
 
-If the file is not a zip it returns immediately the path argument.
+You can pipe output on all `*_to_parquet` functions.
 }
 \examples{
 
-download_extract(system.file("extdata","mtcars.csv.zip", package = "readr"))
+# 1. unzip a local zip file
+# 2. parquetize it
 
-download_extract(
+file_path <- download_extract(system.file("extdata","mtcars.csv.zip", package = "readr"))
+csv_to_parquet(
+  file_path,
+  path_to_parquet = tempdir()
+)
+
+# 1. download a remote file
+# 2. extract the file census2021-ts007-ctry.csv
+# 3. parquetize it
+
+file_path <- download_extract(
   "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
   filename_in_zip = "census2021-ts007-ctry.csv"
 )
+csv_to_parquet(
+  file_path,
+  path_to_parquet = tempdir()
+)
 
-download_extract("/my/local/file.csv")
+# the file is local and not zipped so :
+# 1. parquetize it
+
+file_path <- download_extract(parquetize_example("region_2022.csv"))
+csv_to_parquet(
+  file_path,
+  path_to_parquet = tempdir()
+)
 
 }
