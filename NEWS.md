@@ -1,12 +1,68 @@
-# parquetize devel
+# parquetize 0.5.4.9000
 
 This release includes :  
 
-- The possibility to chunk parquet by memory size with `table_to_parquet()`: `table_to_parquet()` takes a `chunk_memory_size` argument to convert an input file into parquet file of roughly `chunk_memory_size` Mb size when data are loaded in memory.
-- The functionality for users to pass argument to `write_parquet()` when using
-by_chunk argument (in the ellipsis). Can be used for example to pass `compression` and `compression_level`.
-_ Passing `by_chunk=TRUE` and `partition=yes` to `table_to_parquet()` is no longer 
-possible.
+#### Three arguments deprecation
+
+After a big refactoring, three arguments are deprecated  :
+
+* `by_chunk` : `table_to_parquet` will automatically chunked if you use one of `chunk_memory_size` or `chunk_size`.
+* `csv_as_a_zip`: `csv_to_table` will detect if file is a zip by the extension.
+* `url_to_csv` : use `path_to_csv` instead, `csv_to_table` will detect if the file is remote with the file path.
+
+They will raise a deprecation warning for the moment.
+
+#### Chunking by memory size
+
+The possibility to chunk parquet by memory size with `table_to_parquet()`:
+`table_to_parquet()` takes a `chunk_memory_size` argument to convert an input
+file into parquet file of roughly `chunk_memory_size` Mb size when data are
+loaded in memory.
+
+Argument `by_chunk` is deprecated (see below).
+
+```{r}
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempdir(),
+  chunk_memory_size = 5000, # will create files of around 5Gb when loaded in memory
+)
+```
+
+#### Passing argument like compression to `write_parquet` when chunking
+
+The functionality for users to pass argument to `write_parquet()` when
+chunking argument (in the ellipsis). Can be used for example to pass
+`compression` and `compression_level`.
+
+```{r}
+table_to_parquet(
+  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempdir(),
+  compression = "zstd",
+  compression_level = 10,
+  chunk_memory_size = 5000
+)
+```
+
+#### A new function `download_extract` 
+
+This function is added to ... download and unzip file if needed.
+
+```{r}
+file_path <- download_extract(
+  "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
+  filename_in_zip = "census2021-ts007-ctry.csv"
+)
+csv_to_parquet(
+  file_path,
+  path_to_parquet = tempdir()
+)
+```
+
+#### Other
+
+Under the cover, this release has hardened tests
 
 # parquetize 0.5.4
 
