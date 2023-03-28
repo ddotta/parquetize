@@ -98,17 +98,6 @@
 #'   encoding = "utf-8"
 #' )
 #'
-#' # Reading SAS file by chunk of 50 lines
-#' # and conversion to multiple files with gzip, compression level 10
-#'
-#' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir(),
-#'   chunk_size = 50,
-#'   compression = "snappy",
-#'   compression_level = 10
-#' )
-#'
 #' # Conversion from a SAS file to a single parquet file and select only
 #' # few columns  :
 #'
@@ -126,6 +115,19 @@
 #'   partition = "yes",
 #'   partitioning =  c("Species") # vector use as partition key
 #' )
+#'
+#' \dontrun{
+#' # Reading SAS file by chunk of 50 lines
+#' # and conversion to multiple files with zstd, compression level 10
+#'
+#' table_to_parquet(
+#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_parquet = tempdir(),
+#'   chunk_size = 50,
+#'   compression = "zstd",
+#'   compression_level = 10
+#' )
+#' }
 
 table_to_parquet <- function(
     path_to_table,
