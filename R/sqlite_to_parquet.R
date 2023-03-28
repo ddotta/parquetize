@@ -61,22 +61,22 @@ sqlite_to_parquet <- function(
   # Check if path_to_sqlite is missing
   if (missing(path_to_sqlite)) {
     cli_alert_danger("Be careful, the argument path_to_sqlite must be filled in")
+    stop("")
   }
 
   # Check if extension used in path_to_sqlite is correct
   if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
     cli_alert_danger("Be careful, the extension used in path_to_sqlite is not correct")
+    stop("")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
     cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
+    stop("")
   }
 
-  # Check if path_to_parquet exists
-  if (dir.exists(path_to_parquet)==FALSE) {
-    dir.create(path_to_parquet, recursive = TRUE)
-  }
+  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
@@ -87,6 +87,7 @@ sqlite_to_parquet <- function(
   list_table <- DBI::dbListTables(con_sqlite)
   if (!(table_in_sqlite %in% list_table)==TRUE) {
     cli_alert_danger("Be careful, the table filled in the table_in_sqlite argument does not exist in your sqlite file")
+    stop("")
   }
 
   sqlite_output <- DBI::dbReadTable(con_sqlite, table_in_sqlite)
@@ -96,25 +97,10 @@ sqlite_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_sqlite)),".parquet")
+  parquetname <- get_parquet_file_name(path_to_sqlite)
+  parquetfile <- write_data_in_parquet(sqlite_output, path_to_parquet, parquetname, partition, ...)
 
-  if (partition %in% c("no")) {
-
-    parquetfile <- write_parquet(sqlite_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname))
-
-  } else if (partition %in% c("yes")) {
-
-    parquetfile <- write_dataset(sqlite_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
-
-  cli_alert_success(paste0("\nThe ",
-                           table_in_sqlite,
-                           " table from your sqlite file is available in parquet format under {path_to_parquet}"))
+  cli_alert_success("\nThe {table_in_sqlite} table from your sqlite file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 

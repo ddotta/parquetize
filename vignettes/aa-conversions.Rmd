@@ -22,7 +22,7 @@ library(parquetize)
 
 ## With `table_to_parquet()`
 
-For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `by_chunk=TRUE` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
+For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `chunk_memory_size` or `chunk_size` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
 The native behavior of this function (and all other functions in the package) is to load the entire table to be converted into R and then write it to disk (in a single file or a partitioned directory).  
 
 When handling very large files, the risk that frequently occurs is that the R session aborts because it cannot load the entire database into memory.
@@ -51,7 +51,6 @@ tibble. In this example we get 2 parquet files of 89 lines called
 table_to_parquet(
   path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
-  by_chunk = TRUE,
   chunk_memory_size = 5 / 1024,
   encoding = "utf-8"
 )
@@ -65,7 +64,6 @@ with a SAS file of 50 000 000 lines and using chunk_memory_size of 5000 Mb :
   table_to_parquet(
   path_to_table = "myhugefile.sas7bdat",
   path_to_parquet = tempdir(),
-  by_chunk = TRUE,
   chunk_memory_size = 5000,
   encoding = "utf-8"
 )
@@ -82,7 +80,6 @@ Here we cut the 150 rows into 3 chunks of 50 rows. In this example we get 3 parq
 table_to_parquet(
 path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
 path_to_parquet = tempfile(),
-by_chunk = TRUE,
 chunk_size = 50,
 encoding = "utf-8"
 )
@@ -95,7 +92,6 @@ In real life, we can perform this kind of request with the parquetize API (for e
 table_to_parquet(
 path_to_table = "myhugefile.sas7bdat",
 path_to_parquet = tempdir(),
-by_chunk = TRUE,
 chunk_size = 2000000,
 encoding = "utf-8"
 )

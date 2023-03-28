@@ -6,8 +6,8 @@
 \usage{
 csv_to_parquet(
   path_to_csv,
-  url_to_csv,
-  csv_as_a_zip = FALSE,
+  url_to_csv = deprecated(),
+  csv_as_a_zip = deprecated(),
   filename_in_zip,
   path_to_parquet,
   columns = "all",
@@ -19,13 +19,13 @@ csv_to_parquet(
 )
 }
 \arguments{
-\item{path_to_csv}{string that indicates the path to the csv file}
+\item{path_to_csv}{string that indicates the path or url to the csv file}
 
-\item{url_to_csv}{string that indicates the URL of the csv file}
+\item{url_to_csv}{DEPRECATED use path_to_csv instead}
 
-\item{csv_as_a_zip}{boolean that indicates if the csv is stored in a zip}
+\item{csv_as_a_zip}{DEPRECATED}
 
-\item{filename_in_zip}{name of the csv file in the zip (useful if several csv are included in the zip). Required if `csv_as_a_zip` is TRUE.}
+\item{filename_in_zip}{name of the csv file in the zip. Required if several csv are included in the zip.}
 
 \item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
 
@@ -48,15 +48,6 @@ A parquet file, invisibly
 }
 \description{
 This function allows to convert a csv file to parquet format. \cr
-
-Several conversion possibilities are offered :
-
-\itemize{
-
-\item{From a locally stored file. Argument `path_to_csv` must then be used;}
-\item{From a URL. Argument `url_to_csv` must then be used.}
-
-}
 
 Two conversions possibilities are offered :
 
@@ -106,7 +97,7 @@ csv_to_parquet(
 # Conversion from a URL and a csv file with "gzip" compression :
 
 csv_to_parquet(
-  url_to_csv =
+  path_to_csv =
   "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
   path_to_parquet = tempdir(),
   compression = "gzip",
@@ -116,8 +107,7 @@ csv_to_parquet(
 # Conversion from a URL and a zipped file :
 
 csv_to_parquet(
-  url_to_csv = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
-  csv_as_a_zip = TRUE,
+  path_to_csv = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
   filename_in_zip = "census2021-ts007-ctry.csv",
   path_to_parquet = tempdir()
 )

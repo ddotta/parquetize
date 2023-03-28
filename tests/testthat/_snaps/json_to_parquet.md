@@ -5,7 +5,7 @@
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "path_to_parquet" is missing, with no default
+      
 
 ---
 
@@ -13,9 +13,8 @@
       json_to_parquet(path_to_parquet = "Data_test")
     Message <cliMessage>
       x Be careful, the argument path_to_json must be filled in
-      Reading data...
     Error <simpleError>
-      argument "path_to_json" is missing, with no default
+      
 
 ---
 
@@ -24,10 +23,8 @@
       path_to_parquet = "Data_test", format = "xjson")
     Message <cliMessage>
       x Be careful, the argument format must be equal to 'json' or 'ndjson'
-      Reading data...
-      Writing data...
     Error <simpleError>
-      object 'json_output' not found
+      
 
 # Checks message is displayed with json file
 

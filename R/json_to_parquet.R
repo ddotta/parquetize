@@ -56,21 +56,21 @@ json_to_parquet <- function(
   # Check if path_to_json is missing
   if (missing(path_to_json)) {
     cli_alert_danger("Be careful, the argument path_to_json must be filled in")
+    stop("")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
     cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
+    stop("")
   }
 
-  # Check if path_to_parquet exists
-  if (dir.exists(path_to_parquet)==FALSE) {
-    dir.create(path_to_parquet, recursive = TRUE)
-  }
+  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   # Check if format is equal to "json" or "ndjson"
   if (!(format %in% c("json","ndjson"))) {
     cli_alert_danger("Be careful, the argument format must be equal to 'json' or 'ndjson'")
+    stop("")
   }
 
   Sys.sleep(0.01)
@@ -87,29 +87,10 @@ json_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_json)),".parquet")
+  parquetname <- get_parquet_file_name(path_to_json)
+  parquetfile <- write_data_in_parquet(json_output, path_to_parquet, parquetname, partition, ...)
 
-  if (partition == "no") {
-
-    parquetfile <- write_parquet(json_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname))
-
-  } else if (partition == "yes") {
-
-    parquetfile <- write_dataset(json_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
-
-  cli_alert_success(paste0("\nThe ",
-                           if (format == "json") {
-                             "json"
-                           } else if (format == "ndjson") {
-                             "ndjson"
-                           },
-                           " file is available in parquet format under {path_to_parquet}"))
+  cli_alert_success("\nThe {format} file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 

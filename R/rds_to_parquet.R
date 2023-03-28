@@ -53,17 +53,16 @@ rds_to_parquet <- function(
   # Check if path_to_rds is missing
   if (missing(path_to_rds)) {
     cli_alert_danger("Be careful, the argument path_to_rds must be filled in")
+    stop("")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
     cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
+    stop("")
   }
 
-  # Check if path_to_parquet exists
-  if (dir.exists(path_to_parquet)==FALSE) {
-    dir.create(path_to_parquet, recursive = TRUE)
-  }
+  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
@@ -73,21 +72,8 @@ rds_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_rds)),".parquet")
-
-  if (partition %in% c("no")) {
-
-    parquetfile <- write_parquet(rds_output,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname))
-
-  } else if (partition %in% c("yes")) {
-
-    parquetfile <- write_dataset(rds_output,
-                                 path = path_to_parquet,
-                                 ...)
-
-  }
+  parquetname <- get_parquet_file_name(path_to_rds)
+  parquetfile <- write_data_in_parquet(rds_output, path_to_parquet, parquetname, partition, ...)
 
   cli_alert_success("\nThe rds file is available in parquet format under {path_to_parquet}")
 

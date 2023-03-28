@@ -17,12 +17,22 @@ test_that("Checks arguments are filled in", {
     ),
     error = TRUE
   )
+
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      encoding = "utf-8"
+    ),
+    error = TRUE
+  )
+
   expect_snapshot(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
       encoding = "utf-8",
-      by_chunk = TRUE
+      chunk_size = 50,
+      skip = -100
     ),
     error = TRUE
   )
@@ -30,12 +40,20 @@ test_that("Checks arguments are filled in", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      encoding = "utf-8",
-      by_chunk = TRUE,
       chunk_size = 50,
-      skip = -100
+      chunk_memory_size = 50
     ),
     error = TRUE
+  )
+})
+
+test_that("Checks by_chunk is deprecated", {
+  expect_snapshot(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = "Data_test",
+      by_chunk = TRUE
+    )
   )
 })
 
@@ -57,7 +75,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("Species","Petal_Length"))
+      columns = c("Species","Petal_Length")
     )
   )
 
@@ -65,7 +83,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sav", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("Species","Petal.Length"))
+      columns = c("Species","Petal.Length")
     )
   )
 
@@ -73,7 +91,7 @@ test_that("Checks message is displayed when we select a few columns", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.dta", package = "haven"),
       path_to_parquet = "Data_test",
-      columns = all_of(c("species","petallength"))
+      columns = c("species","petallength")
     )
   )
 
@@ -85,7 +103,6 @@ test_that("Checks message is displayed with by adding chunk_size to TRUE and enc
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50,
       encoding = "utf-8"
     )
@@ -98,7 +115,6 @@ test_that("Checks message is displayed by adding chunk_memory_size", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_memory_size = 5 / 1024,
     )
   )
@@ -123,7 +139,6 @@ test_that("Checks it fails with SAS by adding chunk_size, partition and partitio
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50,
       partition = "yes",
       partitioning =  "Species"
@@ -138,7 +153,6 @@ test_that("Checks message is displayed with SAS by adding chunk_size argument", 
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = "Data_test",
-      by_chunk = TRUE,
       chunk_size = 50
     )
   )
@@ -176,5 +190,68 @@ test_that("Checks message is displayed with Stata by adding partition and partit
       partition = "yes",
       partitioning =  "species"
     )
+  )
+})
+
+test_that("Checks we have only selected columns in parquet file", {
+  input_file <- system.file("examples","iris.sas7bdat", package = "haven")
+  parquet_file <- get_parquet_file_name(input_file)
+  path_to_parquet <- "Data_test"
+  columns <- c("Species","Sepal_Length")
+
+  table_to_parquet(
+    path_to_table = input_file,
+    path_to_parquet = path_to_parquet,
+    columns = columns
+  )
+
+  expect_setequal(
+    names(read_parquet(file.path(path_to_parquet, parquet_file))),
+    columns
+  )
+})
+
+test_that("Checks we have the good number of lines when simple", {
+  test_dir <- "Data_test/simple"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
+  )
+})
+
+test_that("Checks we have the good number of lines when partitionned", {
+  test_dir <- "Data_test/partitionned"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+    partition = "yes",
+    partitioning =  "species"
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
+  )
+})
+
+test_that("Checks we have the good number of lines when chunked", {
+  test_dir <- "Data_test/chunked"
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.dta", package = "haven"),
+    path_to_parquet = test_dir,
+    chunk_size = 49
+  )
+
+  ds <- arrow::open_dataset(test_dir)
+  expect_equal(
+    nrow(ds),
+    nrow(haven::read_sas(system.file("examples","iris.sas7bdat", package = "haven")))
   )
 })

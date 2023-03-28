@@ -7,3 +7,9 @@
 ^pkgdown$
 ^\.github$
 ^CONTRIBUTING.md
+
+# This folders
+tests/testthat/output/
+tests/testthat/Data_test/
+^doc$
+^Meta$

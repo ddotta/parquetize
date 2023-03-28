@@ -5,7 +5,7 @@
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "path_to_parquet" is missing, with no default
+      
 
 ---
 
@@ -13,9 +13,8 @@
       rds_to_parquet(path_to_parquet = "Data_test")
     Message <cliMessage>
       x Be careful, the argument path_to_rds must be filled in
-      Reading data...
     Error <simpleError>
-      argument "path_to_rds" is missing, with no default
+      
 
 # Checks message is displayed with rds file
 

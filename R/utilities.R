@@ -1,68 +1,16 @@
-#' @name bychunk
-#'
-#' @title Utility function that read and write data by chunk
-#'
-#' @param file_format file format
-#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
-#' @param path_to_parquet string that indicates the path to the directory where the parquet files will be stored.
-#' @param chunk_size Number of lines that defines the size of the chunk.
-#' @param skip Number of lines to ignore when converting.
-#'
-#'
-#' @noRd
-bychunk <- function(file_format, path_to_table, path_to_parquet, chunk_size, skip, ...) {
-
-  if (file_format %in% c("SAS")) {
-
-    tbl <- read_sas(data_file = path_to_table,
-                    skip = skip,
-                    n_max = chunk_size)
-  } else if (file_format %in% c("SPSS")) {
-
-    tbl <- read_sav(file = path_to_table,
-                    skip = skip,
-                    n_max = chunk_size)
-
-  } else if (file_format %in% c("Stata")) {
-
-    tbl <- read_dta(file = path_to_table,
-                    skip = skip,
-                    n_max = chunk_size)
-  }
-
-  if (nrow(tbl) != 0) {
-    parquetname <- paste0(gsub("\\..*","",sub(".*/","", path_to_table)))
-    parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
-
-    write_parquet(tbl,
-                  sink = file.path(path_to_parquet,
-                                   parquetizename),
-                  ...
-    )
-    cli_alert_success("\nThe {file_format} file is available in parquet format under {path_to_parquet}/{parquetizename}")
-  }
-
-  completed <- nrow(tbl) < chunk_size
-  return(!completed)
-}
-
 #' @name get_lines_for_memory
 #'
 #' @title Utility to guess the number of lines fiting in given memory_size
 #'
-#' @param path_to_table string that indicates the path to the input file (don't forget the extension).
+#' @param data a tibble/dataframe of equivalent with the data sample used to guess memory
 #' @param memory_size memory (in Mo) to use for one chunk, default to 4000Mb
-#' @param sample_lines number of line to read to begin. default is 10000
 #'
-#' This method read a sample of `sample_lines` to estimate the number lines that
-#' fit in argument memory_size.
+#' This method tries to estimate the number lines that fit in argument
+#' memory_size
 #'
 #' @noRd
 #' @importFrom utils object.size
-get_lines_for_memory <- function(path_to_table, chunk_memory_size = 4000, sample_lines = 10000) {
-  read_method <- get_read_function_for_file(path_to_table)
-  data <- read_method(path_to_table, n_max = sample_lines)
-
+get_lines_for_memory <- function(data, chunk_memory_size = 4000) {
   data_memory_size <- object.size(data)
   # cosmetic : remove object.size attribute
   attributes(data_memory_size) <- NULL
@@ -102,3 +50,84 @@ get_read_function_for_file <- function(file_name) {
   fun
 }
 
+
+file_format_list <- list(
+  "sas7bdat" = "SAS",
+  "sav" = "SPSS",
+  "dta" = "Stata"
+)
+
+#' @name get_file_format
+#'
+#' @title Utility that returns the file format for a file
+#'
+#' @param file_name string that indicates the path to the input file
+#'
+#' @noRd
+#' @importFrom tools file_ext
+get_file_format <- function(file_name) {
+  extension <- tools::file_ext(file_name)
+  file_format_list[[extension]]
+}
+
+#' @name get_parquet_file_name
+#'
+#' @title Utility that build the parquet file name from input file name
+#'
+#' @param file_name the file name
+#' @return the parquet file name
+#'
+#' @noRd
+get_parquet_file_name <- function(file_name) {
+  extension <- tools::file_ext(file_name)
+  parquetname <- sub(paste0(extension, "$"), "parquet", basename(file_name))
+}
+
+#' @name write_data
+#'
+#' @title Utility that write parquet file or dataset
+#'
+#' @param data the data to write
+#' @param parquetname the file name for the parquet file
+#' @inheritParams table_to_parquet
+#'
+#' @noRd
+write_data_in_parquet <- function(data, path_to_parquet, parquetname, partition, ...) {
+  if (partition == "no") {
+    parquetfile <- write_parquet(data,
+                                 sink = file.path(path_to_parquet,
+                                                  parquetname),
+                                 ...)
+  } else if (partition == "yes") {
+    parquetfile <- write_dataset(data,
+                                 path = path_to_parquet,
+                                 ...)
+  }
+  parquetfile
+}
+
+#' @name is_remote
+#'
+#' @title Utility to check if file is local or remote
+#'
+#' @param path file's path
+#' @return TRUE if remote, FALSE otherwise
+#'
+#' @noRd
+
+is_remote <- function(path) {
+  grepl('(http|ftp)s?://', path)
+}
+
+#' @name is_zip
+#'
+#' @title Utility to check if file is a zip
+#'
+#' @param path file's path
+#' @return TRUE if zip, FALSE otherwise
+#'
+#' @noRd
+
+is_zip <- function(path) {
+  grepl('\\.zip$', path, ignore.case = TRUE)
+}

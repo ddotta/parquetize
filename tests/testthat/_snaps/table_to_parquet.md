@@ -6,7 +6,7 @@
     Message <cliMessage>
       x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "path_to_parquet" is missing, with no default
+      
 
 ---
 
@@ -15,29 +15,53 @@
     Message <cliMessage>
       x Be careful, the argument path_to_table must be filled in
     Error <simpleError>
-      argument "path_to_table" is missing, with no default
+      
 
 ---
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", encoding = "utf-8",
-      by_chunk = TRUE)
+        package = "haven"), encoding = "utf-8")
     Message <cliMessage>
-      x Be careful, if you want to do a conversion by chunk one of the arguments chunk_memory_size or chunk_size must be filled in
+      x Be careful, the argument path_to_parquet must be filled in
     Error <simpleError>
-      argument "chunk_memory_size" is missing, with no default
+      
 
 ---
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
         package = "haven"), path_to_parquet = "Data_test", encoding = "utf-8",
-      by_chunk = TRUE, chunk_size = 50, skip = -100)
+      chunk_size = 50, skip = -100)
     Message <cliMessage>
       x Be careful, if you want to do a conversion by chunk then the argument skip must be must be greater than 0
     Error <simpleError>
       
+
+---
+
+    Code
+      table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
+        package = "haven"), path_to_parquet = "Data_test", chunk_size = 50,
+      chunk_memory_size = 50)
+    Message <cliMessage>
+      x Be careful, chunk_size and chunk_memory_size can not be used together
+    Error <simpleError>
+      
+
+# Checks by_chunk is deprecated
+
+    Code
+      table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
+        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE)
+    Warning <lifecycle_warning_deprecated>
+      The `by_chunk` argument of `table_to_parquet()` is deprecated as of parquetize 0.5.5.
+      i This argument is no longer needed, table_to_parquet will chunk if one of chunk_memory_size or chunk_size is setted
+    Message <cliMessage>
+      Reading data...
+      Writing data...
+      v The SAS file is available in parquet format under Data_test
+      Writing data...
 
 # Checks argument columns is a character vector
 
@@ -46,43 +70,18 @@
         package = "haven"), path_to_parquet = "Data_test", columns = matrix(1:10))
     Message <cliMessage>
       x Be careful, the argument columns must be a character vector
-      Reading data...
-    Warning <lifecycle_warning_deprecated>
-      Using an external vector in selections was deprecated in tidyselect 1.1.0.
-      i Please use `all_of()` or `any_of()` instead.
-        # Was:
-        data %>% select(columns)
+      i You can use `all` or `c("col1", "col2"))`
+    Error <simpleError>
       
-        # Now:
-        data %>% select(all_of(columns))
-      
-      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-    Error <vctrs_error_subscript_type>
-      Can't subset columns with `columns`.
-      x Subscript `columns` must be a simple vector, not a matrix.
 
 # Checks message is displayed when we select a few columns
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", columns = all_of(c(
-        "Species", "Petal_Length")))
-    Warning <lifecycle_warning_deprecated>
-      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
-      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
+        package = "haven"), path_to_parquet = "Data_test", columns = c("Species",
+        "Petal_Length"))
     Message <cliMessage>
       Reading data...
-    Warning <lifecycle_warning_deprecated>
-      Using an external vector in selections was deprecated in tidyselect 1.1.0.
-      i Please use `all_of()` or `any_of()` instead.
-        # Was:
-        data %>% select(columns)
-      
-        # Now:
-        data %>% select(all_of(columns))
-      
-      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-    Message <cliMessage>
       Writing data...
       v The SAS file is available in parquet format under Data_test
       Writing data...
@@ -91,23 +90,9 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sav", package = "haven"),
-      path_to_parquet = "Data_test", columns = all_of(c("Species", "Petal.Length")))
-    Warning <lifecycle_warning_deprecated>
-      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
-      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
+      path_to_parquet = "Data_test", columns = c("Species", "Petal.Length"))
     Message <cliMessage>
       Reading data...
-    Warning <lifecycle_warning_deprecated>
-      Using an external vector in selections was deprecated in tidyselect 1.1.0.
-      i Please use `all_of()` or `any_of()` instead.
-        # Was:
-        data %>% select(columns)
-      
-        # Now:
-        data %>% select(all_of(columns))
-      
-      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-    Message <cliMessage>
       Writing data...
       v The SPSS file is available in parquet format under Data_test
       Writing data...
@@ -116,23 +101,9 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.dta", package = "haven"),
-      path_to_parquet = "Data_test", columns = all_of(c("species", "petallength")))
-    Warning <lifecycle_warning_deprecated>
-      Using `all_of()` outside of a selecting function was deprecated in tidyselect 1.2.0.
-      i See details at <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
+      path_to_parquet = "Data_test", columns = c("species", "petallength"))
     Message <cliMessage>
       Reading data...
-    Warning <lifecycle_warning_deprecated>
-      Using an external vector in selections was deprecated in tidyselect 1.1.0.
-      i Please use `all_of()` or `any_of()` instead.
-        # Was:
-        data %>% select(columns)
-      
-        # Now:
-        data %>% select(all_of(columns))
-      
-      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-    Message <cliMessage>
       Writing data...
       v The Stata file is available in parquet format under Data_test
       Writing data...
@@ -141,8 +112,7 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
-      chunk_size = 50, encoding = "utf-8")
+        package = "haven"), path_to_parquet = "Data_test", chunk_size = 50, encoding = "utf-8")
     Message <cliMessage>
       v The SAS file is available in parquet format under Data_test/iris1-50.parquet
       v The SAS file is available in parquet format under Data_test/iris51-100.parquet
@@ -152,8 +122,8 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
-      chunk_memory_size = 5 / 1024, )
+        package = "haven"), path_to_parquet = "Data_test", chunk_memory_size = 5 /
+        1024, )
     Message <cliMessage>
       v The SAS file is available in parquet format under Data_test/iris1-89.parquet
       v The SAS file is available in parquet format under Data_test/iris90-150.parquet
@@ -174,8 +144,8 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
-      chunk_size = 50, partition = "yes", partitioning = "Species")
+        package = "haven"), path_to_parquet = "Data_test", chunk_size = 50,
+      partition = "yes", partitioning = "Species")
     Message <cliMessage>
       x Be careful, when by_chunk is TRUE partition and partitioning can not be used
     Error <simpleError>
@@ -185,8 +155,7 @@
 
     Code
       table_to_parquet(path_to_table = system.file("examples", "iris.sas7bdat",
-        package = "haven"), path_to_parquet = "Data_test", by_chunk = TRUE,
-      chunk_size = 50)
+        package = "haven"), path_to_parquet = "Data_test", chunk_size = 50)
     Message <cliMessage>
       v The SAS file is available in parquet format under Data_test/iris1-50.parquet
       v The SAS file is available in parquet format under Data_test/iris51-100.parquet
