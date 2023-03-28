@@ -27,11 +27,13 @@ The native behavior of this function (and all other functions in the package) is
 
 When handling very large files, the risk that frequently occurs is that the R session aborts because it cannot load the entire database into memory.
 This risk is even more present if you work locally on your computer and it can be limited if you work on remote servers.  
-`table_to_parquet()` offers this solution which answers a need expressed by parquetize users.  
+**`table_to_parquet()` offers this solution which answers a need expressed by parquetize users.**  
 
+-------
 **The idea is to split the very large table into "chunks" based on memory consumption of input data or on the number of rows in the table in order to be able to simultaneously :**  
 - **read a chunk of the very large database**  
 - **write this chunk in the floor file**
+------
 
 Here are examples from the documentation using the iris table. There's two ways to split output files :
 
@@ -44,8 +46,8 @@ Here are examples from the documentation using the iris table. There's two ways 
 memory consuption with the argument `chunk_memory_size` expressed in Mb.
 
 Here we cut the 150 rows into chunks of roughly 5 Kb when a file is loaded as a
-tibble. In this example we get 2 parquet files of 89 lines called
-`iris1-89.parquet` and `iris90-178.parquet`
+tibble.  
+In this example we get 2 parquet files of 89 lines called `iris1-89.parquet` and `iris90-150.parquet`
 
 ```{r iris-memory-example}
 table_to_parquet(
@@ -112,4 +114,4 @@ output_name = "myhugefile",
 delete_initial_files = FALSE
 )
 ```
-The `myhugefile.parquet` file will be created from the `myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet`... files. :tada:
+The `myhugefile.parquet` file will be created from the `myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet`... files!
