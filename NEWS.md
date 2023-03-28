@@ -1,10 +1,14 @@
-# parquetize 0.5.4.9000
+# parquetize 0.5.5
 
 This release includes :  
 
+#### A very important new contributor to `parquetize` !
+
+Due to these numerous contributions, @nbc is now officially part of the project authors !
+
 #### Three arguments deprecation
 
-After a big refactoring, three arguments are deprecated  :
+After a big refactoring, three arguments are deprecated :
 
 * `by_chunk` : `table_to_parquet` will automatically chunked if you use one of `chunk_memory_size` or `chunk_size`.
 * `csv_as_a_zip`: `csv_to_table` will detect if file is a zip by the extension.
@@ -19,13 +23,15 @@ The possibility to chunk parquet by memory size with `table_to_parquet()`:
 file into parquet file of roughly `chunk_memory_size` Mb size when data are
 loaded in memory.
 
-Argument `by_chunk` is deprecated (see below).
+Argument `by_chunk` is deprecated (see above).
+
+Example of use of the argument `chunk_memory_size`:  
 
 ```{r}
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
-  chunk_memory_size = 5000, # will create files of around 5Gb when loaded in memory
+  chunk_memory_size = 5000, # this will create files of around 5Gb when loaded in memory
 )
 ```
 
@@ -34,6 +40,8 @@ table_to_parquet(
 The functionality for users to pass argument to `write_parquet()` when
 chunking argument (in the ellipsis). Can be used for example to pass
 `compression` and `compression_level`.
+
+Example:  
 
 ```{r}
 table_to_parquet(

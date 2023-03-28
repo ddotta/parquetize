@@ -1,7 +1,7 @@
 Package: parquetize
 Type: Package
 Title: Convert Files to Parquet Format
-Version: 0.5.4
+Version: 0.5.5
 Authors@R:
     c(person(given = "Damien",
              family = "Dotta",
@@ -9,7 +9,7 @@ Authors@R:
              email = "damien.dotta@live.fr")),
     c(person(given = "Nicolas",
              family = "Chuche",
-             role = c("cre"),
+             role = c("aut"),
              email = "nicolas.chuche@barna.be"))
 Description: Collection of functions to get files in parquet format.
     Parquet is a columnar storage file format <https://parquet.apache.org/>. 
