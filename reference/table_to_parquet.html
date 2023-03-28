@@ -171,7 +171,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SPSS file to a single parquet file :</span></span></span>
@@ -182,7 +182,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span><span class="co"># Conversion from a Stata file to a single parquet file without progress bar :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -192,7 +192,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The Stata file is available in parquet format under /tmp/RtmpsoGDbc</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The Stata file is available in parquet format under /tmp/Rtmpy1ZfXu</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SPSS file by chunk (using `chunk_size` argument)</span></span></span>
@@ -203,9 +203,9 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  chunk_size <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc/iris1-50.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc/iris51-100.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc/iris101-150.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris1-50.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris51-100.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris101-150.parquet</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SPSS file by chunk (using `chunk_memory_size` argument)</span></span></span>
 <span class="r-in"><span><span class="co"># and conversion to multiple parquet files of 5 Kb when loaded (5 Mb / 1024)</span></span></span>
@@ -217,8 +217,8 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  chunk_memory_size <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc/iris1-82.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/RtmpsoGDbc/iris83-150.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris1-82.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SPSS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris83-150.parquet</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SAS file by chunk of 50 lines with encoding</span></span></span>
 <span class="r-in"><span><span class="co"># and conversion to multiple files :</span></span></span>
@@ -229,23 +229,21 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  chunk_size <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris1-50.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris51-100.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris101-150.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris1-50.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris51-100.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu/iris101-150.parquet</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SAS file by chunk of 50 lines</span></span></span>
-<span class="r-in"><span><span class="co"># and conversion to multiple files with zstd, compression level 10</span></span></span>
+<span class="r-in"><span><span class="co"># and conversion to multiple files with gzip, compression level 10</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">table_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  chunk_size <span class="op">=</span> <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>  compression <span class="op">=</span> <span class="st">"zstd"</span>,</span></span>
+<span class="r-in"><span>  compression <span class="op">=</span> <span class="st">"gzip"</span>,</span></span>
 <span class="r-in"><span>  compression_level <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris1-50.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris51-100.parquet</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc/iris101-150.parquet</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> IOError: zlib deflateInit failed: (unknown error)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SAS file to a single parquet file and select only</span></span></span>
 <span class="r-in"><span><span class="co"># few columns  :</span></span></span>
@@ -257,7 +255,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SAS file to a partitioned parquet file  :</span></span></span>
@@ -270,7 +268,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpsoGDbc</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmpy1ZfXu</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 </code></pre></div>
     </div>
