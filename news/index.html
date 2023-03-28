@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,65 @@
       <small>Source: <a href="https://github.com/ddotta/parquetize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.5" id="parquetize-055">parquetize 0.5.5<a class="anchor" aria-label="anchor" href="#parquetize-055"></a></h2>
+<p>This release includes :</p>
+<div class="section level5">
+<h5 id="a-very-important-new-contributor-to-parquetize--0-5-5">A very important new contributor to <code>parquetize</code> !<a class="anchor" aria-label="anchor" href="#a-very-important-new-contributor-to-parquetize--0-5-5"></a></h5>
+<p>Due to these numerous contributions, <a href="https://github.com/nbc" class="external-link">@nbc</a> is now officially part of the project authors !</p>
+</div>
+<div class="section level5">
+<h5 id="three-arguments-deprecation-0-5-5">Three arguments deprecation<a class="anchor" aria-label="anchor" href="#three-arguments-deprecation-0-5-5"></a></h5>
+<p>After a big refactoring, three arguments are deprecated :</p>
+<ul><li>
+<code>by_chunk</code> : <code>table_to_parquet</code> will automatically chunked if you use one of <code>chunk_memory_size</code> or <code>chunk_size</code>.</li>
+<li>
+<code>csv_as_a_zip</code>: <code>csv_to_table</code> will detect if file is a zip by the extension.</li>
+<li>
+<code>url_to_csv</code> : use <code>path_to_csv</code> instead, <code>csv_to_table</code> will detect if the file is remote with the file path.</li>
+</ul><p>They will raise a deprecation warning for the moment.</p>
+</div>
+<div class="section level5">
+<h5 id="chunking-by-memory-size-0-5-5">Chunking by memory size<a class="anchor" aria-label="anchor" href="#chunking-by-memory-size-0-5-5"></a></h5>
+<p>The possibility to chunk parquet by memory size with <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code>: <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> takes a <code>chunk_memory_size</code> argument to convert an input file into parquet file of roughly <code>chunk_memory_size</code> Mb size when data are loaded in memory.</p>
+<p>Argument <code>by_chunk</code> is deprecated (see above).</p>
+<p>Example of use of the argument <code>chunk_memory_size</code>:</p>
+<pre class="{r}"><code><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
+<span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  chunk_memory_size <span class="op">=</span> <span class="fl">5000</span>, <span class="co"># this will create files of around 5Gb when loaded in memory</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="passing-argument-like-compression-to-write_parquet-when-chunking-0-5-5">Passing argument like compression to <code>write_parquet</code> when chunking<a class="anchor" aria-label="anchor" href="#passing-argument-like-compression-to-write_parquet-when-chunking-0-5-5"></a></h5>
+<p>The functionality for users to pass argument to <code><a href="https://arrow.apache.org/docs/r/reference/write_parquet.html" class="external-link">write_parquet()</a></code> when chunking argument (in the ellipsis). Can be used for example to pass <code>compression</code> and <code>compression_level</code>.</p>
+<p>Example:</p>
+<pre class="{r}"><code><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
+<span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>,<span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  compression <span class="op">=</span> <span class="st">"zstd"</span>,</span>
+<span>  compression_level <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  chunk_memory_size <span class="op">=</span> <span class="fl">5000</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="a-new-function-download_extract-0-5-5">A new function <code>download_extract</code>
+<a class="anchor" aria-label="anchor" href="#a-new-function-download_extract-0-5-5"></a></h5>
+<p>This function is added to … download and unzip file if needed.</p>
+<pre class="{r}"><code><span><span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_extract.html">download_extract</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip"</span>,</span>
+<span>  filename_in_zip <span class="op">=</span> <span class="st">"census2021-ts007-ctry.csv"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/csv_to_parquet.html">csv_to_parquet</a></span><span class="op">(</span></span>
+<span>  <span class="va">file_path</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="other-0-5-5">Other<a class="anchor" aria-label="anchor" href="#other-0-5-5"></a></h5>
+<p>Under the cover, this release has hardened tests</p>
+</div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.4" id="parquetize-054">parquetize 0.5.4<a class="anchor" aria-label="anchor" href="#parquetize-054"></a></h2><p class="text-muted">CRAN release: 2023-03-13</p>
 <p>This release fix an error when converting a sas file by chunk.</p>
@@ -109,7 +168,7 @@ Indeed, the storage of DuckDB is not yet stable. The storage will be stabilized 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Damien Dotta.</p>
+  <p></p><p>Developed by Damien Dotta, Nicolas Chuche.</p>
 </div>
 
 <div class="pkgdown-footer-right">

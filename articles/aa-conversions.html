@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,8 @@
 </h3>
 <p>For <strong>huge input files in SAS, SPSS and Stata formats</strong>,
 the parquetize package allows you to perform a clever conversion by
-using <code>by_chunk=TRUE</code> in the <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link"><code>table_to_parquet()</code></a>
+using <code>chunk_memory_size</code> or <code>chunk_size</code> in the
+<a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link"><code>table_to_parquet()</code></a>
 function. The native behavior of this function (and all other functions
 in the package) is to load the entire table to be converted into R and
 then write it to disk (in a single file or a partitioned directory).</p>
@@ -125,12 +126,11 @@ called <code>iris1-89.parquet</code> and
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
 <span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  by_chunk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  chunk_memory_size <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpDB0YHi/file17e82b50e6df/iris1-89.parquet</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpDB0YHi/file17e82b50e6df/iris90-150.parquet</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpwPZCJu/file1852530710b5/iris1-89.parquet</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpwPZCJu/file1852530710b5/iris90-150.parquet</span></span></code></pre></div>
 <p>In real life, you should use a <code>chunk_memory_size</code> in the
 Gb range, for example with a SAS file of 50 000 000 lines and using
 chunk_memory_size of 5000 Mb :</p>
@@ -138,7 +138,6 @@ chunk_memory_size of 5000 Mb :</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
 <span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  by_chunk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  chunk_memory_size <span class="op">=</span> <span class="fl">5000</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -160,7 +159,6 @@ get 3 parquet files of 50 lines called <code>iris1-50.parquet</code>,
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
 <span>path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>by_chunk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>chunk_size <span class="op">=</span> <span class="fl">50</span>,</span>
 <span>encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -171,7 +169,6 @@ chunks of 2 000 000 rows each) :</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
 <span>path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>by_chunk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>chunk_size <span class="op">=</span> <span class="fl">2000000</span>,</span>
 <span>encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -209,7 +206,7 @@ Here’s an example without deleting initial files
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Damien Dotta.</p>
+<p>Developed by Damien Dotta, Nicolas Chuche.</p>
 </div>
 
 <div class="pkgdown-footer-right">
