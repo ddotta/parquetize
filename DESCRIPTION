@@ -6,7 +6,11 @@ Authors@R:
     c(person(given = "Damien",
              family = "Dotta",
              role = c("aut", "cre"),
-             email = "damien.dotta@live.fr"))
+             email = "damien.dotta@live.fr")),
+    c(person(given = "Nicolas",
+             family = "Chuche",
+             role = c("cre"),
+             email = "nicolas.chuche@barna.be"))
 Description: Collection of functions to get files in parquet format.
     Parquet is a columnar storage file format <https://parquet.apache.org/>. 
     The files to convert can be of several formats 
