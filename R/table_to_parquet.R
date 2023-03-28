@@ -105,7 +105,7 @@
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
 #'   path_to_parquet = tempdir(),
 #'   chunk_size = 50,
-#'   compression = "gzip",
+#'   compression = "snappy",
 #'   compression_level = 10
 #' )
 #'
