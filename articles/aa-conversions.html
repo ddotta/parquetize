@@ -99,13 +99,23 @@ then write it to disk (in a single file or a partitioned directory).</p>
 <p>When handling very large files, the risk that frequently occurs is
 that the R session aborts because it cannot load the entire database
 into memory. This risk is even more present if you work locally on your
-computer and it can be limited if you work on remote servers.<br><code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> offers this solution which answers a
-need expressed by parquetize users.</p>
-<p><strong>The idea is to split the very large table into “chunks” based
-on memory consumption of input data or on the number of rows in the
-table in order to be able to simultaneously :</strong><br>
-- <strong>read a chunk of the very large database</strong><br>
-- <strong>write this chunk in the floor file</strong></p>
+computer and it can be limited if you work on remote servers.<br><strong><code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code> offers this solution which
+answers a need expressed by parquetize users.</strong></p>
+<table class="table"><tbody>
+<tr class="odd">
+<td><strong>The idea is to split the very large table into “chunks”
+based on memory consumption of input data or on the number of rows in
+the table in order to be able to simultaneously :</strong></td>
+</tr>
+<tr class="even">
+<td>- <strong>read a chunk of the very large database</strong>
+</td>
+</tr>
+<tr class="odd">
+<td>- <strong>write this chunk in the floor file</strong>
+</td>
+</tr>
+</tbody></table>
 <p>Here are examples from the documentation using the iris table.
 There’s two ways to split output files :</p>
 <ul>
@@ -119,9 +129,9 @@ There’s two ways to split output files :</p>
 a file based on the memory consuption with the argument
 <code>chunk_memory_size</code> expressed in Mb.</p>
 <p>Here we cut the 150 rows into chunks of roughly 5 Kb when a file is
-loaded as a tibble. In this example we get 2 parquet files of 89 lines
-called <code>iris1-89.parquet</code> and
-<code>iris90-178.parquet</code></p>
+loaded as a tibble.<br>
+In this example we get 2 parquet files of 89 lines called
+<code>iris1-89.parquet</code> and <code>iris90-150.parquet</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
@@ -129,8 +139,8 @@ called <code>iris1-89.parquet</code> and
 <span>  chunk_memory_size <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpcK6Kev/file168d299f2d51/iris1-89.parquet</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpcK6Kev/file168d299f2d51/iris90-150.parquet</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpSzL9ji/file16a615005286/iris1-89.parquet</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/RtmpSzL9ji/file16a615005286/iris90-150.parquet</span></span></code></pre></div>
 <p>In real life, you should use a <code>chunk_memory_size</code> in the
 Gb range, for example with a SAS file of 50 000 000 lines and using
 chunk_memory_size of 5000 Mb :</p>
@@ -195,7 +205,7 @@ Here’s an example without deleting initial files
 <span><span class="op">)</span></span></code></pre></div>
 <p>The <code>myhugefile.parquet</code> file will be created from the
 <code>myhugefile1-2000000.parquet</code>,
-<code>myhugefile2000001-4000000.parquet</code>… files. :tada:</p>
+<code>myhugefile2000001-4000000.parquet</code>… files!</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
