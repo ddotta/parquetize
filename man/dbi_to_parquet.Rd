@@ -32,7 +32,7 @@ dbi_to_parquet(
 This argument must be filled in if `by_chunk` is TRUE (otherwise ignored).
 This argument can not be filled in if chunk_memory_size is used.}
 
-\item{sql_params}{list (default NULL) parameters to bind to sql query. This argument is passed to DBI::dbBind on the result of DBI::dbSendQuery}
+\item{sql_params}{list parameters to bind to sql query. This argument is passed to DBI::dbBind on the result of DBI::dbSendQuery}
 
 \item{chunk_memory_sample_lines}{Number of lines to read to evaluate chunk_memory_size. Default to 10 000.}
 

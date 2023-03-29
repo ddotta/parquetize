@@ -3,34 +3,41 @@ dir.create("Data_test", showWarnings = FALSE)
 dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
                                  system.file("extdata","iris.sqlite",package = "parquetize"))
 
+expect_parquet_dataset <- function(file, with_lines) {
+  r <- expect_no_error(arrow::open_dataset(file))
+  expect_equal(nrow(r), with_lines)
+}
+
+expect_parquet_file <- function(file, with_lines) {
+  r <- expect_no_error(arrow::read_parquet(file))
+  expect_equal(nrow(r), with_lines)
+}
+
 test_that("Checks arguments are correctly filled in", {
-  expect_error(
+  expect_missing_argument(
     dbi_to_parquet(
       sql_query = "SELECT * FROM iris",
       path_to_parquet = "Data_test",
       parquetname = "iris"
     ),
-  class = "parquetize_missing_argument",
   regexp = "dbi_connection"
   )
 
-  expect_error(
+  expect_missing_argument(
     dbi_to_parquet(
       dbi_connection = dbi_connection,
       path_to_parquet = "Data_test",
       parquetname = "iris"
     ),
-    class = "parquetize_missing_argument",
     regexp = "sql_query"
   )
 
-  expect_error(
+  expect_missing_argument(
     dbi_to_parquet(
       dbi_connection = dbi_connection,
       sql_query = "SELECT * FROM iris",
       parquetname = "iris"
     ),
-    class = "parquetize_missing_argument",
     regexp = "path_to_parquet"
   )
 })
@@ -45,11 +52,14 @@ test_that("Checks simple query generate a parquet file with good messages", {
       sql_query = "SELECT * FROM iris",
       path_to_parquet = path_to_parquet,
       parquetname = parquetname
-    )
+    ),
+
   )
 
-  r <- arrow::read_parquet(file.path(path_to_parquet, paste0(parquetname, ".parquet")))
-  expect_equal(nrow(r), 150)
+  expect_parquet(
+    file.path(path_to_parquet, paste0(parquetname, ".parquet")),
+    with_lines = 150
+  )
 })
 
 test_that("Checks simple query generate a parquet file with good messages", {
@@ -68,8 +78,10 @@ test_that("Checks simple query generate a parquet file with good messages", {
     )
   )
 
-  r <- arrow::open_dataset(path_to_parquet)
-  expect_equal(nrow(r), 29)
+  expect_parquet(
+    path_to_parquet,
+    with_lines = 29
+  )
 })
 
 test_that("Checks simple query generate a chunk parquet files with good messages", {
@@ -87,8 +99,10 @@ test_that("Checks simple query generate a chunk parquet files with good messages
     )
   )
 
-  r <- arrow::open_dataset(path_to_parquet)
-  expect_equal(nrow(r), 29)
+  expect_parquet(
+    path_to_parquet,
+    with_lines = 29
+  )
 })
 
 
@@ -105,8 +119,10 @@ test_that("Checks simple query works by chunk", {
     )
   )
 
-  r <- arrow::open_dataset(path_to_parquet)
-  expect_equal(nrow(r), 150)
+  expect_parquet(
+    file.path(path_to_parquet),
+    with_lines = 150
+  )
 })
 
 test_that("Checks query with params works", {
@@ -118,6 +134,8 @@ test_that("Checks query with params works", {
     chunk_size = 40
   )
 
-  r <- arrow::open_dataset(file.path("Data_test/dbi-params"))
-  expect_equal(nrow(r), 50)
+  expect_parquet(
+    file.path("Data_test/dbi-params"),
+    with_lines = 50
+  )
 })
