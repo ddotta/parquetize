@@ -55,7 +55,7 @@
 #' )
 #'
 #' # Conversion from a local csv file to a single parquet file and select only
-#' # fex columns :
+#' # few columns :
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
@@ -63,7 +63,7 @@
 #'   columns = c("REG","LIBELLE")
 #' )
 #'
-#' # Conversion from a local csv file  to a partitioned parquet file  :
+#' # Conversion from a local csv file to a partitioned parquet file  :
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
