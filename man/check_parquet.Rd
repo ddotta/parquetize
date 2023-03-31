@@ -38,6 +38,6 @@ https://arrow.apache.org/docs/r/articles/data_types.html
 # check a parquet file
 check_parquet(parquetize_example("iris.parquet"))
 
-#' # check a parquet dataset
-#' check_parquet(parquetize_example("iris"))
+# check a parquet dataset
+check_parquet(parquetize_example("iris_dataset"))
 }

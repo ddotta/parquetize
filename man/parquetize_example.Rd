@@ -19,4 +19,5 @@ directory. This function make them easy to access
 \examples{
 parquetize_example()
 parquetize_example("region_2022.csv")
+parquetize_example("iris_dataset")
 }

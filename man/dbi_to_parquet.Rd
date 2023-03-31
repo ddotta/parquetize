@@ -100,6 +100,8 @@ partitions <- DBI::dbGetQuery(dbi_connection, "SELECT distinct(Species) FROM iri
 for (species in partitions[,1]) {
   dbi_to_parquet(
     dbi_connection = dbi_connection,
+    # you can find information on place holder on this page
+    # https://solutions.posit.co/connections/db/best-practices/run-queries-safely
     sql_query = paste0("SELECT * FROM iris where Species = $species"),
     sql_params = list(species = c(species)),
     path_to_parquet = file.path(tempdir(), "iris", paste0("Species=", species)),
