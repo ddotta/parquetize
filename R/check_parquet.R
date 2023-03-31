@@ -31,10 +31,15 @@
 #' # check a parquet file
 #' check_parquet(parquetize_example("iris.parquet"))
 #'
-#' #' # check a parquet dataset
-#' #' check_parquet(parquetize_example("iris"))
+#' # check a parquet dataset
+#' check_parquet(parquetize_example("iris_dataset"))
 check_parquet <- function(path) {
-  cli_alert_info("checking: {path}")
+
+  if (isFALSE(file.exists(path))) {
+    cli_alert_danger("Be careful, {path} doesn't exist")
+  } else {
+    cli_alert_info("checking: {path}")
+  }
 
   ds <- arrow::open_dataset(path, unify_schemas = TRUE)
   cli_alert_success("loading dataset:   ok")
@@ -43,14 +48,4 @@ check_parquet <- function(path) {
   cli_alert_success("number of columns: {length(names(ds))}")
 
   get_col_types(ds)
-}
-
-get_col_types <- function(ds) {
-  fields <- ds$schema$fields
-
-  tibble(
-    name = unlist(lapply(fields, function(x) { x$name })),
-    type = unlist(lapply(fields, function(x) { x$type$name })),
-    nullable = unlist(lapply(fields, function(x) { x$nullable }))
-  )
 }

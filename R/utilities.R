@@ -131,3 +131,26 @@ is_remote <- function(path) {
 is_zip <- function(path) {
   grepl('\\.zip$', path, ignore.case = TRUE)
 }
+
+#' @name get_col_types
+#'
+#' @title Utility to get informations on the columns
+#'
+#' @param ds
+#'
+#' @return a tibble with 3 columns :
+#'
+#'   * the column name (string)
+#'   * the arrow type (string)
+#'   * if the column is nullable or not (boolean)
+#
+#' @noRd
+get_col_types <- function(ds) {
+  fields <- ds$schema$fields
+
+  tibble(
+    name = unlist(lapply(fields, function(x) { x$name })),
+    type = unlist(lapply(fields, function(x) { x$type$name })),
+    nullable = unlist(lapply(fields, function(x) { x$nullable }))
+  )
+}
