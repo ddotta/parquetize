@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_parquet.R
 \name{check_parquet}
 \alias{check_parquet}
-\title{Check a parquet file or dataset}
+\title{Convert a SQL Query on DBI connection to parquet format and performs some checks}
 \usage{
 check_parquet(path)
 }
@@ -14,7 +14,7 @@ a tibble with information on parquet dataset/file's columns with
   three columns : field name, arrow type and nullable
 }
 \description{
-This function check if a file/dataset is a valid parquet format.
+This function checks if a file/dataset is a valid parquet format.
   It will print the number of lines/columns and return a tibble on columns
   information.
 }
@@ -30,8 +30,8 @@ This function will :
   * the arrow type (string)
   * if the column is nullable or not (boolean)
 
-You can find a list of arrow type in the documentation :
-https://arrow.apache.org/docs/r/articles/data_types.html
+You can find a list of arrow type in the documentation
+\href{https://arrow.apache.org/docs/r/articles/data_types.html}{on this page}.
 }
 \examples{
 

@@ -1,6 +1,8 @@
-#' Check a parquet file or dataset
+#' @name check_parquet
 #'
-#' @description This function check if a file/dataset is a valid parquet format.
+#' @title Convert a SQL Query on DBI connection to parquet format and performs some checks
+#'
+#' @description This function checks if a file/dataset is a valid parquet format.
 #'   It will print the number of lines/columns and return a tibble on columns
 #'   information.
 #'
@@ -15,15 +17,15 @@
 #'   * the arrow type (string)
 #'   * if the column is nullable or not (boolean)
 #'
-#' You can find a list of arrow type in the documentation :
-#' https://arrow.apache.org/docs/r/articles/data_types.html
+#' You can find a list of arrow type in the documentation
+#' \href{https://arrow.apache.org/docs/r/articles/data_types.html}{on this page}.
 #'
 #' @param path path to the file or dataset
 #'
 #' @return a tibble with information on parquet dataset/file's columns with
 #'   three columns : field name, arrow type and nullable
 #'
-#' @importFrom arrow open_dataset read_parquet
+#' @importFrom arrow open_dataset
 #' @export
 #'
 #' @examples

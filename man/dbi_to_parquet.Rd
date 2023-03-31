@@ -60,6 +60,9 @@ Two conversions possibilities are offered :
 
 }
 
+You can find information on place holder
+\href{https://solutions.posit.co/connections/db/best-practices/run-queries-safely}{on this page}.
+
 Examples explain how to convert a query to a chunked dataset
 }
 \examples{
@@ -69,7 +72,7 @@ Examples explain how to convert a query to a chunked dataset
 dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
   system.file("extdata","iris.sqlite",package = "parquetize"))
 
-# Reading iris tavble from local sqlite database and
+# Reading iris table from local sqlite database
 # and conversion to one parquet file :
 
 dbi_to_parquet(
