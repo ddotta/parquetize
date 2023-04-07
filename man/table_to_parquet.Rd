@@ -10,7 +10,7 @@ table_to_parquet(
   chunk_memory_size,
   chunk_size,
   columns = "all",
-  by_chunk = deprecated(),
+  by_chunk = lifecycle::deprecated(),
   skip = 0,
   partition = "no",
   encoding = NULL,

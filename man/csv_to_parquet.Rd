@@ -6,8 +6,8 @@
 \usage{
 csv_to_parquet(
   path_to_csv,
-  url_to_csv = deprecated(),
-  csv_as_a_zip = deprecated(),
+  url_to_csv = lifecycle::deprecated(),
+  csv_as_a_zip = lifecycle::deprecated(),
   filename_in_zip,
   path_to_parquet,
   columns = "all",
@@ -77,7 +77,7 @@ csv_to_parquet(
 )
 
 # Conversion from a local csv file to a single parquet file and select only
-# fex columns :
+# few columns :
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
@@ -85,7 +85,7 @@ csv_to_parquet(
   columns = c("REG","LIBELLE")
 )
 
-# Conversion from a local csv file  to a partitioned parquet file  :
+# Conversion from a local csv file to a partitioned parquet file  :
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),

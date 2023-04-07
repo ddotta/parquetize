@@ -92,8 +92,8 @@
 
 csv_to_parquet <- function(
     path_to_csv,
-    url_to_csv = deprecated(),
-    csv_as_a_zip = deprecated(),
+    url_to_csv = lifecycle::deprecated(),
+    csv_as_a_zip = lifecycle::deprecated(),
     filename_in_zip,
     path_to_parquet,
     columns = "all",
