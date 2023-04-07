@@ -75,8 +75,8 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span>
 <span>  <span class="va">path_to_csv</span>,</span>
-<span>  url_to_csv <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  csv_as_a_zip <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  url_to_csv <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  csv_as_a_zip <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">filename_in_zip</span>,</span>
 <span>  <span class="va">path_to_parquet</span>,</span>
 <span>  columns <span class="op">=</span> <span class="st">"all"</span>,</span>
@@ -164,11 +164,11 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpEZfIkY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/Rtmp1rJ8TD</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local csv file to a single parquet file and select only</span></span></span>
-<span class="r-in"><span><span class="co"># fex columns :</span></span></span>
+<span class="r-in"><span><span class="co"># few columns :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
@@ -177,10 +177,10 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpEZfIkY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/Rtmp1rJ8TD</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Conversion from a local csv file  to a partitioned parquet file  :</span></span></span>
+<span class="r-in"><span><span class="co"># Conversion from a local csv file to a partitioned parquet file  :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
@@ -190,7 +190,7 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpEZfIkY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/Rtmp1rJ8TD</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a csv file with "gzip" compression :</span></span></span>
@@ -204,7 +204,7 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpEZfIkY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/Rtmp1rJ8TD</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a zipped file :</span></span></span>
@@ -216,7 +216,7 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/RtmpEZfIkY</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The csv file is available in parquet format under /tmp/Rtmp1rJ8TD</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 </code></pre></div>
     </div>
