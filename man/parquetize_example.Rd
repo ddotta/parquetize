@@ -7,7 +7,7 @@
 parquetize_example(file = NULL)
 }
 \arguments{
-\item{file}{Name of file. If `NULL`, the example files will be listed.}
+\item{file}{Name of file or directory. If `NULL`, the example files will be listed.}
 }
 \value{
 A character string
