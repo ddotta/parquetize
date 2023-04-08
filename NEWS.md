@@ -1,3 +1,12 @@
+# parquetize 0.5.6
+
+This release includes :
+
+- a new check_parquet function that return columns and arrow type
+- use cli_abort instead of cli_alert_danger with stop("") everywhere
+- a big test's refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).
+- some minors changes
+
 # parquetize 0.5.5
 
 This release includes :  
