@@ -2,9 +2,21 @@
 
 This release includes :
 
+#### check_parquet function
+
 - a new check_parquet function that return columns and arrow type
-- use cli_abort instead of cli_alert_danger with stop("") everywhere
+
+#### Some deprecations
+
+Two arguments are deprecated to avoid confusion with arrow concept and keep consistency
+
+* `chunk_size` is replaced by `max_rows` (chunk size is an arrow concept).
+* `chunk_memory_size` is replaced by `max_memory` for consistency
+
+#### Other
+
 - a big test's refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).
+- use cli_abort instead of cli_alert_danger with stop("") everywhere
 - some minors changes
 
 # parquetize 0.5.5

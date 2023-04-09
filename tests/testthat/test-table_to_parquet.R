@@ -22,7 +22,7 @@ test_that("Checks we can not use chunk_size with negative skip", {
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = tempfile(),
       encoding = "utf-8",
-      chunk_size = 50,
+      max_rows = 50,
       skip = -100
     ),
     class = "parquetize_bad_argument",
@@ -30,13 +30,13 @@ test_that("Checks we can not use chunk_size with negative skip", {
   )
 })
 
-test_that("Checks we can't use chunk_size and chunk_memory_size together", {
+test_that("Checks we can't use max_rows and max_memory together", {
   expect_error(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = tempfile(),
-      chunk_size = 50,
-      chunk_memory_size = 50
+      max_rows = 50,
+      max_memory = 50
     ),
     class = "parquetize_bad_argument",
     regexp = "can not be used together"
@@ -53,6 +53,27 @@ test_that("Checks by_chunk is deprecated", {
     regexp = "This argument is no longer needed"
   )
 })
+
+test_that("Checks chunk_size and chunk_memory_size are deprecated", {
+  expect_warning(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = tempfile(),
+      chunk_size = 1000
+    ),
+    regexp = "This argument is deprecated"
+  )
+
+  expect_warning(
+    table_to_parquet(
+      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+      path_to_parquet = tempfile(),
+      chunk_memory_size = 1000
+    ),
+    regexp = "This argument is deprecated"
+  )
+})
+
 
 test_that("Checks argument columns is a character vector", {
   expect_error(
@@ -88,7 +109,7 @@ test_that("Checks parquetizing by chunk with encoding works", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = path_to_parquet,
-      chunk_size = 50,
+      max_rows = 50,
       encoding = "utf-8"
     )
   )
@@ -104,7 +125,7 @@ test_that("Checks parquetizing by memory works", {
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = path_to_parquet,
-      chunk_memory_size = 5 / 1024,
+      max_memory = 5 / 1024,
     )
   )
   expect_parquet(path_to_parquet, with_lines = 150)
@@ -129,13 +150,12 @@ test_that("Checks parquetizing works with partitioning", {
 
 })
 
-test_that("Checks it fails with SAS by adding chunk_size, partition and partitioning argument", {
-
+test_that("Checks it fails with SAS by adding max_rows, partition and partitioning argument", {
   expect_error(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = tempfile(),
-      chunk_size = 50,
+      max_rows = 50,
       partition = "yes",
       partitioning =  "Species"
     ),

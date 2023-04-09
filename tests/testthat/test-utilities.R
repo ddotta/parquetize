@@ -31,7 +31,7 @@ test_that("test get_lines_for_memory return the good number of lines", {
   data <- read_method(file, n_max = Inf)
 
   expect_equal(
-    get_lines_for_memory(data, chunk_memory_size = 1 / 1024),
+    get_lines_for_memory(data, max_memory = 1 / 1024),
     16
   )
 })
