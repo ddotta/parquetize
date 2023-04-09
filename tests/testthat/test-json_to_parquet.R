@@ -1,55 +1,76 @@
-if (file.exists('Data_test')==FALSE) {
-  dir.create("Data_test")
-}
-
 test_that("Checks arguments are correctly filled in", {
   testthat::local_edition(3)
-  expect_snapshot(
+
+  expect_missing_argument(
     json_to_parquet(
       path_to_json = system.file("extdata","iris.ndjson",package = "parquetize")
     ),
-    error = TRUE)
-  expect_snapshot(
+    regexp = "path_to_parquet"
+  )
+
+  expect_missing_argument(
     json_to_parquet(
-      path_to_parquet = "Data_test"
+      path_to_parquet = tempfile()
     ),
-    error = TRUE)
-  expect_snapshot(
+    regexp = "path_to_json"
+  )
+
+  expect_error(
     json_to_parquet(
       path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-      path_to_parquet = "Data_test",
+      path_to_parquet = tempfile(),
       format = "xjson"
     ),
-    error = TRUE)
-})
-
-test_that("Checks message is displayed with json file", {
-  expect_snapshot(
-    json_to_parquet(
-      path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-      path_to_parquet = "Data_test"
-    )
+    class = "parquetize_bad_format"
   )
 })
 
-test_that("Checks message is displayed with ndjson file", {
-  expect_snapshot(
-    json_to_parquet(
-      path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
-      path_to_parquet = "Data_test",
-      format = "ndjson"
-    )
+test_that("Checks converting json file works", {
+  path_to_parquet <- tempfile()
+
+  json_to_parquet(
+    path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+    path_to_parquet = path_to_parquet
+  )
+
+  expect_parquet(
+    file.path(path_to_parquet, paste0("iris.parquet")),
+    with_lines = 150
   )
 })
 
-test_that("Checks message is displayed with by adding partition and partitioning argument", {
+test_that("Checks converting ndjson file works", {
+  path_to_parquet <- tempfile()
 
-  expect_snapshot(
-    json_to_parquet(
-      path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-      path_to_parquet = "Data_test",
-      partition = "yes",
-      partitioning =  c("Species")
-    )
+  json_to_parquet(
+    path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
+    path_to_parquet = path_to_parquet,
+    format = "ndjson"
   )
+  expect_parquet(
+    file.path(path_to_parquet, paste0("iris.parquet")),
+    with_lines = 150
+  )
+
+})
+
+test_that("Checks adding partition and partitioning argument works", {
+  path_to_parquet <- tempfile()
+
+  json_to_parquet(
+    path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+    path_to_parquet = path_to_parquet,
+    partition = "yes",
+    partitioning =  c("Species")
+  )
+  expect_parquet(
+    file.path(path_to_parquet),
+    with_lines = 150
+  )
+
+  expect_identical(
+    dir(path_to_parquet),
+    c('Species=setosa', 'Species=versicolor', 'Species=virginica')
+  )
+
 })

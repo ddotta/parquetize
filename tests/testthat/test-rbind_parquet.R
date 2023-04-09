@@ -1,23 +1,21 @@
 test_that("Checks rbind_parquet creates correct output file", {
+  temp_dir <- tempfile()
 
-  if (file.exists('output')==FALSE) {
-    dir.create("output")
-  }
+  dir.create(temp_dir, showWarnings = FALSE)
 
-  file.create(fileext = "output/test_data1-4.parquet")
+  file.create(fileext = file.path(temp_dir, "test_data1-4.parquet"))
   write_parquet(data.frame(
     x = c("a","b","c"),
     y = c(1L,2L,3L)
-  ),
-  "output/test_data1-4.parquet")
+  ), file.path(temp_dir, "test_data1-4.parquet"))
 
-  file.create(fileext = "output/test_data4-6.parquet")
+  file.create(fileext = file.path(temp_dir, "test_data4-6.parquet"))
   write_parquet(data.frame(
     x = c("d","e","f"),
     y = c(4L,5L,6L)
-  ), "output/test_data4-6.parquet")
+  ), file.path(temp_dir, "test_data4-6.parquet"))
 
-  test_data <- rbind_parquet(folder = "output",
+  test_data <- rbind_parquet(folder = temp_dir,
                              output_name = "test_data",
                              delete_initial_files = FALSE)
 

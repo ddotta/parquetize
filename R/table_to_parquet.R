@@ -152,43 +152,39 @@ table_to_parquet <- function(
 
   # Check if path_to_table is missing
   if (missing(path_to_table)) {
-    cli_alert_danger("Be careful, the argument path_to_table must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_table must be filled in", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   # Check if columns argument is a character vector
   if (isFALSE(is.vector(columns) & is.character(columns))) {
-    cli_alert_danger("Be careful, the argument columns must be a character vector")
-    cli_alert_info('You can use `all` or `c("col1", "col2"))`')
-    stop("")
+    cli_abort(c("Be careful, the argument columns must be a character vector",
+    'You can use `all` or `c("col1", "col2"))`'),
+    class = "parquetize_bad_type")
   }
 
   by_chunk <- !(missing(chunk_size) & missing(chunk_memory_size))
 
   # Check if skip argument is correctly filled in by_chunk argument is TRUE
   if (by_chunk==TRUE & skip<0) {
-    cli_alert_danger("Be careful, if you want to do a conversion by chunk then the argument skip must be must be greater than 0")
-    stop("")
+    cli_abort("Be careful, if you want to do a conversion by chunk then the argument skip must be must be greater than 0",
+              class = "parquetize_bad_argument")
   }
 
   # If by_chunk argument is TRUE and partition argument is equal to "yes" it fails
   if (by_chunk==TRUE & partition == "yes") {
-    cli_alert_danger("Be careful, when by_chunk is TRUE partition and partitioning can not be used")
-    stop("")
+    cli_abort("Be careful, when by_chunk is TRUE partition and partitioning can not be used", class = "parquetize_bad_argument")
   }
 
   # chunk_size and chunk_memory_size can not be used together so fails
   if (!missing(chunk_size) & !missing(chunk_memory_size)) {
-    cli_alert_danger("Be careful, chunk_size and chunk_memory_size can not be used together")
-    stop("")
+    cli_abort("Be careful, chunk_size and chunk_memory_size can not be used together", class = "parquetize_bad_argument")
   }
 
   if (by_chunk) {

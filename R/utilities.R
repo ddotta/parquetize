@@ -37,14 +37,14 @@ read_function_by_extension <- list(
 get_read_function_for_file <- function(file_name) {
   ext <- tools::file_ext(file_name)
   if (ext == "") {
-    cli_alert_danger("Be careful, unable to find a read method for \"{file_name}\", it has no extension")
-    stop("")
+    cli_abort("Be careful, unable to find a read method for \"{file_name}\", it has no extension",
+              class = "parquetize_bad_argument")
   }
 
   fun <- read_function_by_extension[[ext]]
   if (is.null(fun)) {
-    cli_alert_danger("Be careful, no method to read \"{file_name}\" file")
-    stop("")
+    cli_abort("Be careful, no method to read \"{file_name}\" file",
+              class = "parquetize_bad_argument")
   }
 
   fun

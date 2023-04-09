@@ -7,7 +7,7 @@ test_that("check_parquet fails on bad file", {
 
 test_that("check_parquet fails on missing file", {
   expect_error(
-    check_parquet(parquetize_example("no_such_file")),
+    check_parquet("no_such_file"),
     class = "no_such_file"
   )
 })

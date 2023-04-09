@@ -22,7 +22,7 @@
 #' @return A parquet file, invisibly
 #'
 #' @importFrom arrow write_parquet write_dataset
-#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success
+#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_abort
 #' @export
 #'
 #' @examples
@@ -52,14 +52,12 @@ rds_to_parquet <- function(
 
   # Check if path_to_rds is missing
   if (missing(path_to_rds)) {
-    cli_alert_danger("Be careful, the argument path_to_rds must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_rds must be filled in", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)

@@ -121,23 +121,21 @@ csv_to_parquet <- function(
 
   # Check if at least one of the two arguments path_to_csv or url_to_csv is set
   if (missing(path_to_csv) & missing(url_to_csv)) {
-    cli_alert_danger("Be careful, you have to fill in either the path_to_csv or url_to_csv argument")
-    stop("")
+    cli_abort("Be careful, you have to fill the path_to_csv argument", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   # Check if columns argument is a character vector
   if (isFALSE(is.vector(columns) & is.character(columns))) {
-    cli_alert_danger("Be careful, the argument columns must be a character vector")
-    cli_alert_info('You can use `all` or `c("col1", "col2"))`')
-    stop("")
+    cli_abort(c("Be careful, the argument columns must be a character vector",
+              'You can use `all` or `c("col1", "col2"))`'),
+              class = "parquetize_bad_argument")
   }
 
   if (missing(path_to_csv)) {

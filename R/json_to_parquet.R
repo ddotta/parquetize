@@ -55,22 +55,19 @@ json_to_parquet <- function(
 
   # Check if path_to_json is missing
   if (missing(path_to_json)) {
-    cli_alert_danger("Be careful, the argument path_to_json must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_json must be filled in", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
   if (missing(path_to_parquet)) {
-    cli_alert_danger("Be careful, the argument path_to_parquet must be filled in")
-    stop("")
+    cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
   dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
 
   # Check if format is equal to "json" or "ndjson"
   if (!(format %in% c("json","ndjson"))) {
-    cli_alert_danger("Be careful, the argument format must be equal to 'json' or 'ndjson'")
-    stop("")
+    cli_abort("Be careful, the argument format must be equal to 'json' or 'ndjson'", class = "parquetize_bad_format")
   }
 
   Sys.sleep(0.01)
