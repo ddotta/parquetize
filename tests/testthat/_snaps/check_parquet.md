@@ -8,14 +8,14 @@
       v number of lines:   150
       v number of columns: 5
     Output
-      # A tibble: 5 x 3
-        name         type   nullable
-        <chr>        <chr>  <lgl>   
-      1 Sepal.Length double TRUE    
-      2 Sepal.Width  double TRUE    
-      3 Petal.Length double TRUE    
-      4 Petal.Width  double TRUE    
-      5 Species      utf8   TRUE    
+      # A tibble: 5 x 2
+        name         type  
+        <chr>        <chr> 
+      1 Sepal.Length double
+      2 Sepal.Width  double
+      3 Petal.Length double
+      4 Petal.Width  double
+      5 Species      utf8  
 
 ---
 
@@ -27,12 +27,12 @@
       v number of lines:   150
       v number of columns: 5
     Output
-      # A tibble: 5 x 3
-        name         type       nullable
-        <chr>        <chr>      <lgl>   
-      1 Sepal.Length double     TRUE    
-      2 Sepal.Width  double     TRUE    
-      3 Petal.Length double     TRUE    
-      4 Petal.Width  double     TRUE    
-      5 Species      dictionary TRUE    
+      # A tibble: 5 x 2
+        name         type      
+        <chr>        <chr>     
+      1 Sepal.Length double    
+      2 Sepal.Width  double    
+      3 Petal.Length double    
+      4 Petal.Width  double    
+      5 Species      dictionary
 

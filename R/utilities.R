@@ -134,15 +134,14 @@ is_zip <- function(path) {
 
 #' @name get_col_types
 #'
-#' @title Utility to get informations on the columns
+#' @title Utility to get informations on parquet file's columns
 #'
-#' @param ds
+#' @param ds a dataset/parquet file
 #'
 #' @return a tibble with 3 columns :
 #'
 #'   * the column name (string)
 #'   * the arrow type (string)
-#'   * if the column is nullable or not (boolean)
 #
 #' @noRd
 get_col_types <- function(ds) {
@@ -151,6 +150,5 @@ get_col_types <- function(ds) {
   tibble(
     name = unlist(lapply(fields, function(x) { x$name })),
     type = unlist(lapply(fields, function(x) { x$type$name })),
-    nullable = unlist(lapply(fields, function(x) { x$nullable }))
   )
 }

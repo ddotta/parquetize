@@ -38,10 +38,10 @@
 check_parquet <- function(path) {
 
   if (isFALSE(file.exists(path))) {
-    cli_alert_danger("Be careful, {path} doesn't exist")
-  } else {
-    cli_alert_info("checking: {path}")
+    cli_abort("Be careful, {path} doesn't exist", class = "no_such_file")
   }
+
+  cli_alert_info("checking: {path}")
 
   ds <- arrow::open_dataset(path, unify_schemas = TRUE)
   cli_alert_success("loading dataset:   ok")
