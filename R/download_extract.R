@@ -66,8 +66,8 @@ download_extract <- function(path, filename_in_zip) {
   names(csv_files) <- basename(csv_files)
 
   if (length(csv_files) > 1 & missing(filename_in_zip)) {
-    cli_alert_danger("Be careful, zip files contains more than one file, you must set filename_in_zip argument")
-    stop("")
+    cli_abort("Be careful, zip files contains more than one file, you must set filename_in_zip argument",
+              class = "parquetize_missing_argument")
   } else if (length(csv_files) > 1) {
     path <- csv_files[[filename_in_zip]]
   } else {

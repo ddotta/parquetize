@@ -19,6 +19,7 @@ reference:
       - sqlite_to_parquet
   - title: Other functions
     contents:
+      - check_parquet
       - download_extract
       - rbind_parquet
       - parquetize_example

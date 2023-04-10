@@ -37,14 +37,14 @@ read_function_by_extension <- list(
 get_read_function_for_file <- function(file_name) {
   ext <- tools::file_ext(file_name)
   if (ext == "") {
-    cli_alert_danger("Be careful, unable to find a read method for \"{file_name}\", it has no extension")
-    stop("")
+    cli_abort("Be careful, unable to find a read method for \"{file_name}\", it has no extension",
+              class = "parquetize_bad_argument")
   }
 
   fun <- read_function_by_extension[[ext]]
   if (is.null(fun)) {
-    cli_alert_danger("Be careful, no method to read \"{file_name}\" file")
-    stop("")
+    cli_abort("Be careful, no method to read \"{file_name}\" file",
+              class = "parquetize_bad_argument")
   }
 
   fun
@@ -130,4 +130,25 @@ is_remote <- function(path) {
 
 is_zip <- function(path) {
   grepl('\\.zip$', path, ignore.case = TRUE)
+}
+
+#' @name get_col_types
+#'
+#' @title Utility to get informations on parquet file's columns
+#'
+#' @param ds a dataset/parquet file
+#'
+#' @return a tibble with 3 columns :
+#'
+#'   * the column name (string)
+#'   * the arrow type (string)
+#
+#' @noRd
+get_col_types <- function(ds) {
+  fields <- ds$schema$fields
+
+  tibble(
+    name = unlist(lapply(fields, function(x) { x$name })),
+    type = unlist(lapply(fields, function(x) { x$type$name })),
+  )
 }

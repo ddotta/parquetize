@@ -13,11 +13,11 @@ test_that("Checks download_extract returns the csv file of local zip", {
 })
 
 test_that("Checks download_extract fails with error if zip has more than one file and no filename_in_zip", {
-  expect_snapshot(
+  expect_missing_argument(
     download_extract(
       "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip"
     ),
-    error = TRUE
+    regexp = "filename_in_zip"
   )
 })
 
