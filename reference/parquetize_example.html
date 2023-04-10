@@ -67,7 +67,7 @@ directory. This function make them easy to access</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>file</dt>
-<dd><p>Name of file. If `NULL`, the example files will be listed.</p></dd>
+<dd><p>Name of file or directory. If `NULL`, the example files will be listed.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -80,12 +80,12 @@ directory. This function make them easy to access</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">parquetize_example</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Species=setosa"     "Species=versicolor" "Species=virginica" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "iris.duckdb"        "iris.json"          "iris.ndjson"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "iris.parquet"       "iris.rds"           "iris.sqlite"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "region_2022.csv"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "iris.duckdb"     "iris.json"       "iris.ndjson"     "iris.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "iris.rds"        "iris.sqlite"     "iris_dataset"    "region_2022.csv"</span>
 <span class="r-in"><span><span class="fu">parquetize_example</span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/parquetize/extdata/region_2022.csv"</span>
+<span class="r-in"><span><span class="fu">parquetize_example</span><span class="op">(</span><span class="st">"iris_dataset"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/parquetize/extdata/iris_dataset"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
