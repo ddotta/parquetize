@@ -54,11 +54,26 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.6" id="parquetize-056">parquetize 0.5.6<a class="anchor" aria-label="anchor" href="#parquetize-056"></a></h2>
 <p>This release includes :</p>
-<ul><li>a new check_parquet function that return columns and arrow type</li>
-<li>use cli_abort instead of cli_alert_danger with stop(““) everywhere</li>
-<li>a big test’s refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).</li>
-<li>some minors changes</li>
+<div class="section level5">
+<h5 id="check_parquet-function-0-5-6">Check_parquet function<a class="anchor" aria-label="anchor" href="#check_parquet-function-0-5-6"></a></h5>
+<ul><li>a new <a href="../reference/check_parquet.html">check_parquet</a> function that check if a dataset/file is valid and return columns and arrow type</li>
 </ul></div>
+<div class="section level5">
+<h5 id="deprecations-0-5-6">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-0-5-6"></a></h5>
+<p>Two arguments are deprecated to avoid confusion with arrow concept and keep consistency</p>
+<ul><li>
+<code>chunk_size</code> is replaced by <code>max_rows</code> (chunk size is an arrow concept).</li>
+<li>
+<code>chunk_memory_size</code> is replaced by <code>max_memory</code> for consistency</li>
+</ul></div>
+<div class="section level5">
+<h5 id="other-0-5-6">Other<a class="anchor" aria-label="anchor" href="#other-0-5-6"></a></h5>
+<ul><li>a big test’s refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).</li>
+<li>use cli_abort instead of cli_alert_danger with stop(““) everywhere</li>
+<li>some minors changes</li>
+<li>bugfix: table_to_parquet did not select columns as expected</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.5" id="parquetize-055">parquetize 0.5.5<a class="anchor" aria-label="anchor" href="#parquetize-055"></a></h2><p class="text-muted">CRAN release: 2023-03-28</p>
 <p>This release includes :</p>

@@ -58,7 +58,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expect_parquet</span><span class="op">(</span><span class="va">path</span>, <span class="va">with_lines</span>, with_partitions <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expect_parquet</span><span class="op">(</span><span class="va">path</span>, <span class="va">with_lines</span>, with_partitions <span class="op">=</span> <span class="cn">NULL</span>, with_columns <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,8 +71,12 @@
 <dd><p>number of lines we should have</p></dd>
 
 
-<dt>partitions</dt>
-<dd><p>a vector with the partition names we should have</p></dd>
+<dt>with_partitions</dt>
+<dd><p>NULL or a vector with the partition names the dataset should have</p></dd>
+
+
+<dt>with_columns</dt>
+<dd><p>NULL or a column's name vector the dataset/file should have</p></dd>
 
 </dl></div>
     <div class="section level2">

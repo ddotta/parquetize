@@ -136,11 +136,11 @@ In this example we get 2 parquet files of 89 lines called
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
 <span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  chunk_memory_size <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span>
+<span>  max_memory <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmph5VuKY/file16c65e08d86/iris1-89.parquet</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmph5VuKY/file16c65e08d86/iris90-150.parquet</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmp8mG720/file17317bab2ca9/iris1-89.parquet</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmp8mG720/file17317bab2ca9/iris90-150.parquet</span></span></code></pre></div>
 <p>In real life, you should use a <code>chunk_memory_size</code> in the
 Gb range, for example with a SAS file of 50 000 000 lines and using
 chunk_memory_size of 5000 Mb :</p>
@@ -148,7 +148,7 @@ chunk_memory_size of 5000 Mb :</p>
 <code class="sourceCode R"><span>  <span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
 <span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  chunk_memory_size <span class="op">=</span> <span class="fl">5000</span>,</span>
+<span>  max_memory <span class="op">=</span> <span class="fl">5000</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -167,20 +167,20 @@ get 3 parquet files of 50 lines called <code>iris1-50.parquet</code>,
 <code>iris51-100.parquet</code> and <code>iris101-151.parquet</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
-<span>path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
-<span>path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>chunk_size <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
+<span>  path_to_table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples"</span>, <span class="st">"iris.sas7bdat"</span>, package <span class="op">=</span> <span class="st">"haven"</span><span class="op">)</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  max_rows <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>In real life, we can perform this kind of request with the parquetize
 API (for example with a SAS file of 50 000 000 lines and defining 25
 chunks of 2 000 000 rows each) :</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
-<span>path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
-<span>path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>chunk_size <span class="op">=</span> <span class="fl">2000000</span>,</span>
-<span>encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
+<span>  path_to_table <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  max_rows <span class="op">=</span> <span class="fl">2000000</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Files <code>myhugefile1-2000000.parquet</code>,
 <code>myhugefile2000001-4000000.parquet</code> … will be created.</p>
@@ -199,9 +199,9 @@ Here’s an example without deleting initial files
 (<code>delete_initial_files</code>=FALSE) :</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/rbind_parquet.html">rbind_parquet</a></span><span class="op">(</span></span>
-<span>folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>output_name <span class="op">=</span> <span class="st">"myhugefile"</span>,</span>
-<span>delete_initial_files <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  folder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  output_name <span class="op">=</span> <span class="st">"myhugefile"</span>,</span>
+<span>  delete_initial_files <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The <code>myhugefile.parquet</code> file will be created from the
 <code>myhugefile1-2000000.parquet</code>,
