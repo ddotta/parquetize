@@ -4,7 +4,7 @@ This release includes :
 
 #### Check_parquet function
 
-- a new check_parquet function that return columns and arrow type
+- a new [check_parquet](../reference/check_parquet.html) function that check if a dataset/file is valid and return columns and arrow type
 
 #### Deprecations
 
