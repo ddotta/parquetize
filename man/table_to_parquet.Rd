@@ -7,8 +7,10 @@
 table_to_parquet(
   path_to_table,
   path_to_parquet,
-  chunk_memory_size,
-  chunk_size,
+  max_memory,
+  max_rows,
+  chunk_size = lifecycle::deprecated(),
+  chunk_memory_size = lifecycle::deprecated(),
   columns = "all",
   by_chunk = lifecycle::deprecated(),
   skip = 0,
@@ -23,25 +25,28 @@ table_to_parquet(
 
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
-\item{chunk_memory_size}{Memory size (in Mb) in which data of one parquet file should roughly fit. For very small size, data could be a bit larger than given memory.}
+\item{max_memory}{Memory size (in Mb) in which data of one parquet file should roughly fit.}
 
-\item{chunk_size}{Number of lines that defines the size of the chunk.
-This argument must be filled in if `by_chunk` is TRUE (otherwise ignored).
-This argument can not be filled in if chunk_memory_size is used.}
+\item{max_rows}{Number of lines that defines the size of the chunk.
+This argument can not be filled in if max_memory is used.}
+
+\item{chunk_size}{DEPRECATED use max_rows}
+
+\item{chunk_memory_size}{DEPRECATED use max_memory}
 
 \item{columns}{Character vector of columns to select from the input file (by default, all columns are selected).}
 
-\item{by_chunk}{DEPRECATED use chunk_memory_size or chunk_memory instead}
+\item{by_chunk}{DEPRECATED use max_memory or max_rows instead}
 
 \item{skip}{By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.}
 
 \item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-Be careful, this argument can not be "yes" if `chunk_memory_size` or `chunk_size` argument are not NULL.}
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{encoding}{String that indicates the character encoding for the input file.}
 
-\item{chunk_memory_sample_lines}{Number of lines to read to evaluate chunk_memory_size. Default to 10 000.}
+\item{chunk_memory_sample_lines}{Number of lines to read to evaluate max_memory. Default to 10 000.}
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -64,7 +69,7 @@ Two conversions possibilities are offered :
 
 }
 
-To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `chunk_memory_size` or `chunk_size` must then be used.
+To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `max_memory` or `max_rows` must then be used.
 This is very useful for huge tables and for computers with little RAM because the conversion is then done
 with less memory consumption. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
 }
@@ -89,16 +94,16 @@ table_to_parquet(
   path_to_parquet = tempdir()
 )
 
-# Reading SPSS file by chunk (using `chunk_size` argument)
+# Reading SPSS file by chunk (using `max_rows` argument)
 # and conversion to multiple parquet files :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempdir(),
-  chunk_size = 50,
+  max_rows = 50,
 )
 
-# Reading SPSS file by chunk (using `chunk_memory_size` argument)
+# Reading SPSS file by chunk (using `max_memory` argument)
 # and conversion to multiple parquet files of 5 Kb when loaded (5 Mb / 1024)
 # (in real files, you should use bigger value that fit in memory like 3000
 # or 4000) :
@@ -106,7 +111,7 @@ table_to_parquet(
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempdir(),
-  chunk_memory_size = 5 / 1024,
+  max_memory = 5 / 1024,
 )
 
 # Reading SAS file by chunk of 50 lines with encoding
@@ -115,7 +120,7 @@ table_to_parquet(
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
-  chunk_size = 50,
+  max_rows = 50,
   encoding = "utf-8"
 )
 
@@ -144,7 +149,7 @@ table_to_parquet(
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempdir(),
-  chunk_size = 50,
+  max_rows = 50,
   compression = "zstd",
   compression_level = 10
 )

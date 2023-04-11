@@ -93,16 +93,20 @@ test_that("Checks error if argument columns is not a character vector", {
 
 test_that("Checks columns are selected as wanted", {
   path_to_parquet <- tempfile()
+  columns <- c("REG","LIBELLE")
 
   expect_no_error(
     csv_to_parquet(
       path_to_csv = parquetize_example("region_2022.csv"),
       path_to_parquet = path_to_parquet,
-      columns = c("REG","LIBELLE")
+      columns = columns
     )
   )
 
-  expect_parquet(path = path_to_parquet, with_lines = 18)
+  expect_parquet(
+    path_to_parquet,
+    with_lines = 18,
+    with_columns = columns)
 })
 
 test_that("Checks message zip with one file works", {

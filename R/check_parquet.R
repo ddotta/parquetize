@@ -11,11 +11,10 @@
 #' * open the parquet dataset/file to check if it's valid
 #' * print the number of lines
 #' * print the number of columns
-#' * return a tibble with 3 columns :
+#' * return a tibble with 2 columns :
 #'
 #'   * the column name (string)
 #'   * the arrow type (string)
-#'   * if the column is nullable or not (boolean)
 #'
 #' You can find a list of arrow type in the documentation
 #' \href{https://arrow.apache.org/docs/r/articles/data_types.html}{on this page}.

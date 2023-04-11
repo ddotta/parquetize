@@ -10,13 +10,13 @@
 #'
 #' @noRd
 #' @importFrom utils object.size
-get_lines_for_memory <- function(data, chunk_memory_size = 4000) {
+get_lines_for_memory <- function(data, max_memory = 4000) {
   data_memory_size <- object.size(data)
   # cosmetic : remove object.size attribute
   attributes(data_memory_size) <- NULL
 
-  # chunk_memory_size is in Mb and data_memory_size in bytes
-  lines <- ceiling(chunk_memory_size * 1024 * 1024 * nrow(data) / data_memory_size)
+  # max_memory is in Mb and data_memory_size in bytes
+  lines <- ceiling(max_memory * 1024 * 1024 * nrow(data) / data_memory_size)
   lines
 }
 

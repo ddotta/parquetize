@@ -2,21 +2,30 @@
 #'
 #' @param path to the parquet file or dataset
 #' @param with_lines number of lines we should have
-#' @param partitions a vector with the partition names we should have
+#' @param with_partitions NULL or a vector with the partition names the dataset should have
+#' @param with_columns NULL or a column's name vector the dataset/file should have
 #'
 #' @return the dataset handle
 #' @export
 #'
 #' @keywords internal
-expect_parquet <- function(path, with_lines, with_partitions = NULL) {
+expect_parquet <- function(
+    path,
+    with_lines,
+    with_partitions = NULL,
+    with_columns = NULL) {
   r <- testthat::expect_no_error(arrow::open_dataset(path))
   testthat::expect_equal(nrow(r), with_lines)
+
   if (!is.null(with_partitions)) {
-    testthat::expect_identical(
-      sort(dir(path)),
-      sort(with_partitions)
-    )
+    testthat::expect_setequal(dir(path), with_partitions)
   }
+
+  if (!is.null(with_columns)) {
+    testthat::expect_setequal(names(r), with_columns)
+  }
+
+
   return(r)
 }
 
