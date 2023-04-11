@@ -32,12 +32,29 @@ test_that("expect_parquet fails works with partitions", {
   )
 })
 
+test_that("expect_parquet works with columns", {
+  expect_no_error(
+    expect_parquet(parquetize_example("iris_dataset"),
+                   with_lines = 150,
+                   with_columns = c("Petal.Width", "Sepal.Length", "Sepal.Width", "Species", "Petal.Length"))
+  )
+})
+
 test_that("expect_parquet fails works with partitions", {
   expect_error(
     expect_parquet(parquetize_example("iris_dataset"),
                    with_lines = 150,
                    with_partitions = c('Species=setosa')),
-    regexp = "not identical"
+    regexp = "don't have the same values"
+  )
+})
+
+test_that("expect_parquet fails with bad columns columns", {
+  expect_error(
+    expect_parquet(parquetize_example("iris_dataset"),
+                   with_lines = 150,
+                   with_columns = c("Petal.Length", "Petal.Width", "Sepal.Length")),
+    regexp = "don't have the same values"
   )
 })
 

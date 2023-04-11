@@ -4,14 +4,16 @@
 \alias{expect_parquet}
 \title{Check if parquet dataset/file is readable and has the good number of rows}
 \usage{
-expect_parquet(path, with_lines, with_partitions = NULL)
+expect_parquet(path, with_lines, with_partitions = NULL, with_columns = NULL)
 }
 \arguments{
 \item{path}{to the parquet file or dataset}
 
 \item{with_lines}{number of lines we should have}
 
-\item{partitions}{a vector with the partition names we should have}
+\item{with_partitions}{NULL or a vector with the partition names the dataset should have}
+
+\item{with_columns}{NULL or a column's name vector the dataset/file should have}
 }
 \value{
 the dataset handle
