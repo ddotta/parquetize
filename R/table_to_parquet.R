@@ -223,7 +223,9 @@ table_to_parquet <- function(
     while (TRUE) {
       tbl <- read_method(path_to_table,
                          skip = skip,
-                         n_max = max_rows)
+                         n_max = max_rows,
+                         encoding = encoding,
+                         col_select = if (identical(columns,"all")) everything() else all_of(columns))
       if (nrow(tbl) != 0) {
         parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
         write_parquet(tbl,

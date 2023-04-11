@@ -175,8 +175,28 @@ test_that("Checks we have only selected columns in parquet file", {
     columns = columns
   )
 
-  expect_setequal(
-    names(read_parquet(file.path(path_to_parquet, parquet_file))),
-    columns
+  expect_parquet(
+    path_to_parquet,
+    with_lines = 150,
+    with_columns = columns
+  )
+})
+
+test_that("Checks we have only selected columns in parquet dataset", {
+  input_file <- system.file("examples","iris.sas7bdat", package = "haven")
+  path_to_parquet <- tempfile()
+  columns <- c("Species","Sepal_Length")
+
+  table_to_parquet(
+    path_to_table = input_file,
+    path_to_parquet = path_to_parquet,
+    columns = columns,
+    max_rows = 50
+  )
+
+  expect_parquet(
+    path_to_parquet,
+    with_lines = 150,
+    with_columns = columns
   )
 })

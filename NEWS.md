@@ -2,11 +2,11 @@
 
 This release includes :
 
-#### check_parquet function
+#### Check_parquet function
 
 - a new check_parquet function that return columns and arrow type
 
-#### Some deprecations
+#### Deprecations
 
 Two arguments are deprecated to avoid confusion with arrow concept and keep consistency
 
@@ -18,6 +18,7 @@ Two arguments are deprecated to avoid confusion with arrow concept and keep cons
 - a big test's refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).
 - use cli_abort instead of cli_alert_danger with stop("") everywhere
 - some minors changes
+- bugfix: table_to_parquet did not select columns as expected
 
 # parquetize 0.5.5
 
