@@ -2,7 +2,28 @@
 
 This release includes :
 
-#### Check_parquet function
+#### Possibility to use a RDBMS as source
+
+You can convert to parquet any query you want on any DBI compatible RDBMS :
+
+```{r}
+dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
+  system.file("extdata","iris.sqlite",package = "parquetize"))
+  
+# Reading iris table from local sqlite database
+# and conversion to one parquet file :
+dbi_to_parquet(
+  conn = dbi_connection,
+  sql_query = "SELECT * FROM iris",
+  path_to_parquet = tempdir(),
+  parquetname = "iris"
+)
+```
+
+You can find more information on
+[`dbi_to_parquet`](../reference/dbi_to_parquet.html) documentation.
+
+#### check_parquet function
 
 - a new [check_parquet](../reference/check_parquet.html) function that check if a dataset/file is valid and return columns and arrow type
 
