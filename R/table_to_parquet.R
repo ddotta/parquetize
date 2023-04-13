@@ -251,8 +251,6 @@ table_to_parquet <- function(
     col_select = if (identical(columns,"all")) everything() else all_of(columns)
   )
 
-  table_output[] <- lapply(table_output, function(x) {attributes(x) <- NULL; x})
-
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
