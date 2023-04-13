@@ -53,20 +53,20 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a SPSS file to a single parquet file :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sav", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #' )
 #' # Conversion from a Stata file to a single parquet file without progress bar :
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.dta", package = "haven"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Reading SPSS file by chunk (using `max_rows` argument)
@@ -74,7 +74,7 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sav", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(),
 #'   max_rows = 50,
 #' )
 #'
@@ -85,7 +85,7 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sav", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(),
 #'   max_memory = 5 / 1024,
 #' )
 #'
@@ -94,7 +94,7 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(),
 #'   max_rows = 50,
 #'   encoding = "utf-8"
 #' )
@@ -104,7 +104,7 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   columns = c("Species","Petal_Length")
 #' )
 #'
@@ -112,29 +112,29 @@
 #'
 #' table_to_parquet(
 #'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(),
 #'   partition = "yes",
 #'   partitioning =  c("Species") # vector use as partition key
 #' )
 #'
-#' \dontrun{
 #' # Reading SAS file by chunk of 50 lines
 #' # and conversion to multiple files with zstd, compression level 10
 #'
-#' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-#'   path_to_parquet = tempdir(),
-#'   max_rows = 50,
-#'   compression = "zstd",
-#'   compression_level = 10
-#' )
+#' if (isTRUE(arrow::arrow_info()$capabilities[['zstd']])) {
+#'   table_to_parquet(
+#'     path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'     path_to_parquet = tempfile(),
+#'     max_rows = 50,
+#'     compression = "zstd",
+#'     compression_level = 10
+#'   )
 #' }
 
 table_to_parquet <- function(
     path_to_table,
     path_to_parquet,
-    max_memory,
-    max_rows,
+    max_memory = NULL,
+    max_rows = NULL,
     chunk_size = lifecycle::deprecated(),
     chunk_memory_size = lifecycle::deprecated(),
     columns = "all",
@@ -142,7 +142,7 @@ table_to_parquet <- function(
     skip = 0,
     partition = "no",
     encoding = NULL,
-  chunk_memory_sample_lines = 10000,
+    chunk_memory_sample_lines = 10000,
     ...
 ) {
   if (!missing(by_chunk)) {
@@ -181,13 +181,11 @@ table_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
   # Check if columns argument is a character vector
   if (isFALSE(is.vector(columns) & is.character(columns))) {
     cli_abort(c("Be careful, the argument columns must be a character vector",
-    'You can use `all` or `c("col1", "col2"))`'),
-    class = "parquetize_bad_type")
+                'You can use `all` or `c("col1", "col2"))`'),
+              class = "parquetize_bad_type")
   }
 
   by_chunk <- !(missing(max_rows) & missing(max_memory))
@@ -203,61 +201,40 @@ table_to_parquet <- function(
     cli_abort("Be careful, when max_rows or max_memory are used, partition and partitioning can not be used", class = "parquetize_bad_argument")
   }
 
-  # max_rows and max_memory can not be used together so fails
-  if (!missing(max_rows) & !missing(max_memory)) {
-    cli_abort("Be careful, max_rows and max_memory can not be used together", class = "parquetize_bad_argument")
+
+  # Closure to create read data
+  closure_read_method <- function(encoding, columns) {
+    method <- get_haven_read_function_for_file(path_to_table)
+    function(path, n_max = Inf, skip = 0L) {
+      method(path,
+             n_max = n_max,
+             skip = skip,
+             encoding = encoding,
+             col_select = if (identical(columns,"all")) everything() else all_of(columns))
+    }
   }
+  read_method <- closure_read_method(encoding = encoding, columns = columns)
 
   if (by_chunk) {
-    read_method <- get_read_function_for_file(path_to_table)
-
-    if (missing(max_rows)) {
-      data <- read_method(path_to_table, n_max = chunk_memory_sample_lines)
-      max_rows <- get_lines_for_memory(data,
-                                         max_memory = max_memory)
-    }
-
-    parquetname <- paste0(gsub("\\..*","",basename(path_to_table)))
-
-    skip = 0
-    while (TRUE) {
-      tbl <- read_method(path_to_table,
-                         skip = skip,
-                         n_max = max_rows,
-                         encoding = encoding,
-                         col_select = if (identical(columns,"all")) everything() else all_of(columns))
-      if (nrow(tbl) != 0) {
-        parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(tbl)),".parquet")
-        write_parquet(tbl,
-                      sink = file.path(path_to_parquet,
-                                       parquetizename),
-                      ...
-        )
-        cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}/{parquetizename}")
-      }
-      skip <- skip + max_rows
-
-      if (nrow(tbl) < max_rows) { return(invisible(TRUE)) }
-    }
+    ds <- write_parquet_by_chunk(
+      read_method = read_method,
+      input = path_to_table,
+      path_to_parquet = path_to_parquet,
+      max_rows = max_rows,
+      max_memory = max_memory,
+      chunk_memory_sample_lines = chunk_memory_sample_lines,
+      ...
+    )
+    return(invisible(ds))
   }
-  read_method <- get_read_function_for_file(path_to_table)
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
+  table_output <- read_method(path_to_table)
 
-  table_output <- read_method(
-    path_to_table,
-    encoding = encoding,
-    col_select = if (identical(columns,"all")) everything() else all_of(columns)
-  )
+  parquetfile <- write_parquet_at_once(table_output, path_to_parquet, partition, ...)
 
-  Sys.sleep(0.01)
-  cli_progress_message("Writing data...")
-
-  parquetname <- get_parquet_file_name(path_to_table)
-  parquetfile <- write_data_in_parquet(table_output, path_to_parquet, parquetname, partition, ...)
-
-  cli_alert_success("\nThe {get_file_format(path_to_table)} file is available in parquet format under {path_to_parquet}")
+  cli_alert_success("\nThe {path_to_table} file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 }

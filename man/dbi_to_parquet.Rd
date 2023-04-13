@@ -8,7 +8,6 @@ dbi_to_parquet(
   conn,
   sql_query,
   path_to_parquet,
-  parquetname,
   max_memory,
   max_rows,
   chunk_memory_sample_lines = 10000,
@@ -22,8 +21,6 @@ dbi_to_parquet(
 \item{sql_query}{a character string containing an SQL query (this argument is passed to DBI::dbSendQuery)}
 
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
-
-\item{parquetname}{string the base file name used. If not set, will use a contraction of the query.}
 
 \item{max_memory}{Memory size (in Mb) in which data of one parquet file should roughly fit.}
 
@@ -71,8 +68,7 @@ dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
 dbi_to_parquet(
   conn = dbi_connection,
   sql_query = "SELECT * FROM iris",
-  path_to_parquet = tempdir(),
-  parquetname = "iris"
+  path_to_parquet = tempfile(fileext=".parquet"),
 )
 
 # Reading iris table from local sqlite database by chunk (using
@@ -82,7 +78,6 @@ dbi_to_parquet(
   conn = dbi_connection,
   sql_query = "SELECT * FROM iris",
   path_to_parquet = tempdir(),
-  parquetname = "iris",
   max_memory = 2 / 1024
 )
 
@@ -104,7 +99,6 @@ for (species in partitions) {
     # add the partition name in the output dir to respect parquet partition schema
     path_to_parquet = file.path(tempdir(), "iris", paste0("Species=", species)),
     max_memory = 2 / 1024,
-    parquetname = "iris-"
   )
 }
 

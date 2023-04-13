@@ -73,7 +73,7 @@ then use the function with the argument `path_to_csv`.
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext=".parquet")
 )
 
 # Conversion from a local csv file to a single parquet file and select only
@@ -81,7 +81,7 @@ csv_to_parquet(
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   columns = c("REG","LIBELLE")
 )
 
@@ -89,7 +89,7 @@ csv_to_parquet(
 
 csv_to_parquet(
   path_to_csv = parquetize_example("region_2022.csv"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   partition = "yes",
   partitioning =  c("REG")
 )
@@ -99,7 +99,7 @@ csv_to_parquet(
 csv_to_parquet(
   path_to_csv =
   "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   compression = "gzip",
   compression_level = 5
 )
@@ -109,6 +109,6 @@ csv_to_parquet(
 csv_to_parquet(
   path_to_csv = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
   filename_in_zip = "census2021-ts007-ctry.csv",
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 }

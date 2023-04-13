@@ -7,8 +7,8 @@
 table_to_parquet(
   path_to_table,
   path_to_parquet,
-  max_memory,
-  max_rows,
+  max_memory = NULL,
+  max_rows = NULL,
   chunk_size = lifecycle::deprecated(),
   chunk_memory_size = lifecycle::deprecated(),
   columns = "all",
@@ -78,20 +78,20 @@ with less memory consumption. For more information, see [here](https://ddotta.gi
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a SPSS file to a single parquet file :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
 )
 # Conversion from a Stata file to a single parquet file without progress bar :
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.dta", package = "haven"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Reading SPSS file by chunk (using `max_rows` argument)
@@ -99,7 +99,7 @@ table_to_parquet(
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(),
   max_rows = 50,
 )
 
@@ -110,7 +110,7 @@ table_to_parquet(
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sav", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(),
   max_memory = 5 / 1024,
 )
 
@@ -119,7 +119,7 @@ table_to_parquet(
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(),
   max_rows = 50,
   encoding = "utf-8"
 )
@@ -129,7 +129,7 @@ table_to_parquet(
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   columns = c("Species","Petal_Length")
 )
 
@@ -137,21 +137,21 @@ table_to_parquet(
 
 table_to_parquet(
   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(),
   partition = "yes",
   partitioning =  c("Species") # vector use as partition key
 )
 
-\dontrun{
 # Reading SAS file by chunk of 50 lines
 # and conversion to multiple files with zstd, compression level 10
 
-table_to_parquet(
-  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-  path_to_parquet = tempdir(),
-  max_rows = 50,
-  compression = "zstd",
-  compression_level = 10
-)
+if (isTRUE(arrow::arrow_info()$capabilities[['zstd']])) {
+  table_to_parquet(
+    path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+    path_to_parquet = tempfile(),
+    max_rows = 50,
+    compression = "zstd",
+    compression_level = 10
+  )
 }
 }

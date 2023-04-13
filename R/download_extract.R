@@ -28,7 +28,7 @@
 #' file_path <- download_extract(system.file("extdata","mtcars.csv.zip", package = "readr"))
 #' csv_to_parquet(
 #'   file_path,
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # 1. download a remote file
@@ -41,7 +41,7 @@
 #' )
 #' csv_to_parquet(
 #'   file_path,
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # the file is local and not zipped so :
@@ -50,7 +50,7 @@
 #' file_path <- download_extract(parquetize_example("region_2022.csv"))
 #' csv_to_parquet(
 #'   file_path,
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 download_extract <- function(path, filename_in_zip) {

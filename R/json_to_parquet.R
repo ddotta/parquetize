@@ -34,14 +34,14 @@
 #'
 #' json_to_parquet(
 #'   path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a local ndjson file to a partitioned parquet file  ::
 #'
 #' json_to_parquet(
 #'   path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   format = "ndjson"
 #' )
 
@@ -63,8 +63,6 @@ json_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
   # Check if format is equal to "json" or "ndjson"
   if (!(format %in% c("json","ndjson"))) {
     cli_abort("Be careful, the argument format must be equal to 'json' or 'ndjson'", class = "parquetize_bad_format")
@@ -81,14 +79,8 @@ json_to_parquet <- function(
                                    as_data_frame = TRUE)
   }
 
-  Sys.sleep(0.01)
-  cli_progress_message("Writing data...")
+  dataset <- write_parquet_at_once(json_output, path_to_parquet, partition, ...)
 
-  parquetname <- get_parquet_file_name(path_to_json)
-  parquetfile <- write_data_in_parquet(json_output, path_to_parquet, parquetname, partition, ...)
-
-  cli_alert_success("\nThe {format} file is available in parquet format under {path_to_parquet}")
-
-  return(invisible(parquetfile))
+  return(invisible(dataset))
 
 }

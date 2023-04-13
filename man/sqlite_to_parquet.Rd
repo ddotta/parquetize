@@ -49,7 +49,7 @@ Two conversions possibilities are offered :
 sqlite_to_parquet(
   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
   table_in_sqlite = "iris",
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a local sqlite file to a partitioned parquet file  :
@@ -57,7 +57,7 @@ sqlite_to_parquet(
 sqlite_to_parquet(
   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
   table_in_sqlite = "iris",
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(),
   partition = "yes",
   partitioning =  c("Species")
 )

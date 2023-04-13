@@ -20,7 +20,6 @@
 #' @param conn A DBIConnection object, as return by DBI::dbConnect
 #' @param sql_query a character string containing an SQL query (this argument is passed to DBI::dbSendQuery)
 #' @inheritParams table_to_parquet
-#' @param parquetname string the base file name used. If not set, will use a contraction of the query.
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -42,8 +41,7 @@
 #' dbi_to_parquet(
 #'   conn = dbi_connection,
 #'   sql_query = "SELECT * FROM iris",
-#'   path_to_parquet = tempdir(),
-#'   parquetname = "iris"
+#'   path_to_parquet = tempfile(fileext=".parquet"),
 #' )
 #'
 #' # Reading iris table from local sqlite database by chunk (using
@@ -53,7 +51,6 @@
 #'   conn = dbi_connection,
 #'   sql_query = "SELECT * FROM iris",
 #'   path_to_parquet = tempdir(),
-#'   parquetname = "iris",
 #'   max_memory = 2 / 1024
 #' )
 #'
@@ -75,7 +72,6 @@
 #'     # add the partition name in the output dir to respect parquet partition schema
 #'     path_to_parquet = file.path(tempdir(), "iris", paste0("Species=", species)),
 #'     max_memory = 2 / 1024,
-#'     parquetname = "iris-"
 #'   )
 #' }
 #'
@@ -87,7 +83,6 @@ dbi_to_parquet <- function(
     conn,
     sql_query,
     path_to_parquet,
-    parquetname,
     max_memory,
     max_rows,
     chunk_memory_sample_lines = 10000,
@@ -108,17 +103,12 @@ dbi_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  # Check if path_to_parquet exists
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
-  if (missing(parquetname)) {
-    parquetname <- stringify_sql(sql_query)
-    cli_alert_warning("Argument 'parquetname' is missing, using '{parquetname}'")
-  }
-
   by_chunk <- !(missing(max_rows) & missing(max_memory))
 
   if (by_chunk == TRUE) {
+
+    dir.create(path_to_parquet, showWarnings = FALSE, recursive = TRUE)
+
     if (missing(max_rows)) {
       # create the query and send it to the DB
       result <- dbSendQuery(conn, sql_query)
@@ -132,15 +122,15 @@ dbi_to_parquet <- function(
     }
 
     result <- dbSendQuery(conn, sql_query)
+    on.exit(dbClearResult(result))
 
     skip <- 0
     while (!dbHasCompleted(result)) {
       Sys.sleep(0.01)
       cli_progress_message("Reading data...")
-
       data <- dbFetch(result, n = max_rows)
-      parquetizename <- paste0(parquetname,sprintf("%d",skip+1),"-",sprintf("%d",skip+nrow(data)),".parquet")
 
+      parquetizename <- glue::glue("part-{skip+1}-{skip+nrow(data)}.parquet")
       Sys.sleep(0.01)
       cli_progress_message("Writing data in {parquetizename}...")
       write_parquet(data,
@@ -150,44 +140,18 @@ dbi_to_parquet <- function(
       )
       skip <- skip + nrow(data)
     }
-
-    dbClearResult(result)
-    cli_alert_success("\nThe request '{sql_query}' is available in the dataset directory {path_to_parquet}/")
+    cli_alert_success("\nParquet dataset is available under {path_to_parquet}/")
     return(invisible(TRUE))
   }
 
   result <- dbSendQuery(conn, sql_query)
+  on.exit(dbClearResult(result))
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
   output <- dbFetch(result)
-  dbClearResult(result)
 
-  Sys.sleep(0.01)
-  cli_progress_message("Writing data...")
+  parquetfile <- write_parquet_at_once(output, path_to_parquet, partition, ...)
 
-  parquetname <- paste0(basename(parquetname), ".parquet")
-  parquetfile <- write_data_in_parquet(output, path_to_parquet, parquetname, partition, ...)
-
-  cli_alert_success("The request '{sql_query}' from your conn is available in parquet format under {path_to_parquet}")
   return(invisible(parquetfile))
-}
-
-
-
-#' @name stringify_sql
-#'
-#' @title Convert a SQL query string in a filename's string
-#'
-#' @description
-#' This function take a SQL query string and replace all chararacters but a-z, A-Z and 0-9 by "_"
-#'
-#' @param sql_query
-#'
-#' @return a string suitable to be a file name
-#' @export
-#'
-#' @keywords internal
-stringify_sql <- function(sql_query) {
-  gsub("[^a-zA-Z0-9]+", "_", sql_query, perl = TRUE)
 }

@@ -22,13 +22,8 @@ test_that("expect_parquet works with partitions", {
   expect_no_error(
     expect_parquet(parquetize_example("iris_dataset"),
                    with_lines = 150,
-                   with_partitions = c('Species=setosa', 'Species=versicolor', 'Species=virginica'))
-  )
-
-  expect_no_error(
-    expect_parquet(parquetize_example("iris_dataset"),
-                   with_lines = 150,
-                   with_partitions = )
+                   with_partitions = c('Species=setosa', 'Species=versicolor', 'Species=virginica'),
+                   with_files = 3)
   )
 })
 
@@ -58,7 +53,6 @@ test_that("expect_parquet fails with bad columns columns", {
   )
 })
 
-
 test_that("expect_missing_argument check good errors", {
   raising_fun <- function() {
     cli_abort("string", class = "parquetize_missing_argument")
@@ -77,7 +71,6 @@ test_that("expect_missing_argument fails on bad string", {
   )
 })
 
-
 test_that("expect_missing_argument fails on bad error type", {
   raising_fun <- function() {
     cli_abort("string", class = "a_class")
@@ -85,5 +78,12 @@ test_that("expect_missing_argument fails on bad error type", {
   expect_error(
     expect_missing_argument(raising_fun(), regexp = "string"),
     class = "a_class"
+  )
+})
+
+test_that("expect_parquet fails with bad files number", {
+  expect_error(
+    expect_parquet(parquetize_example("iris_dataset"), with_lines = 150, with_files = 100),
+    class = "partquetize_test_with_files"
   )
 })

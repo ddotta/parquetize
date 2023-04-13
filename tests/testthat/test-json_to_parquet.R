@@ -34,7 +34,7 @@ test_that("Checks converting json file works", {
   )
 
   expect_parquet(
-    file.path(path_to_parquet, paste0("iris.parquet")),
+    path_to_parquet,
     with_lines = 150
   )
 })
@@ -48,7 +48,7 @@ test_that("Checks converting ndjson file works", {
     format = "ndjson"
   )
   expect_parquet(
-    file.path(path_to_parquet, paste0("iris.parquet")),
+    path_to_parquet,
     with_lines = 150
   )
 
@@ -64,13 +64,8 @@ test_that("Checks adding partition and partitioning argument works", {
     partitioning =  c("Species")
   )
   expect_parquet(
-    file.path(path_to_parquet),
-    with_lines = 150
+    path_to_parquet,
+    with_lines = 150,
+    with_partitions = c('Species=setosa', 'Species=versicolor', 'Species=virginica')
   )
-
-  expect_identical(
-    dir(path_to_parquet),
-    c('Species=setosa', 'Species=versicolor', 'Species=virginica')
-  )
-
 })

@@ -31,14 +31,14 @@
 #'
 #' rds_to_parquet(
 #'   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a local rds file to a partitioned parquet file  ::
 #'
 #' rds_to_parquet(
 #'   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   partition = "yes",
 #'   partitioning =  c("Species")
 #' )
@@ -60,21 +60,13 @@ rds_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
   rds_output <- readRDS(file = path_to_rds)
 
-  Sys.sleep(0.01)
-  cli_progress_message("Writing data...")
+  dataset <- write_parquet_at_once(rds_output, path_to_parquet, partition, ...)
 
-  parquetname <- get_parquet_file_name(path_to_rds)
-  parquetfile <- write_data_in_parquet(rds_output, path_to_parquet, parquetname, partition, ...)
-
-  cli_alert_success("\nThe rds file is available in parquet format under {path_to_parquet}")
-
-  return(invisible(parquetfile))
+  return(invisible(dataset))
 
 }
