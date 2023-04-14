@@ -18,7 +18,7 @@ test_that("expect_parquet works without partitions", {
   )
 })
 
-test_that("expect_parquet fails works with partitions", {
+test_that("expect_parquet works with partitions", {
   expect_no_error(
     expect_parquet(parquetize_example("iris_dataset"),
                    with_lines = 150,
@@ -45,7 +45,7 @@ test_that("expect_parquet fails works with partitions", {
     expect_parquet(parquetize_example("iris_dataset"),
                    with_lines = 150,
                    with_partitions = c('Species=setosa')),
-    regexp = "don't have the same values"
+    class = "partquetize_test_with_partitions"
   )
 })
 
@@ -54,7 +54,7 @@ test_that("expect_parquet fails with bad columns columns", {
     expect_parquet(parquetize_example("iris_dataset"),
                    with_lines = 150,
                    with_columns = c("Petal.Length", "Petal.Width", "Sepal.Length")),
-    regexp = "don't have the same values"
+    class = "partquetize_test_with_columns"
   )
 })
 

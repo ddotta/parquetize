@@ -1,6 +1,6 @@
 #' @name check_parquet
 #'
-#' @title Convert a SQL Query on DBI connection to parquet format and performs some checks
+#' @title Check if parquet file or dataset is readable and return basic informations
 #'
 #' @description This function checks if a file/dataset is a valid parquet format.
 #'   It will print the number of lines/columns and return a tibble on columns

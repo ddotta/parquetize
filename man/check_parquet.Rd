@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_parquet.R
 \name{check_parquet}
 \alias{check_parquet}
-\title{Convert a SQL Query on DBI connection to parquet format and performs some checks}
+\title{Check if parquet file or dataset is readable and return basic informations}
 \usage{
 check_parquet(path)
 }

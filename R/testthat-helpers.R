@@ -18,14 +18,18 @@ expect_parquet <- function(
   testthat::expect_equal(nrow(r), with_lines)
 
   if (!is.null(with_partitions)) {
-    testthat::expect_setequal(dir(path), with_partitions)
+    tryCatch(
+      testthat::expect_setequal(dir(path), with_partitions),
+      error = function(cond) { cli::cli_abort("{with_partitions} different from {dir(path)}", class = "partquetize_test_with_partitions")}
+    )
   }
 
   if (!is.null(with_columns)) {
-    testthat::expect_setequal(names(r), with_columns)
+    tryCatch(
+      testthat::expect_setequal(names(r), with_columns),
+      error = function(cond) { cli::cli_abort("{with_columns} different from {names(r)}", class = "partquetize_test_with_columns") }
+    )
   }
-
-
   return(r)
 }
 

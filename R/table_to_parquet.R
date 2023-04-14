@@ -142,7 +142,7 @@ table_to_parquet <- function(
     skip = 0,
     partition = "no",
     encoding = NULL,
-    chunk_memory_sample_lines = 10000,
+  chunk_memory_sample_lines = 10000,
     ...
 ) {
   if (!missing(by_chunk)) {
