@@ -55,7 +55,23 @@
 <h2 class="pkg-version" data-toc-text="0.5.6" id="parquetize-056">parquetize 0.5.6<a class="anchor" aria-label="anchor" href="#parquetize-056"></a></h2>
 <p>This release includes :</p>
 <div class="section level5">
-<h5 id="check_parquet-function-0-5-6">Check_parquet function<a class="anchor" aria-label="anchor" href="#check_parquet-function-0-5-6"></a></h5>
+<h5 id="possibility-to-use-a-rdbms-as-source-0-5-6">Possibility to use a RDBMS as source<a class="anchor" aria-label="anchor" href="#possibility-to-use-a-rdbms-as-source-0-5-6"></a></h5>
+<p>You can convert to parquet any query you want on any DBI compatible RDBMS :</p>
+<pre class="{r}"><code><span><span class="va">dbi_connection</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.sqlite"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="co"># Reading iris table from local sqlite database</span></span>
+<span><span class="co"># and conversion to one parquet file :</span></span>
+<span><span class="fu"><a href="../reference/dbi_to_parquet.html">dbi_to_parquet</a></span><span class="op">(</span></span>
+<span>  conn <span class="op">=</span> <span class="va">dbi_connection</span>,</span>
+<span>  sql_query <span class="op">=</span> <span class="st">"SELECT * FROM iris"</span>,</span>
+<span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  parquetname <span class="op">=</span> <span class="st">"iris"</span></span>
+<span><span class="op">)</span></span></code></pre>
+<p>You can find more information on <a href="../reference/dbi_to_parquet.html"><code>dbi_to_parquet</code></a> documentation.</p>
+</div>
+<div class="section level5">
+<h5 id="check_parquet-function-0-5-6">check_parquet function<a class="anchor" aria-label="anchor" href="#check_parquet-function-0-5-6"></a></h5>
 <ul><li>a new <a href="../reference/check_parquet.html">check_parquet</a> function that check if a dataset/file is valid and return columns and arrow type</li>
 </ul></div>
 <div class="section level5">

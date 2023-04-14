@@ -28,6 +28,9 @@
     <loc>/reference/csv_to_parquet.html</loc>
   </url>
   <url>
+    <loc>/reference/dbi_to_parquet.html</loc>
+  </url>
+  <url>
     <loc>/reference/download_extract.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>/reference/expect_parquet.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_partitions.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/sqlite_to_parquet.html</loc>
+  </url>
+  <url>
+    <loc>/reference/stringify_sql.html</loc>
   </url>
   <url>
     <loc>/reference/table_to_parquet.html</loc>
