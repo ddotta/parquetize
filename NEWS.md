@@ -40,6 +40,7 @@ Two arguments are deprecated to avoid confusion with arrow concept and keep cons
 - use cli_abort instead of cli_alert_danger with stop("") everywhere
 - some minors changes
 - bugfix: table_to_parquet did not select columns as expected
+- bugfix: skip_if_offline tests with download
 
 # parquetize 0.5.5
 
