@@ -20,7 +20,7 @@ get_lines_for_memory <- function(data, max_memory = 4000) {
   lines
 }
 
-read_function_by_extension <- list(
+haven_read_function_by_extension <- list(
   "sas7bdat" = haven::read_sas,
   "sav" = haven::read_sav,
   "dta" = haven::read_dta
@@ -34,14 +34,14 @@ read_function_by_extension <- list(
 #'
 #' @noRd
 #' @importFrom tools file_ext
-get_read_function_for_file <- function(file_name) {
+get_haven_read_function_for_file <- function(file_name) {
   ext <- tools::file_ext(file_name)
   if (ext == "") {
     cli_abort("Be careful, unable to find a read method for \"{file_name}\", it has no extension",
               class = "parquetize_bad_argument")
   }
 
-  fun <- read_function_by_extension[[ext]]
+  fun <- haven_read_function_by_extension[[ext]]
   if (is.null(fun)) {
     cli_abort("Be careful, no method to read \"{file_name}\" file",
               class = "parquetize_bad_argument")
@@ -50,61 +50,6 @@ get_read_function_for_file <- function(file_name) {
   fun
 }
 
-
-file_format_list <- list(
-  "sas7bdat" = "SAS",
-  "sav" = "SPSS",
-  "dta" = "Stata"
-)
-
-#' @name get_file_format
-#'
-#' @title Utility that returns the file format for a file
-#'
-#' @param file_name string that indicates the path to the input file
-#'
-#' @noRd
-#' @importFrom tools file_ext
-get_file_format <- function(file_name) {
-  extension <- tools::file_ext(file_name)
-  file_format_list[[extension]]
-}
-
-#' @name get_parquet_file_name
-#'
-#' @title Utility that build the parquet file name from input file name
-#'
-#' @param file_name the file name
-#' @return the parquet file name
-#'
-#' @noRd
-get_parquet_file_name <- function(file_name) {
-  extension <- tools::file_ext(file_name)
-  parquetname <- sub(paste0(extension, "$"), "parquet", basename(file_name))
-}
-
-#' @name write_data
-#'
-#' @title Utility that write parquet file or dataset
-#'
-#' @param data the data to write
-#' @param parquetname the file name for the parquet file
-#' @inheritParams table_to_parquet
-#'
-#' @noRd
-write_data_in_parquet <- function(data, path_to_parquet, parquetname, partition, ...) {
-  if (partition == "no") {
-    parquetfile <- write_parquet(data,
-                                 sink = file.path(path_to_parquet,
-                                                  parquetname),
-                                 ...)
-  } else if (partition == "yes") {
-    parquetfile <- write_dataset(data,
-                                 path = path_to_parquet,
-                                 ...)
-  }
-  parquetfile
-}
 
 #' @name is_remote
 #'

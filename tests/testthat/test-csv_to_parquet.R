@@ -124,19 +124,17 @@ test_that("Checks message zip with one file works", {
 
 
 test_that("Checks we have only selected columns in parquet file", {
-  input_file <- parquetize_example("region_2022.csv")
-  parquet_file <- get_parquet_file_name(input_file)
   path_to_parquet <- tempfile()
   columns <- c("REG","LIBELLE")
 
   csv_to_parquet(
-    path_to_csv = input_file,
+    path_to_csv = parquetize_example("region_2022.csv"),
     path_to_parquet = path_to_parquet,
     columns = columns
   )
 
   expect_setequal(
-    names(read_parquet(file.path(path_to_parquet, parquet_file))),
+    names(read_parquet(path_to_parquet)),
     columns
   )
 })

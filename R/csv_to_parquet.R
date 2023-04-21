@@ -51,7 +51,7 @@
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext=".parquet")
 #' )
 #'
 #' # Conversion from a local csv file to a single parquet file and select only
@@ -59,7 +59,7 @@
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   columns = c("REG","LIBELLE")
 #' )
 #'
@@ -67,7 +67,7 @@
 #'
 #' csv_to_parquet(
 #'   path_to_csv = parquetize_example("region_2022.csv"),
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   partition = "yes",
 #'   partitioning =  c("REG")
 #' )
@@ -77,7 +77,7 @@
 #' csv_to_parquet(
 #'   path_to_csv =
 #'   "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   compression = "gzip",
 #'   compression_level = 5
 #' )
@@ -87,7 +87,7 @@
 #' csv_to_parquet(
 #'   path_to_csv = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
 #'   filename_in_zip = "census2021-ts007-ctry.csv",
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 
 csv_to_parquet <- function(
@@ -129,8 +129,6 @@ csv_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
   # Check if columns argument is a character vector
   if (isFALSE(is.vector(columns) & is.character(columns))) {
     cli_abort(c("Be careful, the argument columns must be a character vector",
@@ -155,14 +153,7 @@ csv_to_parquet <- function(
     col_select = if (identical(columns,"all")) everything() else all_of(columns)
   )
 
+  dataset <- write_parquet_at_once(csv_output, path_to_parquet, partition, ...)
 
-  Sys.sleep(0.01)
-  cli_progress_message("Writing data...")
-
-  parquetname <- get_parquet_file_name(input_file)
-  parquetfile <- write_data_in_parquet(csv_output, path_to_parquet, parquetname, partition, ...)
-
-  cli_alert_success("\nThe csv file is available in parquet format under {path_to_parquet}")
-
-  return(invisible(parquetfile))
+  return(invisible(dataset))
 }

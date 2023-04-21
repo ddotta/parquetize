@@ -38,14 +38,14 @@ Two conversions possibilities are offered :
 
 rds_to_parquet(
   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a local rds file to a partitioned parquet file  ::
 
 rds_to_parquet(
   path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   partition = "yes",
   partitioning =  c("Species")
 )

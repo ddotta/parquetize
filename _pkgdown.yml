@@ -25,3 +25,7 @@ reference:
       - download_extract
       - rbind_parquet
       - parquetize_example
+  - title: Developers
+    contents:
+      - write_parquet_by_chunk
+      - write_parquet_at_once

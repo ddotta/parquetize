@@ -22,6 +22,8 @@ test_that("Checks download_extract fails with error if zip has more than one fil
 })
 
 test_that("Checks download_extract returns the csv file of remote zip", {
+  skip_if_offline()
+
   file <- download_extract(
     "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip"
   )
@@ -37,6 +39,8 @@ test_that("Checks download_extract returns the csv file of remote zip", {
 })
 
 test_that("Checks download_extract fails with error if zip has more than one file and no filename_in_zip", {
+  skip_if_offline()
+
   file <- download_extract(
     "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
     filename_in_zip = "equip-tour-transp-infra-2021.csv"

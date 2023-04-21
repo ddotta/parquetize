@@ -1,7 +1,7 @@
 Package: parquetize
 Type: Package
 Title: Convert Files to Parquet Format
-Version: 0.5.5
+Version: 0.5.6
 Authors@R:
     c(person(given = "Damien",
              family = "Dotta",

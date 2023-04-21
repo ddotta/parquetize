@@ -36,10 +36,12 @@ Two arguments are deprecated to avoid confusion with arrow concept and keep cons
 
 #### Other
 
-- a big test's refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).
+- refactoring : extract the logic to write parquet files as chunk or at once in write_parquet_by_chunk and write_parquet_at_once
+- a big test's refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions, number of files).
 - use cli_abort instead of cli_alert_danger with stop("") everywhere
 - some minors changes
 - bugfix: table_to_parquet did not select columns as expected
+- bugfix: skip_if_offline tests with download
 
 # parquetize 0.5.5
 

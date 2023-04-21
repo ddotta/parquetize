@@ -37,7 +37,7 @@
 #' sqlite_to_parquet(
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
-#'   path_to_parquet = tempdir()
+#'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a local sqlite file to a partitioned parquet file  :
@@ -45,7 +45,7 @@
 #' sqlite_to_parquet(
 #'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
-#'   path_to_parquet = tempdir(),
+#'   path_to_parquet = tempfile(),
 #'   partition = "yes",
 #'   partitioning =  c("Species")
 #' )
@@ -73,8 +73,6 @@ sqlite_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
-  dir.create(path_to_parquet, recursive = TRUE, showWarnings = FALSE)
-
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
@@ -94,11 +92,8 @@ sqlite_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
-  parquetname <- get_parquet_file_name(path_to_sqlite)
-  parquetfile <- write_data_in_parquet(sqlite_output, path_to_parquet, parquetname, partition, ...)
+  dataset <- write_parquet_at_once(sqlite_output, path_to_parquet, partition, ...)
 
-  cli_alert_success("\nThe {table_in_sqlite} table from your sqlite file is available in parquet format under {path_to_parquet}")
-
-  return(invisible(parquetfile))
+  return(invisible(dataset))
 
 }

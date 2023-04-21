@@ -47,14 +47,14 @@ Two conversions possibilities are offered :
 
 json_to_parquet(
   path_to_json = system.file("extdata","iris.json",package = "parquetize"),
-  path_to_parquet = tempdir()
+  path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a local ndjson file to a partitioned parquet file  ::
 
 json_to_parquet(
   path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
-  path_to_parquet = tempdir(),
+  path_to_parquet = tempfile(fileext = ".parquet"),
   format = "ndjson"
 )
 }

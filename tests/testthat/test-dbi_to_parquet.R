@@ -6,8 +6,7 @@ test_that("Checks arguments are correctly filled in", {
   expect_missing_argument(
     dbi_to_parquet(
       sql_query = "SELECT * FROM iris",
-      path_to_parquet = "Data_test",
-      parquetname = "iris"
+      path_to_parquet = "Data_test"
     ),
   regexp = "conn"
   )
@@ -15,8 +14,7 @@ test_that("Checks arguments are correctly filled in", {
   expect_missing_argument(
     dbi_to_parquet(
       conn = dbi_connection,
-      path_to_parquet = "Data_test",
-      parquetname = "iris"
+      path_to_parquet = "Data_test"
     ),
     regexp = "sql_query"
   )
@@ -24,8 +22,7 @@ test_that("Checks arguments are correctly filled in", {
   expect_missing_argument(
     dbi_to_parquet(
       conn = dbi_connection,
-      sql_query = "SELECT * FROM iris",
-      parquetname = "iris"
+      sql_query = "SELECT * FROM iris"
     ),
     regexp = "path_to_parquet"
   )
@@ -33,33 +30,29 @@ test_that("Checks arguments are correctly filled in", {
 
 test_that("Checks simple query generate a parquet file", {
   path_to_parquet <- tempfile()
-  parquetname <- "iris"
 
   expect_no_error(
     dbi_to_parquet(
       conn = dbi_connection,
       sql_query = "SELECT * FROM iris",
-      path_to_parquet = path_to_parquet,
-      parquetname = parquetname
+      path_to_parquet = path_to_parquet
     )
   )
 
   expect_parquet(
-    file.path(path_to_parquet, paste0(parquetname, ".parquet")),
+    path_to_parquet,
     with_lines = 150
   )
 })
 
 test_that("Checks simple query generate a parquet file with good messages", {
   path_to_parquet <- tempfile()
-  parquetname <- "iris"
 
   expect_no_error(
     dbi_to_parquet(
       conn = dbi_connection,
       sql_query = "SELECT * FROM iris",
       path_to_parquet = path_to_parquet,
-      parquetname = parquetname,
       partition = "yes",
       partitioning = "Species"
     )
@@ -74,7 +67,6 @@ test_that("Checks simple query generate a parquet file with good messages", {
 
 test_that("Checks simple query works by chunk with max_rows", {
   path_to_parquet <- tempfile()
-  parquetname <- "iris"
 
   expect_no_error(
     dbi_to_parquet(
@@ -86,7 +78,7 @@ test_that("Checks simple query works by chunk with max_rows", {
   )
 
   expect_parquet(
-    file.path(path_to_parquet),
+    path_to_parquet,
     with_lines = 150
   )
 })
@@ -105,7 +97,7 @@ test_that("Checks simple query works by chunk with max_memory", {
   )
 
   expect_parquet(
-    file.path(path_to_parquet),
+    path_to_parquet,
     with_lines = 150
   )
 })

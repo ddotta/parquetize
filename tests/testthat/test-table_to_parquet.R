@@ -30,25 +30,13 @@ test_that("Checks we can not use chunk_size with negative skip", {
   )
 })
 
-test_that("Checks we can't use max_rows and max_memory together", {
-  expect_error(
-    table_to_parquet(
-      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-      path_to_parquet = tempfile(),
-      max_rows = 50,
-      max_memory = 50
-    ),
-    class = "parquetize_bad_argument",
-    regexp = "can not be used together"
-  )
-})
-
 test_that("Checks by_chunk is deprecated", {
   expect_warning(
     table_to_parquet(
       path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
       path_to_parquet = tempfile(),
-      by_chunk = TRUE
+      by_chunk = TRUE,
+      max_rows = 50
     ),
     regexp = "This argument is no longer needed"
   )
@@ -114,21 +102,7 @@ test_that("Checks parquetizing by chunk with encoding works", {
     )
   )
 
-  expect_parquet(path_to_parquet, with_lines = 150)
-  expect_equal(length(dir(path_to_parquet)), 3, info = "we have 3 files")
-})
-
-test_that("Checks parquetizing by memory works", {
-  path_to_parquet <- tempfile()
-
-  expect_no_error(
-    table_to_parquet(
-      path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
-      path_to_parquet = path_to_parquet,
-      max_memory = 5 / 1024,
-    )
-  )
-  expect_parquet(path_to_parquet, with_lines = 150)
+  expect_parquet(path_to_parquet, with_lines = 150, with_files = 3)
 })
 
 test_that("Checks parquetizing works with partitioning", {
@@ -165,7 +139,7 @@ test_that("Checks it fails with SAS by adding max_rows, partition and partitioni
 
 test_that("Checks we have only selected columns in parquet file", {
   input_file <- system.file("examples","iris.sas7bdat", package = "haven")
-  parquet_file <- get_parquet_file_name(input_file)
+
   path_to_parquet <- tempfile()
   columns <- c("Species","Sepal_Length")
 

@@ -1,9 +1,10 @@
 #' Check if parquet dataset/file is readable and has the good number of rows
 #'
 #' @param path to the parquet file or dataset
-#' @param with_lines number of lines we should have
+#' @param with_lines number of lines the file/dataset should have
 #' @param with_partitions NULL or a vector with the partition names the dataset should have
 #' @param with_columns NULL or a column's name vector the dataset/file should have
+#' @param with_files NULL or number of files a dataset should have
 #'
 #' @return the dataset handle
 #' @export
@@ -13,9 +14,10 @@ expect_parquet <- function(
     path,
     with_lines,
     with_partitions = NULL,
-    with_columns = NULL) {
-  r <- testthat::expect_no_error(arrow::open_dataset(path))
-  testthat::expect_equal(nrow(r), with_lines)
+    with_columns = NULL,
+    with_files = NULL) {
+  dataset <- testthat::expect_no_error(arrow::open_dataset(path))
+  testthat::expect_equal(nrow(dataset), with_lines)
 
   if (!is.null(with_partitions)) {
     tryCatch(
@@ -26,11 +28,20 @@ expect_parquet <- function(
 
   if (!is.null(with_columns)) {
     tryCatch(
-      testthat::expect_setequal(names(r), with_columns),
-      error = function(cond) { cli::cli_abort("{with_columns} different from {names(r)}", class = "partquetize_test_with_columns") }
+      testthat::expect_setequal(names(dataset), with_columns),
+      error = function(cond) { cli::cli_abort("{with_columns} different from {names(dataset)}", class = "partquetize_test_with_columns") }
     )
   }
-  return(r)
+
+  if (!is.null(with_files)) {
+    files_number <- length(dataset$files)
+
+    tryCatch(
+      testthat::expect_equal(files_number, with_files),
+      error = function(cond) { cli::cli_abort("we should have {with_files} files. We have {files_number}", class = "partquetize_test_with_files") }
+    )
+  }
+  return(dataset)
 }
 
 #' Check if missing argument error is raised
