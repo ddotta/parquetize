@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,8 +139,12 @@ In this example we get 2 parquet files of 89 lines called
 <span>  max_memory <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmplwmb10/file1727777e7ecf/iris1-89.parquet</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The SAS file is available in parquet format under /tmp/Rtmplwmb10/file1727777e7ecf/iris90-150.parquet</span></span></code></pre></div>
+<span><span class="co">#&gt; Reading data...</span></span>
+<span><span class="co">#&gt; Writing file16ce6bad5891-1-89.parquet...</span></span>
+<span><span class="co">#&gt; Reading data...</span></span>
+<span><span class="co">#&gt; Writing file16ce6bad5891-90-150.parquet...</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpvHwN60/file16ce6bad5891/</span></span>
+<span><span class="co">#&gt; Writing file16ce6bad5891-90-150.parquet...</span></span></code></pre></div>
 <p>In real life, you should use a <code>chunk_memory_size</code> in the
 Gb range, for example with a SAS file of 50 000 000 lines and using
 chunk_memory_size of 5000 Mb :</p>

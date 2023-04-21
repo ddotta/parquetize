@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,10 +84,12 @@
 </ul></div>
 <div class="section level5">
 <h5 id="other-0-5-6">Other<a class="anchor" aria-label="anchor" href="#other-0-5-6"></a></h5>
-<ul><li>a big test’s refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions).</li>
+<ul><li>refactoring : extract the logic to write parquet files as chunk or at once in write_parquet_by_chunk and write_parquet_at_once</li>
+<li>a big test’s refactoring : all _to_parquet output files are formally validate (readable as parquet, number of lines, partitions, number of files).</li>
 <li>use cli_abort instead of cli_alert_danger with stop(““) everywhere</li>
 <li>some minors changes</li>
 <li>bugfix: table_to_parquet did not select columns as expected</li>
+<li>bugfix: skip_if_offline tests with download</li>
 </ul></div>
 </div>
     <div class="section level2">

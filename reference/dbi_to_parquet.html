@@ -26,7 +26,7 @@ Examples explain how to convert a query to a chunked dataset"><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +83,6 @@ Examples explain how to convert a query to a chunked dataset"><!-- mathjax --><s
 <span>  <span class="va">conn</span>,</span>
 <span>  <span class="va">sql_query</span>,</span>
 <span>  <span class="va">path_to_parquet</span>,</span>
-<span>  <span class="va">parquetname</span>,</span>
 <span>  <span class="va">max_memory</span>,</span>
 <span>  <span class="va">max_rows</span>,</span>
 <span>  chunk_memory_sample_lines <span class="op">=</span> <span class="fl">10000</span>,</span>
@@ -104,10 +103,6 @@ Examples explain how to convert a query to a chunked dataset"><!-- mathjax --><s
 
 <dt>path_to_parquet</dt>
 <dd><p>String that indicates the path to the directory where the parquet files will be stored.</p></dd>
-
-
-<dt>parquetname</dt>
-<dd><p>string the base file name used. If not set, will use a contraction of the query.</p></dd>
 
 
 <dt>max_memory</dt>
@@ -155,13 +150,13 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="fu">dbi_to_parquet</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  conn <span class="op">=</span> <span class="va">dbi_connection</span>,</span></span>
 <span class="r-in"><span>  sql_query <span class="op">=</span> <span class="st">"SELECT * FROM iris"</span>,</span></span>
-<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  parquetname <span class="op">=</span> <span class="st">"iris"</span></span></span>
+<span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".parquet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The request 'SELECT * FROM iris' from your conn is available in parquet format under /tmp/RtmpxDCkNW</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpCpa9oA/file15517b31c33d.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading iris table from local sqlite database by chunk (using</span></span></span>
 <span class="r-in"><span><span class="co"># `max_memory` argument) and conversion to multiple parquet files</span></span></span>
@@ -170,19 +165,18 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  conn <span class="op">=</span> <span class="va">dbi_connection</span>,</span></span>
 <span class="r-in"><span>  sql_query <span class="op">=</span> <span class="st">"SELECT * FROM iris"</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  parquetname <span class="op">=</span> <span class="st">"iris"</span>,</span></span>
 <span class="r-in"><span>  max_memory <span class="op">=</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">1024</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris1-42.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-42.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris43-84.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-43-84.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris85-126.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-85-126.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris127-150.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The request 'SELECT * FROM iris' is available in the dataset directory /tmp/RtmpxDCkNW/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris127-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-127-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/RtmpCpa9oA/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-127-150.parquet...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using chunk and partition together is not possible directly but easy to do :</span></span></span>
 <span class="r-in"><span><span class="co"># Reading iris table from local sqlite database by chunk (using</span></span></span>
@@ -202,27 +196,26 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>    <span class="co"># add the partition name in the output dir to respect parquet partition schema</span></span></span>
 <span class="r-in"><span>    path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"iris"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Species="</span>, <span class="va">species</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    max_memory <span class="op">=</span> <span class="fl">2</span> <span class="op">/</span> <span class="fl">1024</span>,</span></span>
-<span class="r-in"><span>    parquetname <span class="op">=</span> <span class="st">"iris-"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-1-31.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The request 'SELECT * FROM iris where Species = 'setosa'' is available in the dataset directory /tmp/RtmpxDCkNW/iris/Species=setosa/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/RtmpCpa9oA/iris/Species=setosa/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-1-31.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The request 'SELECT * FROM iris where Species = 'versicolor'' is available in the dataset directory /tmp/RtmpxDCkNW/iris/Species=versicolor/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/RtmpCpa9oA/iris/Species=versicolor/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-1-31.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The request 'SELECT * FROM iris where Species = 'virginica'' is available in the dataset directory /tmp/RtmpxDCkNW/iris/Species=virginica/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in iris-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/RtmpCpa9oA/iris/Species=virginica/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If you need a more complicated query to get your partitions, you can use</span></span></span>
 <span class="r-in"><span><span class="co"># dbGetQuery directly :</span></span></span>

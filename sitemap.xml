@@ -61,9 +61,12 @@
     <loc>/reference/sqlite_to_parquet.html</loc>
   </url>
   <url>
-    <loc>/reference/stringify_sql.html</loc>
+    <loc>/reference/table_to_parquet.html</loc>
   </url>
   <url>
-    <loc>/reference/table_to_parquet.html</loc>
+    <loc>/reference/write_parquet_at_once.html</loc>
+  </url>
+  <url>
+    <loc>/reference/write_parquet_by_chunk.html</loc>
   </url>
 </urlset>

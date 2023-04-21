@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expect_parquet</span><span class="op">(</span><span class="va">path</span>, <span class="va">with_lines</span>, with_partitions <span class="op">=</span> <span class="cn">NULL</span>, with_columns <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expect_parquet</span><span class="op">(</span></span>
+<span>  <span class="va">path</span>,</span>
+<span>  <span class="va">with_lines</span>,</span>
+<span>  with_partitions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  with_columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  with_files <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,7 +74,7 @@
 
 
 <dt>with_lines</dt>
-<dd><p>number of lines we should have</p></dd>
+<dd><p>number of lines the file/dataset should have</p></dd>
 
 
 <dt>with_partitions</dt>
@@ -77,6 +83,10 @@
 
 <dt>with_columns</dt>
 <dd><p>NULL or a column's name vector the dataset/file should have</p></dd>
+
+
+<dt>with_files</dt>
+<dd><p>NULL or number of files a dataset should have</p></dd>
 
 </dl></div>
     <div class="section level2">
