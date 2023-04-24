@@ -42,5 +42,6 @@ Imports:
     tidyselect,
     lifecycle,
     tools,
-    glue
+    glue,
+    fst
 VignetteBuilder: knitr

@@ -1,3 +1,11 @@
+# parquetize (WIP)
+
+This release includes :
+
+#### fst_to_parquet function
+
+- a new [fst_to_parquet](https://ddotta.github.io/parquetize/reference/fst_to_parquet.html) function that converts a fst file to parquet format.
+
 # parquetize 0.5.6
 
 This release includes :
@@ -21,11 +29,11 @@ dbi_to_parquet(
 ```
 
 You can find more information on
-[`dbi_to_parquet`](../reference/dbi_to_parquet.html) documentation.
+[`dbi_to_parquet`](https://ddotta.github.io/parquetize/reference/dbi_to_parquet.html) documentation.
 
 #### check_parquet function
 
-- a new [check_parquet](../reference/check_parquet.html) function that check if a dataset/file is valid and return columns and arrow type
+- a new [check_parquet](https://ddotta.github.io/parquetize/reference/check_parquet.html) function that check if a dataset/file is valid and return columns and arrow type
 
 #### Deprecations
 

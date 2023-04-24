@@ -15,6 +15,7 @@ reference:
       - csv_to_parquet
       - json_to_parquet
       - rds_to_parquet
+      - fst_to_parquet
       - table_to_parquet
       - sqlite_to_parquet
       - dbi_to_parquet
