@@ -40,6 +40,9 @@
     <loc>/reference/expect_parquet.html</loc>
   </url>
   <url>
+    <loc>/reference/fst_to_parquet.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_partitions.html</loc>
   </url>
   <url>
