@@ -59,12 +59,7 @@ As a fervent of the DRY principle (don't repeat yourself) the exported functions
 - [dbi_to_parquet()](https://ddotta.github.io/parquetize/reference/dbi_to_parquet.html)
 
     
-For more details, see the documentation and examples :  
-- [table_to_parquet()](https://ddotta.github.io/parquetize/reference/table_to_parquet.html#ref-examples).  
-- [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html#ref-examples).  
-- [json_to_parquet()](https://ddotta.github.io/parquetize/reference/json_to_parquet.html#ref-examples).  
-- [rds_to_parquet()](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html#ref-examples).  
-- [sqlite_to_parquet()](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html#ref-examples).
+For more details, see the examples associated with each function in the documentation.  
 
 ## Example
 
