@@ -23,6 +23,7 @@
 #'
 #' @importFrom arrow write_parquet write_dataset
 #' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_abort
+#' @importFrom fst read.fst
 #' @export
 #'
 #' @examples
