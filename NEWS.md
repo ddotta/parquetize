@@ -10,6 +10,7 @@ This release includes :
 
 - Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions #36
 - Removes unnecessary dependency to dplyr.
+- Group `@importFrom` in a file to facilitate their maintenance #37
 
 # parquetize 0.5.6
 

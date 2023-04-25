@@ -24,7 +24,6 @@
 #' @return a tibble with information on parquet dataset/file's columns with
 #'   three columns : field name, arrow type and nullable
 #'
-#' @importFrom arrow open_dataset
 #' @export
 #'
 #' @examples

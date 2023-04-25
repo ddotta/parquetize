@@ -12,7 +12,6 @@
 #'
 #' @return a vector with unique values for the column of the table
 #' @export
-#' @importFrom glue glue_sql
 #'
 #' @examples
 #' dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),

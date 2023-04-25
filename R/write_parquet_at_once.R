@@ -10,7 +10,6 @@
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
 #'
 #' @return a dataset as return by arrow::open_dataset
-#' @importFrom arrow open_dataset
 #'
 #' @export
 #'

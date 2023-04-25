@@ -44,9 +44,6 @@
 #'
 #' @return a dataset as return by arrow::open_dataset
 #' @export
-#' @importFrom tools file_path_sans_ext
-#' @importFrom glue glue
-#' @importFrom arrow open_dataset
 #'
 #' @examples
 #'

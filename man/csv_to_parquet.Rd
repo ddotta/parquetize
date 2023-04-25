@@ -68,7 +68,6 @@ then use the function with the argument `path_to_csv`.
 }
 \examples{
 
-
 # Conversion from a local csv file to a single parquet file :
 
 csv_to_parquet(

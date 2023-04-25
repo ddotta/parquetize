@@ -35,17 +35,9 @@
 #'
 #' @return A parquet file, invisibly
 #'
-#' @importFrom readr read_delim locale
-#' @importFrom curl curl_download
-#' @importFrom arrow write_parquet
-#' @importFrom utils unzip
-#' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_alert_info
-#' @importFrom tidyselect all_of everything
-#' @importFrom lifecycle deprecate_warn deprecated
 #' @export
 #'
 #' @examples
-#'
 #'
 #' # Conversion from a local csv file to a single parquet file :
 #'

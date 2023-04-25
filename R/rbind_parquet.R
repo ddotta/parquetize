@@ -14,8 +14,6 @@
 #' @param output_name name of the output parquet file
 #' @param delete_initial_files Boolean. Should the function delete the initial files ? By default TRUE.
 #'
-#' @importFrom arrow read_parquet
-#'
 #' @return Parquet files, invisibly
 #'
 #' @export

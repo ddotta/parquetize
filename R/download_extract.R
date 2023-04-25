@@ -17,7 +17,6 @@
 #'
 #' @return the path to the usable (uncompressed) file, invisibly.
 #'
-#' @importFrom tools file_ext
 #' @export
 #'
 #' @examples

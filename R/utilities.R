@@ -9,7 +9,6 @@
 #' memory_size
 #'
 #' @noRd
-#' @importFrom utils object.size
 get_lines_for_memory <- function(data, max_memory = 4000) {
   data_memory_size <- object.size(data)
   # cosmetic : remove object.size attribute
@@ -33,7 +32,6 @@ haven_read_function_by_extension <- list(
 #' @param file_name string that indicates the path to the input file
 #'
 #' @noRd
-#' @importFrom tools file_ext
 get_haven_read_function_for_file <- function(file_name) {
   ext <- tools::file_ext(file_name)
   if (ext == "") {
@@ -82,8 +80,6 @@ is_zip <- function(path) {
 #' @title Utility to get informations on parquet file's columns
 #'
 #' @param ds a dataset/parquet file
-#'
-#' @importFrom tibble tibble
 #'
 #' @return a tibble with 3 columns :
 #'

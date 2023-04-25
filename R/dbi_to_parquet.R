@@ -24,8 +24,6 @@
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
 #'
-#' @importFrom DBI dbConnect dbListTables dbDisconnect dbHasCompleted dbSendQuery dbFetch dbClearResult
-#' @importFrom cli cli_abort cli_alert_success cli_alert_warning
 #' @export
 #'
 #' @examples
