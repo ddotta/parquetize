@@ -83,6 +83,8 @@ is_zip <- function(path) {
 #'
 #' @param ds a dataset/parquet file
 #'
+#' @importFrom tibble tibble
+#'
 #' @return a tibble with 3 columns :
 #'
 #'   * the column name (string)
@@ -94,6 +96,6 @@ get_col_types <- function(ds) {
 
   tibble(
     name = unlist(lapply(fields, function(x) { x$name })),
-    type = unlist(lapply(fields, function(x) { x$type$name })),
+    type = unlist(lapply(fields, function(x) { x$type$name }))
   )
 }

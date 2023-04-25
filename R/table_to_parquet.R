@@ -45,7 +45,6 @@
 #' @importFrom cli cli_alert_danger cli_progress_message cli_alert_success cli_progress_bar cli_alert_info
 #' @importFrom tidyselect all_of everything
 #' @importFrom lifecycle deprecated deprecate_warn
-#' @import dplyr
 #' @export
 #'
 #' @examples

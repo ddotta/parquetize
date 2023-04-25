@@ -38,10 +38,10 @@ Imports:
     DBI,
     RSQLite,
     cli,
-    dplyr,
     tidyselect,
     lifecycle,
     tools,
     glue,
-    fst
+    fst,
+    tibble
 VignetteBuilder: knitr
