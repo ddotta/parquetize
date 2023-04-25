@@ -6,6 +6,10 @@ This release includes :
 
 - a new [fst_to_parquet](https://ddotta.github.io/parquetize/reference/fst_to_parquet.html) function that converts a fst file to parquet format.
 
+#### Other
+
+- Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions #36
+
 # parquetize 0.5.6
 
 This release includes :

@@ -153,7 +153,13 @@ csv_to_parquet <- function(
     col_select = if (identical(columns,"all")) everything() else all_of(columns)
   )
 
-  dataset <- write_parquet_at_once(csv_output, path_to_parquet, partition, ...)
+  dataset <- write_parquet_at_once(
+    csv_output,
+    path_to_parquet,
+    partition,
+    compression,
+    compression_level,
+    ...)
 
   return(invisible(dataset))
 }

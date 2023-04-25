@@ -18,9 +18,17 @@
 #'
 #' write_parquet_at_once(iris, tempfile())
 #'
+#' write_parquet_at_once(iris, tempfile(), compression="gzip", compression_level = 5)
+#'
 #' write_parquet_at_once(iris, tempfile(), partition = "yes", partitioning = c("Species"))
 #'
-write_parquet_at_once <- function(data, path_to_parquet, partition = "no", ...) {
+write_parquet_at_once <- function(
+    data,
+    path_to_parquet,
+    partition = "no",
+    compression = "snappy",
+    compression_level = NULL,
+    ...) {
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
@@ -40,11 +48,15 @@ write_parquet_at_once <- function(data, path_to_parquet, partition = "no", ...) 
 
     write_parquet(data,
                   sink = path_to_parquet,
+                  compression = compression,
+                  compression_level = compression_level,
                   ...)
     parquet_type <- "file"
   } else if (partition == "yes") {
     write_dataset(data,
                   path = path_to_parquet,
+                  compression = compression,
+                  compression_level = compression_level,
                   ...)
     parquet_type <- "dataset"
   }

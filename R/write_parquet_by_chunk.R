@@ -37,6 +37,8 @@
 #'   argument can not be filled in if max_memory is used.
 #' @param chunk_memory_sample_lines Number of lines to read to evaluate
 #'   max_memory. Default to 10 000.
+#' @param compression compression algorithm. Default "snappy".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param ... Additional format-specific arguments,  see
 #'   \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'
@@ -106,6 +108,8 @@ write_parquet_by_chunk <- function(
     max_rows = NULL,
     max_memory = NULL,
     chunk_memory_sample_lines = 10000,
+    compression = "snappy",
+    compression_level = NULL,
     ...
 ) {
   if (missing(read_method)) {
@@ -148,6 +152,8 @@ write_parquet_by_chunk <- function(
       write_parquet(tbl,
                   sink = file.path(path_to_parquet,
                                    parquetizename),
+                  compression = compression,
+                  compression_level = compression_level,
                     ...
       )
     }
