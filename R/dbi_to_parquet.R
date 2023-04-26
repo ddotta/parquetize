@@ -136,8 +136,8 @@ dbi_to_parquet <- function(
       write_parquet(data,
                     sink = file.path(path_to_parquet,
                                      parquetizename),
-                    compression,
-                    compression_level,
+                    compression = compression,
+                    compression_level = compression_level,
                     ...
       )
       skip <- skip + nrow(data)
