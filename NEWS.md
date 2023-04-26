@@ -8,7 +8,7 @@ This release includes :
 
 #### Other
 
-- Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions and now available in [`table_to_parquet`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html), [`rds_to_parquet`](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html), [`fst_to_parquet`](https://ddotta.github.io/parquetize/reference/fst_to_parquet.html), [`sqlite_to_parquet`](https://ddotta.github.io/parquetize/reference/sqlite_to_parquet.html), [`dbi_to_parquet`](https://ddotta.github.io/parquetize/reference/dbi_to_parquet.html) functions #36
+- Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions and now available in main conversion functions of `parquetize`  #36
 - Group `@importFrom` in a file to facilitate their maintenance #37
 
 # parquetize 0.5.6
