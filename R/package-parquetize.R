@@ -10,7 +10,6 @@
 #' @importFrom jsonlite read_json
 #' @importFrom lifecycle deprecate_warn deprecated
 #' @importFrom readr locale read_delim
-#' @importFrom tibble tibble
 #' @importFrom tidyselect all_of everything
 #' @importFrom tools file_ext file_path_sans_ext
 #' @importFrom utils object.size unzip
