@@ -15,13 +15,8 @@
 #'
 #' }
 #'
-#' @param path_to_sqlite string that indicates the path to the sqlite file
 #' @param table_in_sqlite string that indicates the name of the table to convert in the sqlite file
-#' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
-#' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-#' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' @param compression compression algorithm. Default "snappy".
-#' @param compression_level compression level. Meaning depends on compression algorithm.
+#' @inheritParams table_to_parquet
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -33,7 +28,7 @@
 #' # Conversion from a local sqlite file to a single parquet file :
 #'
 #' sqlite_to_parquet(
-#'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
+#'   path_to_file = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
 #'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
@@ -41,7 +36,7 @@
 #' # Conversion from a local sqlite file to a partitioned parquet file  :
 #'
 #' sqlite_to_parquet(
-#'   path_to_sqlite = system.file("extdata","iris.sqlite",package = "parquetize"),
+#'   path_to_file = system.file("extdata","iris.sqlite",package = "parquetize"),
 #'   table_in_sqlite = "iris",
 #'   path_to_parquet = tempfile(),
 #'   partition = "yes",
@@ -49,7 +44,7 @@
 #' )
 
 sqlite_to_parquet <- function(
-    path_to_sqlite,
+    path_to_file,
     table_in_sqlite,
     path_to_parquet,
     partition = "no",
@@ -58,14 +53,14 @@ sqlite_to_parquet <- function(
     ...
 ) {
 
-  # Check if path_to_sqlite is missing
-  if (missing(path_to_sqlite)) {
-    cli_abort("Be careful, the argument path_to_sqlite must be filled in", class = "parquetize_missing_argument")
+  # Check if path_to_file is missing
+  if (missing(path_to_file)) {
+    cli_abort("Be careful, the argument path_to_file must be filled in", class = "parquetize_missing_argument")
   }
 
-  # Check if extension used in path_to_sqlite is correct
-  if (!(sub(".*\\.", "", path_to_sqlite) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
-    cli_abort("Be careful, the extension used in path_to_sqlite is not correct", class = "parquetize_bad_format")
+  # Check if extension used in path_to_file is correct
+  if (!(sub(".*\\.", "", path_to_file) %in% c("db","sdb","sqlite","db3","s3db","sqlite3","sl3","db2","s2db","sqlite2","sl2"))) {
+    cli_abort("Be careful, the extension used in path_to_file is not correct", class = "parquetize_bad_format")
   }
 
   # Check if path_to_parquet is missing
@@ -76,7 +71,7 @@ sqlite_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
-  con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), path_to_sqlite)
+  con_sqlite <- DBI::dbConnect(RSQLite::SQLite(), path_to_file)
 
   # Check if table_in_sqlite exists in sqlite file
   list_table <- DBI::dbListTables(con_sqlite)

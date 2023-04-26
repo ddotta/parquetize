@@ -1,7 +1,7 @@
 test_that("Checks arguments are correctly filled in", {
   expect_missing_argument(
     rds_to_parquet(
-      path_to_rds = system.file("extdata","iris.rds",package = "parquetize")
+      path_to_file = system.file("extdata","iris.rds",package = "parquetize")
     ),
     regexp = "path_to_parquet"
   )
@@ -9,7 +9,7 @@ test_that("Checks arguments are correctly filled in", {
     rds_to_parquet(
       path_to_parquet = tempfile()
     ),
-    regexp = "path_to_rds"
+    regexp = "path_to_file"
   )
 })
 
@@ -18,7 +18,7 @@ test_that("Checks message is displayed with rds file", {
 
   expect_no_error(
     rds_to_parquet(
-      path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
+      path_to_file = system.file("extdata","iris.rds",package = "parquetize"),
       path_to_parquet = path_to_parquet
     )
   )
@@ -34,7 +34,7 @@ test_that("Checks message is displayed with by adding partition and partitioning
 
   expect_no_error(
     rds_to_parquet(
-      path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
+      path_to_file = system.file("extdata","iris.rds",package = "parquetize"),
       path_to_parquet = path_to_parquet,
       partition = "yes",
       partitioning =  c("Species")

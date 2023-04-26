@@ -23,8 +23,6 @@ table_to_parquet(
 )
 }
 \arguments{
-\item{path_to_table}{String that indicates the path to the input file (don't forget the extension).}
-
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
 \item{max_memory}{Memory size (in Mb) in which data of one parquet file should roughly fit.}
@@ -56,6 +54,8 @@ Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argumen
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
+
+\item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
 }
 \value{
 Parquet files, invisibly

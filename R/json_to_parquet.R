@@ -14,13 +14,8 @@
 #'
 #' }
 #'
-#' @param path_to_json string that indicates the path to the csv file
-#' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param format string that indicates if the format is "json" (by default) or "ndjson"
-#' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-#' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-#' @param compression compression algorithm. Default "snappy".
-#' @param compression_level compression level. Meaning depends on compression algorithm.
+#' @inheritParams table_to_parquet
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -32,20 +27,20 @@
 #' # Conversion from a local json file to a single parquet file ::
 #'
 #' json_to_parquet(
-#'   path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+#'   path_to_file = system.file("extdata","iris.json",package = "parquetize"),
 #'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a local ndjson file to a partitioned parquet file  ::
 #'
 #' json_to_parquet(
-#'   path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
+#'   path_to_file = system.file("extdata","iris.ndjson",package = "parquetize"),
 #'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   format = "ndjson"
 #' )
 
 json_to_parquet <- function(
-    path_to_json,
+    path_to_file,
     path_to_parquet,
     format = "json",
     partition = "no",
@@ -54,9 +49,9 @@ json_to_parquet <- function(
     ...
 ) {
 
-  # Check if path_to_json is missing
-  if (missing(path_to_json)) {
-    cli_abort("Be careful, the argument path_to_json must be filled in", class = "parquetize_missing_argument")
+  # Check if path_to_file is missing
+  if (missing(path_to_file)) {
+    cli_abort("Be careful, the argument path_to_file must be filled in", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
@@ -73,10 +68,10 @@ json_to_parquet <- function(
   cli_progress_message("Reading data...")
 
   if (format == "json") {
-    json_output <- jsonlite::read_json(path = path_to_json,
+    json_output <- jsonlite::read_json(path = path_to_file,
                                        simplifyVector = TRUE)
   } else if (format == "ndjson") {
-    json_output <- read_json_arrow(file = path_to_json,
+    json_output <- read_json_arrow(file = path_to_file,
                                    as_data_frame = TRUE)
   }
 

@@ -5,7 +5,7 @@
 \title{Convert a rds file to parquet format}
 \usage{
 rds_to_parquet(
-  path_to_rds,
+  path_to_file,
   path_to_parquet,
   partition = "no",
   compression = "snappy",
@@ -14,12 +14,13 @@ rds_to_parquet(
 )
 }
 \arguments{
-\item{path_to_rds}{string that indicates the path to the rds file}
+\item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
 
-\item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
+\item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
-\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+\item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{compression}{compression algorithm. Default "snappy".}
 
@@ -48,14 +49,14 @@ Two conversions possibilities are offered :
 # Conversion from a local rds file to a single parquet file ::
 
 rds_to_parquet(
-  path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
+  path_to_file = system.file("extdata","iris.rds",package = "parquetize"),
   path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a local rds file to a partitioned parquet file  ::
 
 rds_to_parquet(
-  path_to_rds = system.file("extdata","iris.rds",package = "parquetize"),
+  path_to_file = system.file("extdata","iris.rds",package = "parquetize"),
   path_to_parquet = tempfile(fileext = ".parquet"),
   partition = "yes",
   partitioning =  c("Species")

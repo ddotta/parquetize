@@ -5,12 +5,12 @@ test_that("Checks arguments are correctly filled in", {
     csv_to_parquet(
       path_to_parquet = tempfile()
     ),
-    regexp = "path_to_csv"
+    regexp = "path_to_file"
   )
 
   expect_missing_argument(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv")
+      path_to_file = parquetize_example("region_2022.csv")
     ),
     regexp = "path_to_parquet"
   )
@@ -21,7 +21,7 @@ test_that("Checks simple conversion works", {
 
   expect_no_error(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_file = parquetize_example("region_2022.csv"),
       path_to_parquet = path_to_parquet
     )
   )
@@ -41,7 +41,7 @@ test_that("Checks url_to_csv argument is deprecated", {
 test_that("Checks csv_as_a_zip is deprecated", {
   expect_warning(
     csv_to_parquet(
-      path_to_csv = system.file("extdata","mtcars.csv.zip", package = "readr"),
+      path_to_file = system.file("extdata","mtcars.csv.zip", package = "readr"),
       path_to_parquet = tempfile(),
       csv_as_a_zip = TRUE
     ),
@@ -55,7 +55,7 @@ test_that("Checks it works with compression", {
 
   expect_no_error(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_file = parquetize_example("region_2022.csv"),
       path_to_parquet = path_to_parquet,
       compression = "gzip",
       compression_level = 5
@@ -70,7 +70,7 @@ test_that("Checks it works when partitioning", {
 
   expect_no_error(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_file = parquetize_example("region_2022.csv"),
       path_to_parquet = path_to_parquet,
       partition = "yes",
       partitioning =  c("REG")
@@ -83,7 +83,7 @@ test_that("Checks it works when partitioning", {
 test_that("Checks error if argument columns is not a character vector", {
   expect_error(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_file = parquetize_example("region_2022.csv"),
       path_to_parquet = tempfile(),
       columns = matrix(1:10)
     ),
@@ -97,7 +97,7 @@ test_that("Checks columns are selected as wanted", {
 
   expect_no_error(
     csv_to_parquet(
-      path_to_csv = parquetize_example("region_2022.csv"),
+      path_to_file = parquetize_example("region_2022.csv"),
       path_to_parquet = path_to_parquet,
       columns = columns
     )
@@ -114,7 +114,7 @@ test_that("Checks message zip with one file works", {
 
   expect_no_error(
     csv_to_parquet(
-      path_to_csv = system.file("extdata","mtcars.csv.zip", package = "readr"),
+      path_to_file = system.file("extdata","mtcars.csv.zip", package = "readr"),
       path_to_parquet = path_to_parquet,
     )
   )
@@ -128,7 +128,7 @@ test_that("Checks we have only selected columns in parquet file", {
   columns <- c("REG","LIBELLE")
 
   csv_to_parquet(
-    path_to_csv = parquetize_example("region_2022.csv"),
+    path_to_file = parquetize_example("region_2022.csv"),
     path_to_parquet = path_to_parquet,
     columns = columns
   )
