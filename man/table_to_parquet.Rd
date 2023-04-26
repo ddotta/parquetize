@@ -5,7 +5,7 @@
 \title{Convert an input file to parquet format}
 \usage{
 table_to_parquet(
-  path_to_table,
+  path_to_file,
   path_to_parquet,
   max_memory = NULL,
   max_rows = NULL,
@@ -23,6 +23,8 @@ table_to_parquet(
 )
 }
 \arguments{
+\item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
+
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
 \item{max_memory}{Memory size (in Mb) in which data of one parquet file should roughly fit.}
@@ -54,8 +56,6 @@ Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argumen
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
-
-\item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
 }
 \value{
 Parquet files, invisibly
@@ -64,7 +64,7 @@ Parquet files, invisibly
 This function allows to convert an input file to parquet format. \cr
 
 It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
-For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_table` argument). \cr
+For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_file` argument). \cr
 
 Two conversions possibilities are offered :
 
@@ -83,20 +83,20 @@ with less memory consumption. For more information, see [here](https://ddotta.gi
 # Conversion from a SAS file to a single parquet file :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(fileext = ".parquet")
 )
 
 # Conversion from a SPSS file to a single parquet file :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_file = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempfile(fileext = ".parquet"),
 )
 # Conversion from a Stata file to a single parquet file without progress bar :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.dta", package = "haven"),
+  path_to_file = system.file("examples","iris.dta", package = "haven"),
   path_to_parquet = tempfile(fileext = ".parquet")
 )
 
@@ -104,7 +104,7 @@ table_to_parquet(
 # and conversion to multiple parquet files :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_file = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempfile(),
   max_rows = 50,
 )
@@ -115,7 +115,7 @@ table_to_parquet(
 # or 4000) :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sav", package = "haven"),
+  path_to_file = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempfile(),
   max_memory = 5 / 1024,
 )
@@ -124,7 +124,7 @@ table_to_parquet(
 # and conversion to multiple files :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
   max_rows = 50,
   encoding = "utf-8"
@@ -134,7 +134,7 @@ table_to_parquet(
 # few columns  :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(fileext = ".parquet"),
   columns = c("Species","Petal_Length")
 )
@@ -142,7 +142,7 @@ table_to_parquet(
 # Conversion from a SAS file to a partitioned parquet file  :
 
 table_to_parquet(
-  path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
   partition = "yes",
   partitioning =  c("Species") # vector use as partition key
@@ -153,7 +153,7 @@ table_to_parquet(
 
 if (isTRUE(arrow::arrow_info()$capabilities[['zstd']])) {
   table_to_parquet(
-    path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+    path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
     path_to_parquet = tempfile(),
     max_rows = 50,
     compression = "zstd",

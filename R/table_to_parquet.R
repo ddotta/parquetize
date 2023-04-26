@@ -5,7 +5,7 @@
 #' @description This function allows to convert an input file to parquet format. \cr
 #'
 #' It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
-#' For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_table` argument). \cr
+#' For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_file` argument). \cr
 #'
 #' Two conversions possibilities are offered :
 #'
@@ -48,20 +48,20 @@
 #' # Conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
 #'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
 #' # Conversion from a SPSS file to a single parquet file :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempfile(fileext = ".parquet"),
 #' )
 #' # Conversion from a Stata file to a single parquet file without progress bar :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.dta", package = "haven"),
+#'   path_to_file = system.file("examples","iris.dta", package = "haven"),
 #'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
@@ -69,7 +69,7 @@
 #' # and conversion to multiple parquet files :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempfile(),
 #'   max_rows = 50,
 #' )
@@ -80,7 +80,7 @@
 #' # or 4000) :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sav", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempfile(),
 #'   max_memory = 5 / 1024,
 #' )
@@ -89,7 +89,7 @@
 #' # and conversion to multiple files :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
 #'   path_to_parquet = tempfile(),
 #'   max_rows = 50,
 #'   encoding = "utf-8"
@@ -99,7 +99,7 @@
 #' # few columns  :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
 #'   path_to_parquet = tempfile(fileext = ".parquet"),
 #'   columns = c("Species","Petal_Length")
 #' )
@@ -107,7 +107,7 @@
 #' # Conversion from a SAS file to a partitioned parquet file  :
 #'
 #' table_to_parquet(
-#'   path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'   path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
 #'   path_to_parquet = tempfile(),
 #'   partition = "yes",
 #'   partitioning =  c("Species") # vector use as partition key
@@ -118,7 +118,7 @@
 #'
 #' if (isTRUE(arrow::arrow_info()$capabilities[['zstd']])) {
 #'   table_to_parquet(
-#'     path_to_table = system.file("examples","iris.sas7bdat", package = "haven"),
+#'     path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
 #'     path_to_parquet = tempfile(),
 #'     max_rows = 50,
 #'     compression = "zstd",
@@ -127,7 +127,7 @@
 #' }
 
 table_to_parquet <- function(
-    path_to_table,
+    path_to_file,
     path_to_parquet,
     max_memory = NULL,
     max_rows = NULL,
@@ -169,9 +169,9 @@ table_to_parquet <- function(
     max_memory <- chunk_memory_size
   }
 
-  # Check if path_to_table is missing
-  if (missing(path_to_table)) {
-    cli_abort("Be careful, the argument path_to_table must be filled in", class = "parquetize_missing_argument")
+  # Check if path_to_file is missing
+  if (missing(path_to_file)) {
+    cli_abort("Be careful, the argument path_to_file must be filled in", class = "parquetize_missing_argument")
   }
 
   # Check if path_to_parquet is missing
@@ -202,7 +202,7 @@ table_to_parquet <- function(
 
   # Closure to create read data
   closure_read_method <- function(encoding, columns) {
-    method <- get_haven_read_function_for_file(path_to_table)
+    method <- get_haven_read_function_for_file(path_to_file)
     function(path, n_max = Inf, skip = 0L) {
       method(path,
              n_max = n_max,
@@ -216,7 +216,7 @@ table_to_parquet <- function(
   if (by_chunk) {
     ds <- write_parquet_by_chunk(
       read_method = read_method,
-      input = path_to_table,
+      input = path_to_file,
       path_to_parquet = path_to_parquet,
       max_rows = max_rows,
       max_memory = max_memory,
@@ -228,7 +228,7 @@ table_to_parquet <- function(
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
-  table_output <- read_method(path_to_table)
+  table_output <- read_method(path_to_file)
 
   parquetfile <- write_parquet_at_once(
     table_output,
@@ -238,7 +238,7 @@ table_to_parquet <- function(
     compression_level,
     ...)
 
-  cli_alert_success("\nThe {path_to_table} file is available in parquet format under {path_to_parquet}")
+  cli_alert_success("\nThe {path_to_file} file is available in parquet format under {path_to_parquet}")
 
   return(invisible(parquetfile))
 }
