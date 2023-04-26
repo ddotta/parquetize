@@ -35,6 +35,8 @@
 #' Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.
 #' @param encoding String that indicates the character encoding for the input file.
 #' @param chunk_memory_sample_lines Number of lines to read to evaluate max_memory. Default to 10 000.
+#' @param compression compression algorithm. Default "snappy".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param ... Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
@@ -137,6 +139,8 @@ table_to_parquet <- function(
     partition = "no",
     encoding = NULL,
     chunk_memory_sample_lines = 10000,
+    compression = "snappy",
+    compression_level = NULL,
     ...
 ) {
   if (!missing(by_chunk)) {
@@ -226,7 +230,13 @@ table_to_parquet <- function(
   cli_progress_message("Reading data...")
   table_output <- read_method(path_to_table)
 
-  parquetfile <- write_parquet_at_once(table_output, path_to_parquet, partition, ...)
+  parquetfile <- write_parquet_at_once(
+    table_output,
+    path_to_parquet,
+    partition,
+    compression,
+    compression_level,
+    ...)
 
   cli_alert_success("\nThe {path_to_table} file is available in parquet format under {path_to_parquet}")
 

@@ -17,6 +17,8 @@ table_to_parquet(
   partition = "no",
   encoding = NULL,
   chunk_memory_sample_lines = 10000,
+  compression = "snappy",
+  compression_level = NULL,
   ...
 )
 }
@@ -47,6 +49,10 @@ Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argumen
 \item{encoding}{String that indicates the character encoding for the input file.}
 
 \item{chunk_memory_sample_lines}{Number of lines to read to evaluate max_memory. Default to 10 000.}
+
+\item{compression}{compression algorithm. Default "snappy".}
+
+\item{compression_level}{compression level. Meaning depends on compression algorithm.}
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}

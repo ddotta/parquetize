@@ -8,7 +8,7 @@ This release includes :
 
 #### Other
 
-- Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions #36
+- Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions and now available in [`table_to_parquet`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function #36
 - Group `@importFrom` in a file to facilitate their maintenance #37
 
 # parquetize 0.5.6
