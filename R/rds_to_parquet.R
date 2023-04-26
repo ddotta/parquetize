@@ -17,6 +17,8 @@
 #' @param path_to_parquet string that indicates the path to the directory where the parquet file will be stored
 #' @param partition string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 #' If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+#' @param compression compression algorithm. Default "snappy".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #' @return A parquet file, invisibly
@@ -45,6 +47,8 @@ rds_to_parquet <- function(
     path_to_rds,
     path_to_parquet,
     partition = "no",
+    compression = "snappy",
+    compression_level = NULL,
     ...
 ) {
 
@@ -63,7 +67,13 @@ rds_to_parquet <- function(
 
   rds_output <- readRDS(file = path_to_rds)
 
-  dataset <- write_parquet_at_once(rds_output, path_to_parquet, partition, ...)
+  dataset <- write_parquet_at_once(
+    rds_output,
+    path_to_parquet,
+    partition,
+    compression,
+    compression_level,
+    ...)
 
   return(invisible(dataset))
 
