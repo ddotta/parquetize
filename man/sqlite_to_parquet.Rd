@@ -9,6 +9,8 @@ sqlite_to_parquet(
   table_in_sqlite,
   path_to_parquet,
   partition = "no",
+  compression = "snappy",
+  compression_level = NULL,
   ...
 )
 }
@@ -21,6 +23,10 @@ sqlite_to_parquet(
 
 \item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
 If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+
+\item{compression}{compression algorithm. Default "snappy".}
+
+\item{compression_level}{compression level. Meaning depends on compression algorithm.}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
