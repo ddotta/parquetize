@@ -85,6 +85,8 @@ dbi_to_parquet <- function(
     max_rows,
     chunk_memory_sample_lines = 10000,
     partition = "no",
+    compression = "snappy",
+    compression_level = NULL,
     ...
 ) {
   if (missing(conn)) {
@@ -134,6 +136,8 @@ dbi_to_parquet <- function(
       write_parquet(data,
                     sink = file.path(path_to_parquet,
                                      parquetizename),
+                    compression = compression,
+                    compression_level = compression_level,
                     ...
       )
       skip <- skip + nrow(data)
@@ -149,7 +153,13 @@ dbi_to_parquet <- function(
   cli_progress_message("Reading data...")
   output <- dbFetch(result)
 
-  parquetfile <- write_parquet_at_once(output, path_to_parquet, partition, ...)
+  parquetfile <- write_parquet_at_once(
+    output,
+    path_to_parquet,
+    partition,
+    compression,
+    compression_level,
+    ...)
 
   return(invisible(parquetfile))
 }

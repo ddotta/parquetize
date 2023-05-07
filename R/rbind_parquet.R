@@ -13,6 +13,8 @@
 #' @param folder the folder where the initial files are stored
 #' @param output_name name of the output parquet file
 #' @param delete_initial_files Boolean. Should the function delete the initial files ? By default TRUE.
+#' @param compression compression algorithm. Default "snappy".
+#' @param compression_level compression level. Meaning depends on compression algorithm.
 #'
 #' @return Parquet files, invisibly
 #'
@@ -45,7 +47,9 @@
 
 rbind_parquet <- function(folder,
                           output_name,
-                          delete_initial_files = TRUE) {
+                          delete_initial_files = TRUE,
+                          compression = "snappy",
+                          compression_level = NULL) {
 
   # Get the list of files in the folder
   files <- list.files(folder, pattern = paste0("^",output_name,".*\\.parquet$"))
@@ -71,7 +75,10 @@ rbind_parquet <- function(folder,
   }
 
   # Write the combined data frame to a new parquet file
-  write_parquet(combined_df, file.path(folder, paste0(output_name,".parquet")))
+  write_parquet(combined_df,
+                file.path(folder, paste0(output_name,".parquet")),
+                compression = compression,
+                compression_level = compression_level)
 
   cli_alert_success("\nThe {output_name} parquet file is available under {folder}")
 

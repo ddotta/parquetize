@@ -5,7 +5,7 @@
 \title{Convert a csv file to parquet format}
 \usage{
 csv_to_parquet(
-  path_to_csv,
+  path_to_file,
   url_to_csv = lifecycle::deprecated(),
   csv_as_a_zip = lifecycle::deprecated(),
   filename_in_zip,
@@ -19,26 +19,27 @@ csv_to_parquet(
 )
 }
 \arguments{
-\item{path_to_csv}{string that indicates the path or url to the csv file}
+\item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
 
-\item{url_to_csv}{DEPRECATED use path_to_csv instead}
+\item{url_to_csv}{DEPRECATED use path_to_file instead}
 
 \item{csv_as_a_zip}{DEPRECATED}
 
 \item{filename_in_zip}{name of the csv file in the zip. Required if several csv are included in the zip.}
 
-\item{path_to_parquet}{string that indicates the path to the directory where the parquet file will be stored}
+\item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
-\item{columns}{character vector of columns to select from the input file (by default, all columns are selected).}
+\item{columns}{Character vector of columns to select from the input file (by default, all columns are selected).}
 
 \item{compression}{compression algorithm. Default "snappy".}
 
 \item{compression_level}{compression level. Meaning depends on compression algorithm.}
 
-\item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
+\item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
-\item{encoding}{string that indicates the character encoding for the input file.}
+\item{encoding}{String that indicates the character encoding for the input file.}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -64,14 +65,14 @@ the data (because unzip() won't work reliably in this case -
 see \href{https://rdrr.io/r/utils/unzip.html}{here}).
 In this case, it's advised to unzip your csv file by hand
 (for example with \href{https://www.7-zip.org/}{7-Zip})
-then use the function with the argument `path_to_csv`.
+then use the function with the argument `path_to_file`.
 }
 \examples{
 
 # Conversion from a local csv file to a single parquet file :
 
 csv_to_parquet(
-  path_to_csv = parquetize_example("region_2022.csv"),
+  path_to_file = parquetize_example("region_2022.csv"),
   path_to_parquet = tempfile(fileext=".parquet")
 )
 
@@ -79,7 +80,7 @@ csv_to_parquet(
 # few columns :
 
 csv_to_parquet(
-  path_to_csv = parquetize_example("region_2022.csv"),
+  path_to_file = parquetize_example("region_2022.csv"),
   path_to_parquet = tempfile(fileext = ".parquet"),
   columns = c("REG","LIBELLE")
 )
@@ -87,7 +88,7 @@ csv_to_parquet(
 # Conversion from a local csv file to a partitioned parquet file  :
 
 csv_to_parquet(
-  path_to_csv = parquetize_example("region_2022.csv"),
+  path_to_file = parquetize_example("region_2022.csv"),
   path_to_parquet = tempfile(fileext = ".parquet"),
   partition = "yes",
   partitioning =  c("REG")
@@ -96,7 +97,7 @@ csv_to_parquet(
 # Conversion from a URL and a csv file with "gzip" compression :
 
 csv_to_parquet(
-  path_to_csv =
+  path_to_file =
   "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
   path_to_parquet = tempfile(fileext = ".parquet"),
   compression = "gzip",
@@ -106,7 +107,7 @@ csv_to_parquet(
 # Conversion from a URL and a zipped file :
 
 csv_to_parquet(
-  path_to_csv = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
+  path_to_file = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
   filename_in_zip = "census2021-ts007-ctry.csv",
   path_to_parquet = tempfile(fileext = ".parquet")
 )

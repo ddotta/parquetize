@@ -43,6 +43,5 @@ Imports:
     tools,
     glue,
     fst,
-    tibble,
     dplyr
 VignetteBuilder: knitr

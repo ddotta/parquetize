@@ -3,7 +3,7 @@ test_that("Checks arguments are correctly filled in", {
 
   expect_missing_argument(
     json_to_parquet(
-      path_to_json = system.file("extdata","iris.ndjson",package = "parquetize")
+      path_to_file = system.file("extdata","iris.ndjson",package = "parquetize")
     ),
     regexp = "path_to_parquet"
   )
@@ -12,12 +12,12 @@ test_that("Checks arguments are correctly filled in", {
     json_to_parquet(
       path_to_parquet = tempfile()
     ),
-    regexp = "path_to_json"
+    regexp = "path_to_file"
   )
 
   expect_error(
     json_to_parquet(
-      path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+      path_to_file = system.file("extdata","iris.json",package = "parquetize"),
       path_to_parquet = tempfile(),
       format = "xjson"
     ),
@@ -29,7 +29,7 @@ test_that("Checks converting json file works", {
   path_to_parquet <- tempfile()
 
   json_to_parquet(
-    path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+    path_to_file = system.file("extdata","iris.json",package = "parquetize"),
     path_to_parquet = path_to_parquet
   )
 
@@ -43,7 +43,7 @@ test_that("Checks converting ndjson file works", {
   path_to_parquet <- tempfile()
 
   json_to_parquet(
-    path_to_json = system.file("extdata","iris.ndjson",package = "parquetize"),
+    path_to_file = system.file("extdata","iris.ndjson",package = "parquetize"),
     path_to_parquet = path_to_parquet,
     format = "ndjson"
   )
@@ -58,7 +58,7 @@ test_that("Checks adding partition and partitioning argument works", {
   path_to_parquet <- tempfile()
 
   json_to_parquet(
-    path_to_json = system.file("extdata","iris.json",package = "parquetize"),
+    path_to_file = system.file("extdata","iris.json",package = "parquetize"),
     path_to_parquet = path_to_parquet,
     partition = "yes",
     partitioning =  c("Species")

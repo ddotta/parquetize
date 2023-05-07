@@ -51,7 +51,7 @@ In this example we get 2 parquet files of 89 lines called `iris1-89.parquet` and
 
 ```{r iris-memory-example}
 table_to_parquet(
-  path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples", "iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
   max_memory = 5 / 1024,
   encoding = "utf-8"
@@ -64,7 +64,7 @@ with a SAS file of 50 000 000 lines and using chunk_memory_size of 5000 Mb :
 
 ```{r real-memory-example, eval=FALSE}
   table_to_parquet(
-  path_to_table = "myhugefile.sas7bdat",
+  path_to_file = "myhugefile.sas7bdat",
   path_to_parquet = tempdir(),
   max_memory = 5000,
   encoding = "utf-8"
@@ -80,7 +80,7 @@ Here we cut the 150 rows into 3 chunks of 50 rows. In this example we get 3 parq
 
 ```{r iris-example, eval=FALSE}
 table_to_parquet(
-  path_to_table = system.file("examples", "iris.sas7bdat", package = "haven"),
+  path_to_file = system.file("examples", "iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
   max_rows = 50,
   encoding = "utf-8"
@@ -92,7 +92,7 @@ In real life, we can perform this kind of request with the parquetize API (for e
 
 ```{r real-example, eval=FALSE}
 table_to_parquet(
-  path_to_table = "myhugefile.sas7bdat",
+  path_to_file = "myhugefile.sas7bdat",
   path_to_parquet = tempdir(),
   max_rows = 2000000,
   encoding = "utf-8"

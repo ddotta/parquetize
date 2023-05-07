@@ -4,7 +4,13 @@
 \alias{rbind_parquet}
 \title{Function to bind multiple parquet files by row}
 \usage{
-rbind_parquet(folder, output_name, delete_initial_files = TRUE)
+rbind_parquet(
+  folder,
+  output_name,
+  delete_initial_files = TRUE,
+  compression = "snappy",
+  compression_level = NULL
+)
 }
 \arguments{
 \item{folder}{the folder where the initial files are stored}
@@ -12,6 +18,10 @@ rbind_parquet(folder, output_name, delete_initial_files = TRUE)
 \item{output_name}{name of the output parquet file}
 
 \item{delete_initial_files}{Boolean. Should the function delete the initial files ? By default TRUE.}
+
+\item{compression}{compression algorithm. Default "snappy".}
+
+\item{compression_level}{compression level. Meaning depends on compression algorithm.}
 }
 \value{
 Parquet files, invisibly
