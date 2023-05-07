@@ -77,22 +77,24 @@ or <a href="http://ndjson.org/" class="external-link">ndjson</a> file to parquet
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">json_to_parquet</span><span class="op">(</span></span>
-<span>  <span class="va">path_to_json</span>,</span>
+<span>  <span class="va">path_to_file</span>,</span>
 <span>  <span class="va">path_to_parquet</span>,</span>
 <span>  format <span class="op">=</span> <span class="st">"json"</span>,</span>
 <span>  partition <span class="op">=</span> <span class="st">"no"</span>,</span>
+<span>  compression <span class="op">=</span> <span class="st">"snappy"</span>,</span>
+<span>  compression_level <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>path_to_json</dt>
-<dd><p>string that indicates the path to the csv file</p></dd>
+    <dl><dt>path_to_file</dt>
+<dd><p>String that indicates the path to the input file (don't forget the extension).</p></dd>
 
 
 <dt>path_to_parquet</dt>
-<dd><p>string that indicates the path to the directory where the parquet file will be stored</p></dd>
+<dd><p>String that indicates the path to the directory where the parquet files will be stored.</p></dd>
 
 
 <dt>format</dt>
@@ -100,8 +102,17 @@ or <a href="http://ndjson.org/" class="external-link">ndjson</a> file to parquet
 
 
 <dt>partition</dt>
-<dd><p>string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.</p></dd>
+<dd><p>String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.</p></dd>
+
+
+<dt>compression</dt>
+<dd><p>compression algorithm. Default "snappy".</p></dd>
+
+
+<dt>compression_level</dt>
+<dd><p>compression level. Meaning depends on compression algorithm.</p></dd>
 
 
 <dt>...</dt>
@@ -122,25 +133,25 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="co"># Conversion from a local json file to a single parquet file ::</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">json_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_json <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.json"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.json"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file150147e77ec3.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file151031177f38.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local ndjson file to a partitioned parquet file  ::</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">json_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_json <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.ndjson"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"iris.ndjson"</span>,package <span class="op">=</span> <span class="st">"parquetize"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  format <span class="op">=</span> <span class="st">"ndjson"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file1501272b9317.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file151017157341.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 </code></pre></div>

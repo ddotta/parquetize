@@ -74,7 +74,7 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span>
-<span>  <span class="va">path_to_csv</span>,</span>
+<span>  <span class="va">path_to_file</span>,</span>
 <span>  url_to_csv <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  csv_as_a_zip <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">filename_in_zip</span>,</span>
@@ -90,12 +90,12 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>path_to_csv</dt>
-<dd><p>string that indicates the path or url to the csv file</p></dd>
+    <dl><dt>path_to_file</dt>
+<dd><p>String that indicates the path to the input file (don't forget the extension).</p></dd>
 
 
 <dt>url_to_csv</dt>
-<dd><p>DEPRECATED use path_to_csv instead</p></dd>
+<dd><p>DEPRECATED use path_to_file instead</p></dd>
 
 
 <dt>csv_as_a_zip</dt>
@@ -107,11 +107,11 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
 
 
 <dt>path_to_parquet</dt>
-<dd><p>string that indicates the path to the directory where the parquet file will be stored</p></dd>
+<dd><p>String that indicates the path to the directory where the parquet files will be stored.</p></dd>
 
 
 <dt>columns</dt>
-<dd><p>character vector of columns to select from the input file (by default, all columns are selected).</p></dd>
+<dd><p>Character vector of columns to select from the input file (by default, all columns are selected).</p></dd>
 
 
 <dt>compression</dt>
@@ -123,12 +123,13 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
 
 
 <dt>partition</dt>
-<dd><p>string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.</p></dd>
+<dd><p>String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.</p></dd>
 
 
 <dt>encoding</dt>
-<dd><p>string that indicates the character encoding for the input file.</p></dd>
+<dd><p>String that indicates the character encoding for the input file.</p></dd>
 
 
 <dt>...</dt>
@@ -149,7 +150,7 @@ the data (because unzip() won't work reliably in this case -
 see <a href="https://rdrr.io/r/utils/unzip.html" class="external-link">here</a>).
 In this case, it's advised to unzip your csv file by hand
 (for example with <a href="https://www.7-zip.org/" class="external-link">7-Zip</a>)
-then use the function with the argument `path_to_csv`.</p>
+then use the function with the argument `path_to_file`.</p>
     </div>
 
     <div class="section level2">
@@ -158,12 +159,12 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="co"># Conversion from a local csv file to a single parquet file :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".parquet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file150157427ddd.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file151013836d9d.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -171,34 +172,34 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="co"># few columns :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REG"</span>,<span class="st">"LIBELLE"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file15012ff6a0f1.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file15105a9ab6d9.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a local csv file to a partitioned parquet file  :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="fu"><a href="parquetize_example.html">parquetize_example</a></span><span class="op">(</span><span class="st">"region_2022.csv"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  partition <span class="op">=</span> <span class="st">"yes"</span>,</span></span>
 <span class="r-in"><span>  partitioning <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"REG"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/Rtmpg90rIl/file15017334ba87.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpBXcUtf/file15106cf23006.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a csv file with "gzip" compression :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_csv <span class="op">=</span></span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span></span></span>
 <span class="r-in"><span>  <span class="st">"https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv"</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  compression <span class="op">=</span> <span class="st">"gzip"</span>,</span></span>
@@ -206,20 +207,20 @@ then use the function with the argument `path_to_csv`.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file150128600e4a.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file15105576c364.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a zipped file :</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  path_to_csv <span class="op">=</span> <span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip"</span>,</span></span>
+<span class="r-in"><span>  path_to_file <span class="op">=</span> <span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip"</span>,</span></span>
 <span class="r-in"><span>  filename_in_zip <span class="op">=</span> <span class="st">"census2021-ts007-ctry.csv"</span>,</span></span>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmpg90rIl/file15016788fa9d.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpBXcUtf/file1510865438b.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 </code></pre></div>
