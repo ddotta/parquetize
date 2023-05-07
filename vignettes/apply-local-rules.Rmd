@@ -1,0 +1,44 @@
+---
+title: "How to apply local rules"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{apply-local-rules}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(parquetize)
+```
+
+This package allow you to "enforce" rules. You can enforce rules :
+
+## on main arguments
+
+If you want to allow only snappy compression, you can defined an `only_snappy`
+function and add it in options in the general Rprofile if you are on a server :
+
+```{r, error=TRUE}
+only_snappy <- function(...) {
+  args <- list(...)
+  if (args[['compression']] != "snappy") {
+    cli::cli_abort("Compression method must be snappy", class = "bad_compression")
+  }
+}
+
+withr::with_options(
+  list(parquetize_check_arguments = only_snappy),
+  csv_to_parquet(
+    path_to_file = parquetize_example("region_2022.csv"),
+    path_to_parquet = tempfile(),
+    compression = "zstd"
+  )
+)
+```
