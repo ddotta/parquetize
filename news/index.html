@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.6.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,20 @@
       <small>Source: <a href="https://github.com/ddotta/parquetize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.6.1" id="parquetize-0561">parquetize 0.5.6.1<a class="anchor" aria-label="anchor" href="#parquetize-0561"></a></h2>
+<p>This release includes :</p>
+<div class="section level5">
+<h5 id="fst_to_parquet-function-0-5-6-1">fst_to_parquet function<a class="anchor" aria-label="anchor" href="#fst_to_parquet-function-0-5-6-1"></a></h5>
+<ul><li>a new <a href="https://ddotta.github.io/parquetize/reference/fst_to_parquet.html" class="external-link">fst_to_parquet</a> function that converts a fst file to parquet format.</li>
+</ul></div>
+<div class="section level5">
+<h5 id="other-0-5-6-1">Other<a class="anchor" aria-label="anchor" href="#other-0-5-6-1"></a></h5>
+<ul><li>Rely more on <code>@inheritParams</code> to simply documentation of functions arguments <a href="https://github.com/ddotta/parquetize/issues/38" class="external-link">#38</a>. This leads to some renaming of arguments (e.g <code>path_to_csv</code> -&gt; <code>path_to_file</code>…)</li>
+<li>Arguments <code>compression</code> and <code>compression_level</code> are now passed to write_parquet_at_once and write_parquet_by_chunk functions and now available in main conversion functions of <code>parquetize</code> <a href="https://github.com/ddotta/parquetize/issues/36" class="external-link">#36</a></li>
+<li>Group <code>@importFrom</code> in a file to facilitate their maintenance <a href="https://github.com/ddotta/parquetize/issues/37" class="external-link">#37</a></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.6" id="parquetize-056">parquetize 0.5.6<a class="anchor" aria-label="anchor" href="#parquetize-056"></a></h2>
 <p>This release includes :</p>
