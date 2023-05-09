@@ -17,9 +17,25 @@ test_that("Checks download_extract fails with error if zip has more than one fil
 
   expect_missing_argument(
     download_extract(
-      "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip"
+      system.file("extdata","multifile.zip",package = "parquetize")
     ),
     regexp = "filename_in_zip"
+  )
+})
+
+test_that("Checks download_extract works with multi files zip", {
+  file <- download_extract(
+    system.file("extdata","multifile.zip",package = "parquetize"),
+    filename_in_zip = "region_2022.csv"
+  )
+
+  expect_match(
+    file,
+    ".*/region_2022.csv"
+  )
+
+  expect_true(
+    file.exists(file)
   )
 })
 
@@ -40,20 +56,3 @@ test_that("Checks download_extract returns the csv file of remote zip", {
   )
 })
 
-test_that("Checks download_extract fails with error if zip has more than one file and no filename_in_zip", {
-  skip_if_offline()
-
-  file <- download_extract(
-    "https://www.insee.fr/fr/statistiques/fichier/3568617/equip-tour-transp-infra-2021.zip",
-    filename_in_zip = "equip-tour-transp-infra-2021.csv"
-  )
-
-  expect_match(
-    file,
-    ".*/equip-tour-transp-infra-2021.csv"
-  )
-
-  expect_true(
-    file.exists(file)
-  )
-})
