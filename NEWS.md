@@ -1,4 +1,4 @@
-# parquetize (WIP)
+# parquetize 0.5.6.1
 
 This release includes :
 
