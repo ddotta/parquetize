@@ -94,16 +94,6 @@ csv_to_parquet(
   partitioning =  c("REG")
 )
 
-# Conversion from a URL and a csv file with "gzip" compression :
-
-csv_to_parquet(
-  path_to_file =
-  "https://github.com/sidsriv/Introduction-to-Data-Science-in-python/raw/master/census.csv",
-  path_to_parquet = tempfile(fileext = ".parquet"),
-  compression = "gzip",
-  compression_level = 5
-)
-
 # Conversion from a URL and a zipped file :
 
 csv_to_parquet(
