@@ -40,4 +40,8 @@ Low level function that implements the logic to write a parquet file or a datase
 write_parquet_at_once(iris, tempfile())
 
 write_parquet_at_once(iris, tempfile(), partition = "yes", partitioning = c("Species"))
+
+\dontrun{
+write_parquet_at_once(iris, tempfile(), compression="gzip", compression_level = 5)
+}
 }
