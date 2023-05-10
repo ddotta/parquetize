@@ -17,10 +17,7 @@
 #'
 #' write_parquet_at_once(iris, tempfile())
 #'
-#' write_parquet_at_once(iris, tempfile(), compression="gzip", compression_level = 5)
-#'
 #' write_parquet_at_once(iris, tempfile(), partition = "yes", partitioning = c("Species"))
-#'
 write_parquet_at_once <- function(
     data,
     path_to_parquet,
