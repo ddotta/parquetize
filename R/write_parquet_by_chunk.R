@@ -171,5 +171,7 @@ write_parquet_by_chunk <- function(
   Sys.sleep(0.01)
   cli_alert_success("\nData are available in parquet dataset under {path_to_parquet}/")
 
-  invisible(arrow::open_dataset(path_to_parquet))
+  dataset <- arrow::open_dataset(path_to_parquet)
+  check_result_dataset(path_to_parquet, dataset)
+  invisible(dataset)
 }

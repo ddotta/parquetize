@@ -151,7 +151,9 @@ dbi_to_parquet <- function(
       skip <- skip + nrow(data)
     }
     cli_alert_success("\nParquet dataset is available under {path_to_parquet}/")
-    return(invisible(TRUE))
+    dataset <- arrow::open_dataset(path_to_parquet)
+    check_result_dataset(path_to_parquet, dataset)
+    return(invisible(dataset))
   }
 
   result <- dbSendQuery(conn, sql_query)
