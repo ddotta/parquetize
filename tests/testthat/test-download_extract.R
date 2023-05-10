@@ -41,7 +41,6 @@ test_that("Checks download_extract works with multi files zip", {
 
 test_that("Checks download_extract returns the csv file of remote zip", {
   skip_if_offline()
-  skip_on_cran()
 
   file <- download_extract(
     "https://www.stats.govt.nz/assets/Uploads/Business-employment-data/Business-employment-data-June-2022-quarter/Download-data/business-employment-data-june-2022-quarter-csv.zip"

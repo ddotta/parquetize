@@ -51,6 +51,8 @@ test_that("Checks csv_as_a_zip is deprecated", {
 
 
 test_that("Checks it works with compression", {
+  skip_if_offline()
+
   path_to_parquet <- tempfile()
 
   expect_no_error(
