@@ -1,11 +1,3 @@
-# parquetize dev
-
-This release includes :
-
-#### Other
-
-- work on download_extract tests
-
 # parquetize 0.5.6.1
 
 This release includes :
@@ -19,6 +11,7 @@ This release includes :
 - Rely more on `@inheritParams` to simply documentation of functions arguments #38. This leads to some renaming of arguments (e.g `path_to_csv` -> `path_to_file`...)
 - Arguments `compression` and `compression_level` are now passed to write_parquet_at_once and write_parquet_by_chunk functions and now available in main conversion functions of `parquetize`  #36
 - Group `@importFrom` in a file to facilitate their maintenance #37
+- work on download_extract tests #43
 
 # parquetize 0.5.6
 
