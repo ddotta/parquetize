@@ -19,6 +19,7 @@ table_to_parquet(
   chunk_memory_sample_lines = 10000,
   compression = "snappy",
   compression_level = NULL,
+  user_na = FALSE,
   ...
 )
 }
@@ -53,6 +54,9 @@ Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argumen
 \item{compression}{compression algorithm. Default "snappy".}
 
 \item{compression_level}{compression level. Meaning depends on compression algorithm.}
+
+\item{user_na}{If `TRUE` variables with user defined missing will be read
+into [haven::labelled_spss()] objects. If `FALSE`, the default, user-defined missings will be converted to `NA`.}
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -117,7 +121,7 @@ table_to_parquet(
 table_to_parquet(
   path_to_file = system.file("examples","iris.sav", package = "haven"),
   path_to_parquet = tempfile(),
-  max_memory = 5 / 1024,
+  max_memory = 5 / 1024
 )
 
 # Reading SAS file by chunk of 50 lines with encoding
