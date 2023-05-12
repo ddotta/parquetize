@@ -81,7 +81,7 @@ is_zip <- function(path) {
 #'
 #' @param ds a dataset/parquet file
 #'
-#' @return a tibble with 3 columns :
+#' @return a tibble with 2 columns :
 #'
 #'   * the column name (string)
 #'   * the arrow type (string)
