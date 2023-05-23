@@ -22,7 +22,7 @@ library(parquetize)
 
 ## With `table_to_parquet()`
 
-For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `chunk_memory_size` or `chunk_size` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
+For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `max_memory` or `max_rows` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
 The native behavior of this function (and all other functions in the package) is to load the entire table to be converted into R and then write it to disk (in a single file or a partitioned directory).  
 
 When handling very large files, the risk that frequently occurs is that the R session aborts because it cannot load the entire database into memory.
@@ -43,7 +43,7 @@ Here are examples from the documentation using the iris table. There's two ways 
 ### Spliting data by memory consumption
 
 `table_to_parquet` can guess the number of lines to put in a file based on the
-memory consuption with the argument `chunk_memory_size` expressed in Mb.
+memory consuption with the argument `max_memory` expressed in Mb.
 
 Here we cut the 150 rows into chunks of roughly 5 Kb when a file is loaded as a
 tibble.  
@@ -58,8 +58,8 @@ table_to_parquet(
 )
 ```
 
-In real life, you should use a `chunk_memory_size` in the Gb range, for example
-with a SAS file of 50 000 000 lines and using chunk_memory_size of 5000 Mb :
+In real life, you should use a `max_memory` in the Gb range, for example
+with a SAS file of 50 000 000 lines and using `max_memory` of 5000 Mb :
 
 
 ```{r real-memory-example, eval=FALSE}
