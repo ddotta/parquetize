@@ -18,7 +18,7 @@
 #'
 #' To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `max_memory` or `max_rows` must then be used.
 #' This is very useful for huge tables and for computers with little RAM because the conversion is then done
-#' with less memory consumption. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
+#' with less memory consumption. For more information, see \href{https://ddotta.github.io/parquetize/articles/aa-conversions.html}{here}.
 #'
 #' @param path_to_file String that indicates the path to the input file (don't forget the extension).
 #' @param path_to_parquet String that indicates the path to the directory where the parquet files will be stored.
