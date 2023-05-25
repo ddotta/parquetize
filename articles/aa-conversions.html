@@ -91,8 +91,7 @@
 </h3>
 <p>For <strong>huge input files in SAS, SPSS and Stata formats</strong>,
 the parquetize package allows you to perform a clever conversion by
-using <code>chunk_memory_size</code> or <code>chunk_size</code> in the
-<a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link"><code>table_to_parquet()</code></a>
+using <code>max_memory</code> or <code>max_rows</code> in the <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link"><code>table_to_parquet()</code></a>
 function. The native behavior of this function (and all other functions
 in the package) is to load the entire table to be converted into R and
 then write it to disk (in a single file or a partitioned directory).</p>
@@ -127,7 +126,7 @@ There’s two ways to split output files :</p>
 </h4>
 <p><code>table_to_parquet</code> can guess the number of lines to put in
 a file based on the memory consuption with the argument
-<code>chunk_memory_size</code> expressed in Mb.</p>
+<code>max_memory</code> expressed in Mb.</p>
 <p>Here we cut the 150 rows into chunks of roughly 5 Kb when a file is
 loaded as a tibble.<br>
 In this example we get 2 parquet files of 89 lines called
@@ -140,14 +139,14 @@ In this example we get 2 parquet files of 89 lines called
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Reading data...</span></span>
-<span><span class="co">#&gt; Writing file16ee7ae094be-1-89.parquet...</span></span>
+<span><span class="co">#&gt; Writing file17762afe90a2-1-89.parquet...</span></span>
 <span><span class="co">#&gt; Reading data...</span></span>
-<span><span class="co">#&gt; Writing file16ee7ae094be-90-150.parquet...</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpY30vqp/file16ee7ae094be/</span></span>
-<span><span class="co">#&gt; Writing file16ee7ae094be-90-150.parquet...</span></span></code></pre></div>
-<p>In real life, you should use a <code>chunk_memory_size</code> in the
-Gb range, for example with a SAS file of 50 000 000 lines and using
-chunk_memory_size of 5000 Mb :</p>
+<span><span class="co">#&gt; Writing file17762afe90a2-90-150.parquet...</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpGSOZGE/file17762afe90a2/</span></span>
+<span><span class="co">#&gt; Writing file17762afe90a2-90-150.parquet...</span></span></code></pre></div>
+<p>In real life, you should use a <code>max_memory</code> in the Gb
+range, for example with a SAS file of 50 000 000 lines and using
+<code>max_memory</code> of 5000 Mb :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="../reference/table_to_parquet.html">table_to_parquet</a></span><span class="op">(</span></span>
 <span>  path_to_file <span class="op">=</span> <span class="st">"myhugefile.sas7bdat"</span>,</span>
