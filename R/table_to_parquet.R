@@ -18,7 +18,7 @@
 #'
 #' To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `max_memory` or `max_rows` must then be used.
 #' This is very useful for huge tables and for computers with little RAM because the conversion is then done
-#' with less memory consumption. For more information, see [here](https://ddotta.github.io/parquetize/articles/aa-conversions.html).
+#' with less memory consumption. For more information, see \href{https://ddotta.github.io/parquetize/articles/aa-conversions.html}{here}.
 #'
 #' @param path_to_file String that indicates the path to the input file (don't forget the extension).
 #' @param path_to_parquet String that indicates the path to the directory where the parquet files will be stored.
@@ -37,6 +37,8 @@
 #' @param encoding String that indicates the character encoding for the input file.
 #' @param compression compression algorithm. Default "snappy".
 #' @param compression_level compression level. Meaning depends on compression algorithm.
+#' @param user_na If `TRUE` variables with user defined missing will be read
+#' into [haven::labelled_spss()] objects. If `FALSE`, the default, user-defined missings will be converted to `NA`.
 #' @param ... Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
@@ -82,7 +84,7 @@
 #' table_to_parquet(
 #'   path_to_file = system.file("examples","iris.sav", package = "haven"),
 #'   path_to_parquet = tempfile(),
-#'   max_memory = 5 / 1024,
+#'   max_memory = 5 / 1024
 #' )
 #'
 #' # Reading SAS file by chunk of 50 lines with encoding
@@ -141,6 +143,7 @@ table_to_parquet <- function(
     chunk_memory_sample_lines = 10000,
     compression = "snappy",
     compression_level = NULL,
+    user_na = FALSE,
     ...
 ) {
   if (!missing(by_chunk)) {
@@ -201,17 +204,31 @@ table_to_parquet <- function(
 
 
   # Closure to create read data
-  closure_read_method <- function(encoding, columns) {
+  closure_read_method <- function(encoding, columns, user_na) {
     method <- get_haven_read_function_for_file(path_to_file)
     function(path, n_max = Inf, skip = 0L) {
-      method(path,
-             n_max = n_max,
-             skip = skip,
-             encoding = encoding,
-             col_select = if (identical(columns,"all")) everything() else all_of(columns))
+
+      ext <- tools::file_ext(path_to_file)
+
+      if (ext != "sav") {
+        method(path,
+               n_max = n_max,
+               skip = skip,
+               encoding = encoding,
+               col_select = if (identical(columns,"all")) everything() else all_of(columns))
+
+      } else if (ext == "sav") {
+        method(path,
+               n_max = n_max,
+               skip = skip,
+               encoding = encoding,
+               col_select = if (identical(columns,"all")) everything() else all_of(columns),
+               user_na = user_na)
+      }
     }
   }
-  read_method <- closure_read_method(encoding = encoding, columns = columns)
+
+  read_method <- closure_read_method(encoding = encoding, columns = columns, user_na = user_na)
 
   if (by_chunk) {
     ds <- write_parquet_by_chunk(
