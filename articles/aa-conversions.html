@@ -84,11 +84,8 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ddotta.github.io/parquetize/" class="external-link">parquetize</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="convert-huge-input-file-to-parquet-format">Convert huge input file to parquet format<a class="anchor" aria-label="anchor" href="#convert-huge-input-file-to-parquet-format"></a>
+<h2 id="with-table_to_parquet">With <code>table_to_parquet()</code><a class="anchor" aria-label="anchor" href="#with-table_to_parquet"></a>
 </h2>
-<div class="section level3">
-<h3 id="with-table_to_parquet">With <code>table_to_parquet()</code><a class="anchor" aria-label="anchor" href="#with-table_to_parquet"></a>
-</h3>
 <p>For <strong>huge input files in SAS, SPSS and Stata formats</strong>,
 the parquetize package allows you to perform a clever conversion by
 using <code>max_memory</code> or <code>max_rows</code> in the <a href="https://ddotta.github.io/parquetize/reference/table_to_parquet.html" class="external-link"><code>table_to_parquet()</code></a>
@@ -121,9 +118,9 @@ There’s two ways to split output files :</p>
 <li>by memory consumption</li>
 <li>by number of lines</li>
 </ul>
-<div class="section level4">
-<h4 id="spliting-data-by-memory-consumption">Spliting data by memory consumption<a class="anchor" aria-label="anchor" href="#spliting-data-by-memory-consumption"></a>
-</h4>
+<div class="section level3">
+<h3 id="spliting-data-by-memory-consumption">Spliting data by memory consumption<a class="anchor" aria-label="anchor" href="#spliting-data-by-memory-consumption"></a>
+</h3>
 <p><code>table_to_parquet</code> can guess the number of lines to put in
 a file based on the memory consuption with the argument
 <code>max_memory</code> expressed in Mb.</p>
@@ -139,11 +136,11 @@ In this example we get 2 parquet files of 89 lines called
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Reading data...</span></span>
-<span><span class="co">#&gt; Writing file17762afe90a2-1-89.parquet...</span></span>
+<span><span class="co">#&gt; Writing file17887ecc2177-1-89.parquet...</span></span>
 <span><span class="co">#&gt; Reading data...</span></span>
-<span><span class="co">#&gt; Writing file17762afe90a2-90-150.parquet...</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpGSOZGE/file17762afe90a2/</span></span>
-<span><span class="co">#&gt; Writing file17762afe90a2-90-150.parquet...</span></span></code></pre></div>
+<span><span class="co">#&gt; Writing file17887ecc2177-90-150.parquet...</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/Rtmp3o8Ebv/file17887ecc2177/</span></span>
+<span><span class="co">#&gt; Writing file17887ecc2177-90-150.parquet...</span></span></code></pre></div>
 <p>In real life, you should use a <code>max_memory</code> in the Gb
 range, for example with a SAS file of 50 000 000 lines and using
 <code>max_memory</code> of 5000 Mb :</p>
@@ -155,9 +152,9 @@ range, for example with a SAS file of 50 000 000 lines and using
 <span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="splitting-data-by-number-of-lines">Splitting data by number of lines<a class="anchor" aria-label="anchor" href="#splitting-data-by-number-of-lines"></a>
-</h4>
+<div class="section level3">
+<h3 id="splitting-data-by-number-of-lines">Splitting data by number of lines<a class="anchor" aria-label="anchor" href="#splitting-data-by-number-of-lines"></a>
+</h3>
 <blockquote>
 <p>Tip: The number of lines that each chunk must contain must be
 supported by the RAM of your computer/server. Ideally, the number of
@@ -189,9 +186,9 @@ chunks of 2 000 000 rows each) :</p>
 <code>myhugefile2000001-4000000.parquet</code> … will be created.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="function-rbind_parquet">Function <code>rbind_parquet()</code><a class="anchor" aria-label="anchor" href="#function-rbind_parquet"></a>
-</h3>
+<div class="section level2">
+<h2 id="function-rbind_parquet">Function <code>rbind_parquet()</code><a class="anchor" aria-label="anchor" href="#function-rbind_parquet"></a>
+</h2>
 <p>If at the end of the conversion with <code><a href="../reference/table_to_parquet.html">table_to_parquet()</a></code>,
 <strong>you want to reconstitute a unique initial table</strong> and
 <strong>if you have the computer resources (in RAM) to do so</strong>,
@@ -209,7 +206,6 @@ Here’s an example without deleting initial files
 <p>The <code>myhugefile.parquet</code> file will be created from the
 <code>myhugefile1-2000000.parquet</code>,
 <code>myhugefile2000001-4000000.parquet</code>… files!</p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
