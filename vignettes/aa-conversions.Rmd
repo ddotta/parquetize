@@ -18,8 +18,6 @@ knitr::opts_chunk$set(
 library(parquetize)
 ```
 
-# Convert huge input file to parquet format
-
 ## With `table_to_parquet()`
 
 For **huge input files in SAS, SPSS and Stata formats**, the parquetize package allows you to perform a clever conversion by using `max_memory` or `max_rows` in the [`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html) function. 
