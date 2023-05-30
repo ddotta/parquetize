@@ -1,3 +1,10 @@
+# parquetize (WIP)
+
+This release includes :
+
+- bugfix by @leungi: remove single quotes in SQL statement thatgenerates incorrect SQL syntax for connection of type Microsoft SQL Server #45
+
+
 # parquetize 0.5.6.1
 
 This release includes :
