@@ -29,5 +29,5 @@ get_partitions <- function(conn, table, column) {
     cli_abort("Be careful, the argument column must be filled in", class = "parquetize_missing_argument")
   }
 
-  DBI::dbGetQuery(conn, glue::glue("SELECT distinct({`column`}) FROM '{`table`}'", .con = conn))[,1]
+  DBI::dbGetQuery(conn, glue::glue("SELECT distinct({`column`}) FROM {`table`}", .con = conn))[,1]
 }
