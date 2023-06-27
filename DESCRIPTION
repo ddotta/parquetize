@@ -30,7 +30,7 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    haven,
+    haven (>= 2.4.0),
     arrow,
     curl,
     readr,
