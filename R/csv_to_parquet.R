@@ -1,7 +1,7 @@
 #' @name csv_to_parquet
-#' @title Convert a csv file to parquet format
+#' @title Convert a csv or a txt file to parquet format
 #'
-#' @description This function allows to convert a csv file to parquet format. \cr
+#' @description This function allows to convert a csv or a txt file to parquet format. \cr
 #'
 #' Two conversions possibilities are offered :
 #'
@@ -12,7 +12,7 @@
 #'
 #' }
 #'
-#' @param filename_in_zip name of the csv file in the zip. Required if several csv are included in the zip.
+#' @param filename_in_zip name of the csv/txt file in the zip. Required if several csv/txt are included in the zip.
 #' @param url_to_csv DEPRECATED use path_to_file instead
 #' @param csv_as_a_zip DEPRECATED
 #' @inheritParams table_to_parquet
@@ -22,7 +22,7 @@
 #' @note Be careful, if the zip size exceeds 4 GB, the function may truncate
 #' the data (because unzip() won't work reliably in this case -
 #' see \href{https://rdrr.io/r/utils/unzip.html}{here}).
-#' In this case, it's advised to unzip your csv file by hand
+#' In this case, it's advised to unzip your csv/txt file by hand
 #' (for example with \href{https://www.7-zip.org/}{7-Zip})
 #' then use the function with the argument `path_to_file`.
 #'
@@ -36,6 +36,13 @@
 #'
 #' csv_to_parquet(
 #'   path_to_file = parquetize_example("region_2022.csv"),
+#'   path_to_parquet = tempfile(fileext=".parquet")
+#' )
+#'
+#' # Conversion from a local txt file to a single parquet file :
+#'
+#' csv_to_parquet(
+#'   path_to_file = parquetize_example("region_2022.txt"),
 #'   path_to_parquet = tempfile(fileext=".parquet")
 #' )
 #'
@@ -57,12 +64,20 @@
 #'   partitioning =  c("REG")
 #' )
 #'
-#' # Conversion from a URL and a zipped file :
+#' # Conversion from a URL and a zipped file (csv) :
 #'
 #' csv_to_parquet(
 #'   path_to_file = "https://www.nomisweb.co.uk/output/census/2021/census2021-ts007.zip",
 #'   filename_in_zip = "census2021-ts007-ctry.csv",
 #'   path_to_parquet = tempfile(fileext = ".parquet")
+#' )
+#'
+#' # Conversion from a URL and a zipped file (txt) :
+#'
+#' csv_to_parquet(
+#'   path_to_file = "https://sourceforge.net/projects/irisdss/files/latest/download",
+#'   filename_in_zip = "IRIS TEST data.txt",
+#'   path_to_parquet = tempfile(fileext=".parquet")
 #' )
 #'
 #' \dontrun{
