@@ -49,7 +49,7 @@ As a fervent of the DRY principle (don't repeat yourself) the exported functions
 **The last benefit** of using package `{parquetize}` is that its functions allow to create single parquet files or partitioned files depending on the arguments chosen in the functions.
 
 - [csv_to_parquet()](https://ddotta.github.io/parquetize/reference/csv_to_parquet.html)
-    - **The other benefit of this function** is that it allows you to convert csv files whether they are stored locally or available on the internet directly to csv format or inside a zip.
+    - **The other benefit of this function** is that it allows you to convert csv or txt files whether they are stored locally or available on the internet directly to csv/txt format or inside a zip.
 - [json_to_parquet()](https://ddotta.github.io/parquetize/reference/json_to_parquet.html)
     - **The other benefit of this function** is that it handles JSON and ndJSON files in a same function. There is only one function to use for these 2 cases.  
 - [rds_to_parquet()](https://ddotta.github.io/parquetize/reference/rds_to_parquet.html)  

@@ -1,6 +1,6 @@
-########################################################################%#
-#### Code to create the csv file `region_2022.csv sous `inst/extdata`####
-######################################################################%#
+################################################################################################%#
+#### Code to create the csv/txt file `region_2022.csv` and `region_2022.txt` in `inst/extdata`####
+################################################################################################%#
 
 # The file `region_2022.csv` comes from the site insee.fr.
 # It can be downloaded at the following URL :
@@ -20,3 +20,9 @@ write.csv2(
   region_2022,
   file = "inst/extdata/region_2022.csv",
   row.names = FALSE)
+
+write.table(
+  region_2022,
+  file = "inst/extdata/region_2022.txt",
+  row.names = FALSE
+)
