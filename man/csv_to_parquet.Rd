@@ -15,6 +15,7 @@ csv_to_parquet(
   compression_level = NULL,
   partition = "no",
   encoding = "UTF-8",
+  read_delim_args = list(),
   ...
 )
 }
@@ -40,6 +41,8 @@ If "yes", `"partitioning"` argument must be filled in. In this case, a folder wi
 Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{encoding}{String that indicates the character encoding for the input file.}
+
+\item{read_delim_args}{list of arguments for `read_delim`.}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}

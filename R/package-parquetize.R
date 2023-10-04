@@ -13,5 +13,6 @@
 #' @importFrom tidyselect all_of everything
 #' @importFrom tools file_ext file_path_sans_ext
 #' @importFrom utils object.size unzip
+#' @importFrom rlang inject
 #' @import dplyr
 "_PACKAGE"

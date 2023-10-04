@@ -16,6 +16,7 @@
 #' @param url_to_csv DEPRECATED use path_to_file instead
 #' @param csv_as_a_zip DEPRECATED
 #' @inheritParams table_to_parquet
+#' @param read_delim_args list of arguments for `read_delim`.
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
@@ -102,6 +103,7 @@ csv_to_parquet <- function(
     compression_level = NULL,
     partition = "no",
     encoding = "UTF-8",
+    read_delim_args = list(),
     ...
 ) {
   if (!missing(url_to_csv)) {
@@ -146,12 +148,15 @@ csv_to_parquet <- function(
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
-  csv_output <- read_delim(
-    file = input_file,
-    locale = locale(encoding = encoding),
-    lazy = TRUE,
-    show_col_types = FALSE,
-    col_select = if (identical(columns,"all")) everything() else all_of(columns)
+  csv_output <- inject(
+    read_delim(
+      file = input_file,
+      locale = locale(encoding = encoding),
+      lazy = TRUE,
+      show_col_types = FALSE,
+      col_select = if (identical(columns,"all")) everything() else all_of(columns),
+      !!!read_delim_args
+    )
   )
 
   dataset <- write_parquet_at_once(
