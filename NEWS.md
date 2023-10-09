@@ -4,6 +4,7 @@ This release includes :
 
 - bugfix by @leungi: remove single quotes in SQL statement thatgenerates incorrect SQL syntax for connection of type Microsoft SQL Server #45
 - `{parquetize}` now has a minimal version (2.4.0) for `{haven}` dependency package to ensure that conversions are performed correctly from SAS files compressed in BINARY mode #46
+- `csv_to_parquet` now has a `read_delim_args` argument, allowing passing of arguments to `read_delim` (added by @nikostr).
 
 
 # parquetize 0.5.6.1

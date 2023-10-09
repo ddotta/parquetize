@@ -140,3 +140,29 @@ test_that("Checks we have only selected columns in parquet file", {
     columns
   )
 })
+
+
+test_that("Checks error if csv starts with a comment", {
+  expect_error(
+    csv_to_parquet(
+      path_to_file = parquetize_example("region_2022_with_comment.csv"),
+      path_to_parquet = tempfile()
+    ),
+    regexp = 'Could not guess the delimiter'
+  )
+})
+
+
+test_that("Checks conversion works with read_delim_args", {
+  path_to_parquet <- tempfile()
+
+  expect_no_error(
+    csv_to_parquet(
+      path_to_file = parquetize_example("region_2022_with_comment.csv"),
+      path_to_parquet = path_to_parquet,
+      read_delim_args = list(comment = '#')
+    )
+  )
+
+  expect_parquet(path = path_to_parquet, with_lines = 18)
+})
