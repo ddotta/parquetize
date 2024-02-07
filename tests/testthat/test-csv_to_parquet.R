@@ -1,3 +1,4 @@
+skip_if_not_installed("arrow")
 options(timeout=200)
 
 test_that("Checks arguments are correctly filled in", {
@@ -136,7 +137,7 @@ test_that("Checks we have only selected columns in parquet file", {
   )
 
   expect_setequal(
-    names(read_parquet(path_to_parquet)),
+    names(arrow::read_parquet(path_to_parquet)),
     columns
   )
 })

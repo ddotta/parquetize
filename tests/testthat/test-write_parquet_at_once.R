@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("write_parquet_at_once warn if path_to_parquet is a directory for a parquet file", {
   path_to_parquet <- tempfile()
   dir.create(path_to_parquet, showWarnings = FALSE)

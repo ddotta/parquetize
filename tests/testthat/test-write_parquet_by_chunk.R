@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 # we create the closure to loop over the data.frame
 my_read_closure <- function() {
   function(input, skip = 0L, n_max = Inf) {

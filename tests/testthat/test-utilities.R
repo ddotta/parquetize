@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("test get_haven_read_function_by_extension returns the good method", {
   file <- system.file("examples","iris.dta", package = "haven")
   fun <- get_haven_read_function_for_file(file)

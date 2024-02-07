@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("Checks download_extract return local file if not a zip", {
   expect_equal(
     download_extract("/my/local/file.truc"),

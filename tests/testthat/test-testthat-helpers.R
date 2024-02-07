@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("expect_parquet fails on file error", {
   expect_error(
     expect_parquet(parquetize_example("region_2022.csv"), with_lines = 25),

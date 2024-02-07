@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
                                  system.file("extdata","iris.sqlite",package = "parquetize"))
 on.exit(DBI::dbDisconnect(dbi_connection))

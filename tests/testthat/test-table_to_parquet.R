@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("Checks arguments are filled in", {
   expect_missing_argument(
     table_to_parquet(

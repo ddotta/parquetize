@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("Checks arguments are correctly filled in", {
   testthat::local_edition(3)
 

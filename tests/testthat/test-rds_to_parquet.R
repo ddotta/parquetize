@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("Checks arguments are correctly filled in", {
   expect_missing_argument(
     rds_to_parquet(

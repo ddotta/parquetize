@@ -1,3 +1,5 @@
+skip_if_not_installed("arrow")
+
 test_that("check_parquet fails on bad file", {
   expect_error(
     check_parquet(parquetize_example("iris.sqlite")),
