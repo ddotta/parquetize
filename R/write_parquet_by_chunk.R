@@ -146,7 +146,7 @@ write_parquet_by_chunk <- function(
       Sys.sleep(0.01)
       parquetizename <- glue::glue("{parquetname}-{skip+1}-{skip+nrow(tbl)}.parquet")
       cli_progress_message("Writing {parquetizename}...")
-      write_parquet(tbl,
+      arrow::write_parquet(tbl,
                   sink = file.path(path_to_parquet,
                                    parquetizename),
                   compression = compression,

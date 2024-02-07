@@ -60,7 +60,7 @@ rbind_parquet <- function(folder,
   # Loop through the files
   for (file in files) {
     # Read the parquet file into a data frame
-    df <- read_parquet(file.path(folder,file))
+    df <- arrow::read_parquet(file.path(folder,file))
 
     # Add the data frame to the list
     data_frames[[file]] <- df
@@ -75,7 +75,7 @@ rbind_parquet <- function(folder,
   }
 
   # Write the combined data frame to a new parquet file
-  write_parquet(combined_df,
+  arrow::write_parquet(combined_df,
                 file.path(folder, paste0(output_name,".parquet")),
                 compression = compression,
                 compression_level = compression_level)

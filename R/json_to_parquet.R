@@ -71,7 +71,7 @@ json_to_parquet <- function(
     json_output <- jsonlite::read_json(path = path_to_file,
                                        simplifyVector = TRUE)
   } else if (format == "ndjson") {
-    json_output <- read_json_arrow(file = path_to_file,
+    json_output <- arrow::read_json_arrow(file = path_to_file,
                                    as_data_frame = TRUE)
   }
 

@@ -46,14 +46,14 @@ write_parquet_at_once <- function(
       cli_alert_warning("Be careful, path_to_parquet should be a file name, using : {path_to_parquet}")
     }
 
-    write_parquet(data,
+    arrow::write_parquet(data,
                   sink = path_to_parquet,
                   compression = compression,
                   compression_level = compression_level,
                   ...)
     parquet_type <- "file"
   } else if (partition == "yes") {
-    write_dataset(data,
+    arrow::write_dataset(data,
                   path = path_to_parquet,
                   compression = compression,
                   compression_level = compression_level,

@@ -133,7 +133,7 @@ dbi_to_parquet <- function(
       parquetizename <- glue::glue("part-{skip+1}-{skip+nrow(data)}.parquet")
       Sys.sleep(0.01)
       cli_progress_message("Writing data in {parquetizename}...")
-      write_parquet(data,
+      arrow::write_parquet(data,
                     sink = file.path(path_to_parquet,
                                      parquetizename),
                     compression = compression,
