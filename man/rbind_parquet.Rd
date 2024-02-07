@@ -36,6 +36,7 @@ Be careful, this function will not work if files with different structures
 are present in the folder given with the argument `folder`.
 }
 \examples{
+\dontshow{if (require("arrow")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontrun{
 library(arrow)
 if (file.exists('output')==FALSE) {
@@ -59,4 +60,5 @@ test_data <- rbind_parquet(folder = "output",
                            output_name = "test_data",
                            delete_initial_files = FALSE)
 }
+\dontshow{\}) # examplesIf}
 }

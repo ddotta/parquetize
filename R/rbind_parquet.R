@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow")
 #' \dontrun{
 #' library(arrow)
 #' if (file.exists('output')==FALSE) {
