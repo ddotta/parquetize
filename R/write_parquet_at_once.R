@@ -29,6 +29,16 @@ write_parquet_at_once <- function(
     compression = "snappy",
     compression_level = NULL,
     ...) {
+
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    msg <- paste(
+      "The 'arrow' package is required but is not available. Install it with:",
+      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
+      sep = "\n"
+    )
+    stop(msg)
+  }
+
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 

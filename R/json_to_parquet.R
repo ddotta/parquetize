@@ -49,6 +49,15 @@ json_to_parquet <- function(
     ...
 ) {
 
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    msg <- paste(
+      "The 'arrow' package is required but is not available. Install it with:",
+      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
+      sep = "\n"
+    )
+    stop(msg)
+  }
+
   # Check if path_to_file is missing
   if (missing(path_to_file)) {
     cli_abort("Be careful, the argument path_to_file must be filled in", class = "parquetize_missing_argument")

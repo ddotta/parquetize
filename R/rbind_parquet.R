@@ -51,6 +51,15 @@ rbind_parquet <- function(folder,
                           compression = "snappy",
                           compression_level = NULL) {
 
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    msg <- paste(
+      "The 'arrow' package is required but is not available. Install it with:",
+      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
+      sep = "\n"
+    )
+    stop(msg)
+  }
+
   # Get the list of files in the folder
   files <- list.files(folder, pattern = paste0("^",output_name,".*\\.parquet$"))
 
