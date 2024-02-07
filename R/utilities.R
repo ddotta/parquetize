@@ -95,3 +95,14 @@ get_col_types <- function(ds) {
     type = unlist(lapply(fields, function(x) { x$type$name }))
   )
 }
+
+check_arrow_installed <- function(){
+  if (!requireNamespace("arrow", quietly = TRUE)) {
+    msg <- paste(
+      "The 'arrow' package is required but is not available. Install it with:",
+      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
+      sep = "\n"
+    )
+    stop(msg)
+  }
+}

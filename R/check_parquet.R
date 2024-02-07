@@ -35,14 +35,7 @@
 #' check_parquet(parquetize_example("iris_dataset"))
 check_parquet <- function(path) {
 
-  if (!requireNamespace("arrow", quietly = TRUE)) {
-    msg <- paste(
-      "The 'arrow' package is required but is not available. Install it with:",
-      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
-      sep = "\n"
-    )
-    stop(msg)
-  }
+  check_arrow_installed()
 
   if (isFALSE(file.exists(path))) {
     cli_abort("Be careful, {path} doesn't exist", class = "no_such_file")

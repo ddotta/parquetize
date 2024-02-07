@@ -90,14 +90,7 @@ dbi_to_parquet <- function(
     ...
 ) {
 
-  if (!requireNamespace("arrow", quietly = TRUE)) {
-    msg <- paste(
-      "The 'arrow' package is required but is not available. Install it with:",
-      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
-      sep = "\n"
-    )
-    stop(msg)
-  }
+  check_arrow_installed()
 
   if (missing(conn)) {
     cli_abort("Be careful, the argument conn must be filled in", class = "parquetize_missing_argument")

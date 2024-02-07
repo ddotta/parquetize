@@ -17,14 +17,7 @@ expect_parquet <- function(
     with_columns = NULL,
     with_files = NULL) {
 
-  if (!requireNamespace("arrow", quietly = TRUE)) {
-    msg <- paste(
-      "The 'arrow' package is required but is not available. Install it with:",
-      'install.packages("arrow", repos = c("https://p3m.dev/cran/2024-02-02", getOption("repos")))',
-      sep = "\n"
-    )
-    stop(msg)
-  }
+  check_arrow_installed()
 
   dataset <- testthat::expect_no_error(arrow::open_dataset(path))
   testthat::expect_equal(nrow(dataset), with_lines)
