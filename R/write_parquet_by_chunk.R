@@ -45,7 +45,7 @@
 #' @return a dataset as return by arrow::open_dataset
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # example with a dataframe
 #'

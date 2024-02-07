@@ -25,6 +25,7 @@ If the zip contains multiple files, you can use `filename_in_zip` to set the fil
 You can pipe output on all `*_to_parquet` functions.
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # 1. unzip a local zip file
 # 2. parquetize it
@@ -56,5 +57,5 @@ csv_to_parquet(
   file_path,
   path_to_parquet = tempfile(fileext = ".parquet")
 )
-
+\dontshow{\}) # examplesIf}
 }

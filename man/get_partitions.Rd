@@ -22,8 +22,10 @@ This function allows you to extract unique values from a table's column to use a
 Internally, this function does "SELECT DISTINCT(`mycolumn`) FROM `mytable`;"
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
   system.file("extdata","iris.sqlite",package = "parquetize"))
 
 get_partitions(dbi_connection, "iris", "Species")
+\dontshow{\}) # examplesIf}
 }

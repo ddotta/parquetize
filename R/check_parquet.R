@@ -26,7 +26,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # check a parquet file
 #' check_parquet(parquetize_example("iris.parquet"))

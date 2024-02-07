@@ -33,10 +33,12 @@ You can find a list of arrow type in the documentation
 \href{https://arrow.apache.org/docs/r/articles/data_types.html}{on this page}.
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # check a parquet file
 check_parquet(parquetize_example("iris.parquet"))
 
 # check a parquet dataset
 check_parquet(parquetize_example("iris_dataset"))
+\dontshow{\}) # examplesIf}
 }

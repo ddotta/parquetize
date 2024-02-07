@@ -46,7 +46,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #' # Conversion from a SAS file to a single parquet file :
 #'
 #' table_to_parquet(

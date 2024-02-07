@@ -71,6 +71,7 @@ In this case, it's advised to unzip your csv/txt file by hand
 then use the function with the argument `path_to_file`.
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Conversion from a local csv file to a single parquet file :
 
@@ -131,4 +132,5 @@ csv_to_parquet(
   compression_level = 5
 )
 }
+\dontshow{\}) # examplesIf}
 }

@@ -68,6 +68,7 @@ Low level function that implements the logic to to read input file by chunk and 
 }
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # example with a dataframe
 
@@ -119,5 +120,5 @@ write_parquet_by_chunk(
   path_to_parquet = tempfile(),
   max_rows = 75,
 )
-
+\dontshow{\}) # examplesIf}
 }

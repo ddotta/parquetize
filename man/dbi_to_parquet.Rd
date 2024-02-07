@@ -62,6 +62,7 @@ Two conversions possibilities are offered :
 Examples explain how to convert a query to a chunked dataset
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Conversion from a sqlite dbi connection to a single parquet file :
 
@@ -111,5 +112,5 @@ for (species in partitions) {
 # If you need a more complicated query to get your partitions, you can use
 # dbGetQuery directly :
 col_to_partition <- DBI::dbGetQuery(dbi_connection, "SELECT distinct(`Species`) FROM `iris`")[,1]
-
+\dontshow{\}) # examplesIf}
 }

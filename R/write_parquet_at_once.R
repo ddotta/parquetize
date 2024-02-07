@@ -13,7 +13,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' write_parquet_at_once(iris, tempfile())
 #'

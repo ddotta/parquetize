@@ -49,6 +49,7 @@ Two conversions possibilities are offered :
 }
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Conversion from a local json file to a single parquet file ::
 
@@ -64,4 +65,5 @@ json_to_parquet(
   path_to_parquet = tempfile(fileext = ".parquet"),
   format = "ndjson"
 )
+\dontshow{\}) # examplesIf}
 }

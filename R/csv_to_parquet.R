@@ -31,7 +31,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # Conversion from a local csv file to a single parquet file :
 #'

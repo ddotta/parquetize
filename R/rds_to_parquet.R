@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # Conversion from a local rds file to a single parquet file ::
 #'

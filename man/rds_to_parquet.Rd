@@ -45,6 +45,7 @@ Two conversions possibilities are offered :
 }
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Conversion from a local rds file to a single parquet file ::
 
@@ -61,4 +62,5 @@ rds_to_parquet(
   partition = "yes",
   partitioning =  c("Species")
 )
+\dontshow{\}) # examplesIf}
 }

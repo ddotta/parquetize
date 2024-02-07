@@ -26,7 +26,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # Conversion from a sqlite dbi connection to a single parquet file :
 #'

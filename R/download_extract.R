@@ -19,7 +19,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # 1. unzip a local zip file
 #' # 2. parquetize it

@@ -13,7 +13,7 @@
 #' @return a vector with unique values for the column of the table
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #' dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),
 #'   system.file("extdata","iris.sqlite",package = "parquetize"))
 #'

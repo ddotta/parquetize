@@ -84,6 +84,7 @@ This is very useful for huge tables and for computers with little RAM because th
 with less memory consumption. For more information, see \href{https://ddotta.github.io/parquetize/articles/aa-conversions.html}{here}.
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Conversion from a SAS file to a single parquet file :
 
 table_to_parquet(
@@ -164,4 +165,5 @@ if (isTRUE(arrow::arrow_info()$capabilities[['zstd']])) {
     compression_level = 10
   )
 }
+\dontshow{\}) # examplesIf}
 }

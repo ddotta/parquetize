@@ -36,6 +36,7 @@ a dataset as return by arrow::open_dataset
 Low level function that implements the logic to write a parquet file or a dataset from data
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 write_parquet_at_once(iris, tempfile())
 
@@ -44,4 +45,5 @@ write_parquet_at_once(iris, tempfile(), partition = "yes", partitioning = c("Spe
 \dontrun{
 write_parquet_at_once(iris, tempfile(), compression="gzip", compression_level = 5)
 }
+\dontshow{\}) # examplesIf}
 }

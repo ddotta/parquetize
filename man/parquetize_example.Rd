@@ -17,7 +17,9 @@ parquetize comes bundled with a number of sample files in its `inst/extdata`
 directory. This function make them easy to access
 }
 \examples{
+\dontshow{if (require("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 parquetize_example()
 parquetize_example("region_2022.csv")
 parquetize_example("iris_dataset")
+\dontshow{\}) # examplesIf}
 }

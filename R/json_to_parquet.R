@@ -22,7 +22,7 @@
 #'
 #' @export
 #'
-#' @examples
+#' @examplesIf require("arrow", quietly = TRUE)
 #'
 #' # Conversion from a local json file to a single parquet file ::
 #'
