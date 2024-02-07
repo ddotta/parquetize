@@ -47,7 +47,7 @@ Here we cut the 150 rows into chunks of roughly 5 Kb when a file is loaded as a
 tibble.  
 In this example we get 2 parquet files of 89 lines called `iris1-89.parquet` and `iris90-150.parquet`
 
-```{r iris-memory-example}
+```{r iris-memory-example, eval = FALSE}
 table_to_parquet(
   path_to_file = system.file("examples", "iris.sas7bdat", package = "haven"),
   path_to_parquet = tempfile(),
