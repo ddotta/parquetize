@@ -29,6 +29,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     arrow
+Additional_dependencies: https://p3m.dev/cran/2024-02-02
 Config/testthat/edition: 3
 Imports: 
     haven (>= 2.4.0),
