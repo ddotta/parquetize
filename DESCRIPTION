@@ -27,11 +27,11 @@ RoxygenNote: 7.2.3
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    arrow
 Config/testthat/edition: 3
 Imports: 
     haven (>= 2.4.0),
-    arrow,
     curl,
     readr,
     jsonlite,
