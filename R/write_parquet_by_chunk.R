@@ -22,11 +22,6 @@
 #'
 #'   This method will be called until it returns a dataframe/tibble with zero row.
 #'
-#'   If you need to pass more argument, you can use a
-#'   [closure](http://adv-r.had.co.nz/Functional-programming.html#closures). See
-#'   the last example.
-#'
-#'
 #' @param input that indicates the path to the input. It can be anything you
 #'   want but more often a file's path or a data.frame.
 #' @param path_to_parquet String that indicates the path to the directory where

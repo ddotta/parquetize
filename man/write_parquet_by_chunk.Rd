@@ -24,11 +24,7 @@ write_parquet_by_chunk(
   `skip` : the number of row to skip
   `n_max` : the number of row to return
 
-  This method will be called until it returns a dataframe/tibble with zero row.
-
-  If you need to pass more argument, you can use a
-  [closure](http://adv-r.had.co.nz/Functional-programming.html#closures). See
-  the last example.}
+  This method will be called until it returns a dataframe/tibble with zero row.}
 
 \item{input}{that indicates the path to the input. It can be anything you
 want but more often a file's path or a data.frame.}
