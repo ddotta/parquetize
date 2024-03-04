@@ -9,7 +9,7 @@ expect_missing_argument(object, regexp)
 \arguments{
 \item{object}{the object to check}
 
-\item{message}{a regexp with the message we must find}
+\item{regexp}{a regexp with the message we must find}
 }
 \value{
 same as expect_error

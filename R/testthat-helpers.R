@@ -47,7 +47,7 @@ expect_parquet <- function(
 #' Check if missing argument error is raised
 #'
 #' @param object the object to check
-#' @param message a regexp with the message we must find
+#' @param regexp a regexp with the message we must find
 #'
 #' @return same as expect_error
 #' @export
