@@ -1,0 +1,88 @@
+---
+title: "How to apply local rules"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{apply-local-rules}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(parquetize)
+```
+
+This package allow you to "enforce" rules. You can enforce rules :
+
+## on main arguments
+
+If you want to allow only snappy compression, you can defined an `only_snappy`
+function and add it in options in the general Rprofile if you are on a server :
+
+```{r, error=TRUE}
+only_snappy <- function(...) {
+  args <- list(...)
+  if (args[['compression']] != "snappy") {
+    cli::cli_abort("Compression method must be snappy", class = "bad_compression")
+  }
+}
+
+withr::with_options(
+  list(parquetize_check_arguments = only_snappy),
+  csv_to_parquet(
+    path_to_file = parquetize_example("region_2022.csv"),
+    path_to_parquet = tempfile(),
+    compression = "zstd"
+  )
+)
+```
+
+## on result dataset
+
+A naive implementation to check :
+
+* there's no NA in partition values
+* there's less than 3 partitions
+
+```{r, error = TRUE}
+check_result_dataset <- function(path_to_parquet, dataset) {
+  if (length(dataset$files) > 3) {
+    file.remove(dataset$files)
+    cli::cli_abort("dataset should have less than 3 files")
+  }
+  if (any(grepl("_HIVE_DEFAULT", dataset$files))) {
+    file.remove(dataset$files)
+    cli::cli_abort("No NA partition please")
+  }
+}
+
+withr::with_options(
+  list(parquetize_check_result = check_result_dataset),
+  table_to_parquet(
+    path_to_file = system.file("examples","iris.sas7bdat", package = "haven"),
+    path_to_parquet = tempfile(),
+    max_rows = 30
+  )
+)
+
+input <- tempfile()
+output  <- tempfile()
+
+write.csv(data.frame(col1 = c("one", "two", NA), col2 = 1), input)
+
+withr::with_options(
+  list(parquetize_check_result = check_result_dataset),
+  csv_to_parquet(
+    path_to_file = input,
+    path_to_parquet = output,
+    partition = "yes",
+    partitioning = "col1"
+  )
+)
+```

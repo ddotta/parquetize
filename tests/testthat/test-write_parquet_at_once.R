@@ -49,3 +49,30 @@ test_that("write_parquet_at_once works for partitioned dataset", {
     with_partitions = c("Species=setosa", "Species=versicolor", "Species=virginica")
   )
 })
+
+test_that("parquetize_check_arguments is called", {
+  path_to_parquet <- tempfile()
+
+  called_fun <- function(...) {
+    args <- list(...)
+    if (args[['compression']] != "snappy") {
+      cli::cli_abort("Compression method must be snappy", class = "bad_compression")
+    }
+
+    if (args[['ellipsis_arg']] != TRUE) {
+      cli::cli_abort("Compression method must be snappy", class = "bad_ellipsis")
+    }
+  }
+
+  withr::local_options(list(parquetize_check_arguments = called_fun))
+  expect_error(
+    write_parquet_at_once(iris, path_to_parquet, partition = "yes", partitioning = "Species", compression = "zstd"),
+    class = "bad_compression"
+  )
+
+  expect_error(
+    write_parquet_at_once(iris, path_to_parquet, partition = "yes", partitioning = "Species", ellipsis_arg = FALSE),
+    class = "bad_ellipsis"
+  )
+
+})
