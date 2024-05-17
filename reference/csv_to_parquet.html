@@ -75,6 +75,8 @@ Convert to a partitioned parquet file. Additionnal arguments partition and parti
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">csv_to_parquet</span><span class="op">(</span></span>
 <span>  <span class="va">path_to_file</span>,</span>
+<span>  url_to_csv <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  csv_as_a_zip <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">filename_in_zip</span>,</span>
 <span>  <span class="va">path_to_parquet</span>,</span>
 <span>  columns <span class="op">=</span> <span class="st">"all"</span>,</span>
@@ -91,6 +93,14 @@ Convert to a partitioned parquet file. Additionnal arguments partition and parti
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path_to_file</dt>
 <dd><p>String that indicates the path to the input file (don't forget the extension).</p></dd>
+
+
+<dt>url_to_csv</dt>
+<dd><p>DEPRECATED use path_to_file instead</p></dd>
+
+
+<dt>csv_as_a_zip</dt>
+<dd><p>DEPRECATED</p></dd>
 
 
 <dt>filename_in_zip</dt>
@@ -124,7 +134,7 @@ Be careful, this argument can not be "yes" if <code>max_memory</code> or <code>m
 
 
 <dt>read_delim_args</dt>
-<dd><p>list of arguments for <code>read_delim_arrow</code>.</p></dd>
+<dd><p>list of arguments for <code>read_delim</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -159,7 +169,7 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpM7zpsR/file168958dcd2e8.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmprNE1Ya/file1683363525ac.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -171,7 +181,7 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpM7zpsR/file168911c42a74.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmprNE1Ya/file1683650bdb1d.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -185,7 +195,7 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpM7zpsR/file168966af56.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmprNE1Ya/file16837f6ac96e.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -199,7 +209,7 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpM7zpsR/file1689af1e250.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmprNE1Ya/file16834516019a.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -211,7 +221,10 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".parquet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in read_delim_arrow(file = input_file, delim = ";", col_select = if (identical(columns,     "all")) everything() else all_of(columns)):</span> Invalid: CSV parse error: Expected 114 columns, got 1: "2021","England and Wales","K04000001",59597546,3232036,607324,635763,650192,658769,679988,35246 ...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmprNE1Ya/file168365dafad.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a zipped file (txt) :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -221,7 +234,11 @@ then use the function with the argument <code>path_to_file</code>.</p>
 <span class="r-in"><span>  path_to_parquet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext<span class="op">=</span><span class="st">".parquet"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in read_delim_arrow(file = input_file, delim = ";", col_select = if (identical(columns,     "all")) everything() else all_of(columns)):</span> Invalid: CSV parse error: Expected 1 columns, got 2: </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Multiple files in zip: reading 'IRIS Test data.txt'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmprNE1Ya/file168364277082.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a URL and a csv file with "gzip" compression :</span></span></span>
