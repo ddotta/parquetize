@@ -10,7 +10,7 @@ Convert to a partitioned parquet file. Additionnal arguments `partition` and `pa
 
 To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `max_memory` or `max_rows` must then be used.
 This is very useful for huge tables and for computers with little RAM because the conversion is then done
-with less memory consumption. For more information, see here."><title>Convert an input file to parquet format — table_to_parquet • parquetize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Convert an input file to parquet format — table_to_parquet"><meta property="og:description" content="This function allows to convert an input file to parquet format. 
+with less memory consumption. For more information, see here."><title>Convert an input file to parquet format — table_to_parquet • parquetize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Convert an input file to parquet format — table_to_parquet"><meta property="og:description" content="This function allows to convert an input file to parquet format. 
 It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
 For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_file` argument). 
 Two conversions possibilities are offered :
@@ -28,7 +28,7 @@ with less memory consumption. For more information, see here."><!-- mathjax --><
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">parquetize</a>
 
@@ -196,10 +196,10 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpTd607Q/file18547d55772f.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpyW9APK/file17415bb36887.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpTd607Q/file18547d55772f.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpyW9APK/file17415bb36887.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SPSS file to a single parquet file :</span></span></span>
@@ -210,10 +210,10 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpTd607Q/file18545c0df9a4.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpyW9APK/file17415e7c04ba.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sav file is available in parquet format under /tmp/RtmpTd607Q/file18545c0df9a4.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sav file is available in parquet format under /tmp/RtmpyW9APK/file17415e7c04ba.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span><span class="co"># Conversion from a Stata file to a single parquet file without progress bar :</span></span></span>
 <span class="r-in"><span></span></span>
@@ -223,10 +223,10 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpTd607Q/file18541e2a4c96.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpyW9APK/file1741758d9878.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.dta file is available in parquet format under /tmp/RtmpTd607Q/file18541e2a4c96.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.dta file is available in parquet format under /tmp/RtmpyW9APK/file1741758d9878.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SPSS file by chunk (using `max_rows` argument)</span></span></span>
@@ -238,13 +238,13 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  max_rows <span class="op">=</span> <span class="fl">50</span>,</span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18544e7c8928-1-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413d7052e6-1-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18544e7c8928-51-100.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413d7052e6-51-100.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18544e7c8928-101-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413d7052e6-101-150.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpTd607Q/file18544e7c8928/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpyW9APK/file17413d7052e6/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SPSS file by chunk (using `max_memory` argument)</span></span></span>
@@ -258,11 +258,11 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  max_memory <span class="op">=</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">1024</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file185424130f8-1-82.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17412a77239-1-82.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file185424130f8-83-150.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpTd607Q/file185424130f8/</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file185424130f8-83-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17412a77239-83-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpyW9APK/file17412a77239/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17412a77239-83-150.parquet...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SAS file by chunk of 50 lines with encoding</span></span></span>
 <span class="r-in"><span><span class="co"># and conversion to multiple files :</span></span></span>
@@ -274,13 +274,13 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  encoding <span class="op">=</span> <span class="st">"utf-8"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18545277cf17-1-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file1741fe4607-1-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18545277cf17-51-100.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file1741fe4607-51-100.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18545277cf17-101-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file1741fe4607-101-150.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpTd607Q/file18545277cf17/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpyW9APK/file1741fe4607/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SAS file to a single parquet file and select only</span></span></span>
@@ -293,10 +293,10 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpTd607Q/file185441e5d08b.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpyW9APK/file17416352f9e9.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpTd607Q/file185441e5d08b.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpyW9APK/file17416352f9e9.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Conversion from a SAS file to a partitioned parquet file  :</span></span></span>
@@ -309,10 +309,10 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpTd607Q/file18546d4280f2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpyW9APK/file1741184a7e16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpTd607Q/file18546d4280f2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> The /home/runner/work/_temp/Library/haven/examples/iris.sas7bdat file is available in parquet format under /tmp/RtmpyW9APK/file1741184a7e16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Reading SAS file by chunk of 50 lines</span></span></span>
@@ -328,13 +328,13 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18546cc94562-1-50.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413f8f70ad-1-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18546cc94562-51-100.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413f8f70ad-51-100.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file18546cc94562-101-150.parquet...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Writing file17413f8f70ad-101-150.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpTd607Q/file18546cc94562/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpyW9APK/file17413f8f70ad/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 </code></pre></div>
     </div>
@@ -343,11 +343,11 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Damien Dotta, Nicolas Chuche.</p>
+  <p>Developed by Damien Dotta, Nicolas Chuche.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

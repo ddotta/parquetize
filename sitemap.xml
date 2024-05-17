@@ -43,6 +43,9 @@
     <loc>/reference/fst_to_parquet.html</loc>
   </url>
   <url>
+    <loc>/reference/get_parquet_info.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_partitions.html</loc>
   </url>
   <url>
