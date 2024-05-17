@@ -2,27 +2,36 @@
 % Please edit documentation in R/get_parquet_info.R
 \name{get_parquet_info}
 \alias{get_parquet_info}
-\title{Get mean row group size of parquet files}
+\title{Get various info on parquet files}
 \usage{
 get_parquet_info(path)
 }
 \arguments{
-\item{path}{parquet file path or dataset}
+\item{path}{parquet file path or directory. If directory is given,
+\code{get_parquet_info} will be applied on all parquet files found in
+subdirectories}
 }
 \value{
-a tibble with 4 columns :
+a tibble with 5 columns :
 \itemize{
-\item path, the file path
-\item num_rows, the number of rows
-\item num_row_groups,  the number of groups
-\item row_group_size, the mean nb of rows per group (row group size)
+\item path, file path
+\item num_rows, number of rows
+\item num_row_groups, number of group row
+\item num_columns,
+\item row_group_size, mean row group size
 }
 
-If the three last are \code{NA}, parquet file is malformed
+If one column contain \code{NA}, parquet file may be malformed.
 }
 \description{
-Get mean row group size of parquet files
+One very important parquet metadata is the row group size.\cr
+
+If it's value is low (below 10 000), you should rebuild your parquet files.\cr
+
+Normal value is between 30 000 and 1 000 000
 }
 \examples{
-get_parquet_info(system.file("extdata",package = "parquetize"))
+get_parquet_info(system.file("extdata", "iris.parquet", package = "parquetize"))
+
+get_parquet_info(system.file("extdata", "iris_dataset", package = "parquetize"))
 }

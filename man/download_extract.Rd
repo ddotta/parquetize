@@ -17,12 +17,12 @@ the path to the usable (uncompressed) file, invisibly.
 }
 \description{
 This function will download the file if the file is remote and
-  unzip it if it is zipped.  It will just return the input path argument if
-  it's neither. \cr
+unzip it if it is zipped.  It will just return the input path argument if
+it's neither. \cr
 
-If the zip contains multiple files, you can use `filename_in_zip` to set the file you want to unzip and use.
+If the zip contains multiple files, you can use \code{filename_in_zip} to set the file you want to unzip and use.
 
-You can pipe output on all `*_to_parquet` functions.
+You can pipe output on all \verb{*_to_parquet} functions.
 }
 \examples{
 

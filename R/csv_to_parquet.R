@@ -13,10 +13,8 @@
 #' }
 #'
 #' @param filename_in_zip name of the csv/txt file in the zip. Required if several csv/txt are included in the zip.
-#' @param url_to_csv DEPRECATED use path_to_file instead
-#' @param csv_as_a_zip DEPRECATED
 #' @inheritParams table_to_parquet
-#' @param read_delim_args list of arguments for `read_delim`.
+#' @param read_delim_args list of arguments for `read_delim_arrow`.
 #' @param ... additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 #'  and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.
 #'
@@ -94,8 +92,6 @@
 #' }
 csv_to_parquet <- function(
     path_to_file,
-    url_to_csv = lifecycle::deprecated(),
-    csv_as_a_zip = lifecycle::deprecated(),
     filename_in_zip,
     path_to_parquet,
     columns = "all",
@@ -106,24 +102,9 @@ csv_to_parquet <- function(
     read_delim_args = list(),
     ...
 ) {
-  if (!missing(url_to_csv)) {
-    lifecycle::deprecate_warn(
-      when = "0.5.5",
-      what = "csv_to_parquet(url_to_csv)",
-      details = "This argument is replaced by path_to_file."
-    )
-  }
 
-  if (!missing(csv_as_a_zip)) {
-    lifecycle::deprecate_warn(
-      when = "0.5.5",
-      what = "csv_to_parquet(csv_as_a_zip)",
-      details = "This argument is no longer needed, parquetize detect zip file by extension."
-    )
-  }
-
-  # Check if at least one of the two arguments path_to_file or url_to_csv is set
-  if (missing(path_to_file) & missing(url_to_csv)) {
+  # Check if argument path_to_file is set
+  if (missing(path_to_file)) {
     cli_abort("Be careful, you have to fill the path_to_file argument", class = "parquetize_missing_argument")
   }
 
@@ -139,21 +120,15 @@ csv_to_parquet <- function(
               class = "parquetize_bad_argument")
   }
 
-  if (missing(path_to_file)) {
-    path_to_file <- url_to_csv
-  }
-
   input_file <- download_extract(path_to_file, filename_in_zip)
 
   Sys.sleep(0.01)
   cli_progress_message("Reading data...")
 
   csv_output <- inject(
-    read_delim(
+    read_delim_arrow(
       file = input_file,
-      locale = locale(encoding = encoding),
-      lazy = TRUE,
-      show_col_types = FALSE,
+      delim = ";",
       col_select = if (identical(columns,"all")) everything() else all_of(columns),
       !!!read_delim_args
     )

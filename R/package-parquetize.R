@@ -1,7 +1,7 @@
 #' @keywords internal
 #' @importFrom DBI dbClearResult dbConnect dbDisconnect dbFetch dbHasCompleted dbListTables dbReadTable dbSendQuery
 #' @importFrom RSQLite SQLite
-#' @importFrom arrow open_dataset read_json_arrow read_parquet write_dataset write_parquet
+#' @importFrom arrow open_dataset read_json_arrow read_delim_arrow read_parquet write_dataset write_parquet
 #' @importFrom cli cli_abort cli_alert_danger cli_alert_info cli_alert_success cli_alert_warning cli_progress_bar cli_progress_message
 #' @importFrom curl curl_download
 #' @importFrom fst read.fst

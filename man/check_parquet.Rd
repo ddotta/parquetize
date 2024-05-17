@@ -11,23 +11,25 @@ check_parquet(path)
 }
 \value{
 a tibble with information on parquet dataset/file's columns with
-  three columns : field name, arrow type and nullable
+three columns : field name, arrow type and nullable
 }
 \description{
 This function checks if a file/dataset is a valid parquet format.
-  It will print the number of lines/columns and return a tibble on columns
-  information.
+It will print the number of lines/columns and return a tibble on columns
+information.
 }
 \details{
 This function will :
-
-* open the parquet dataset/file to check if it's valid
-* print the number of lines
-* print the number of columns
-* return a tibble with 2 columns :
-
-  * the column name (string)
-  * the arrow type (string)
+\itemize{
+\item open the parquet dataset/file to check if it's valid
+\item print the number of lines
+\item print the number of columns
+\item return a tibble with 2 columns :
+\itemize{
+\item the column name (string)
+\item the arrow type (string)
+}
+}
 
 You can find a list of arrow type in the documentation
 \href{https://arrow.apache.org/docs/r/articles/data_types.html}{on this page}.
