@@ -1,6 +1,12 @@
-#' Get various info on parquet files
+#' @name get_parquet_info
 #'
-#' One very important parquet metadata is the row group size. If it's value is low (below 10 000), you should rebuild your parquet files. Normal value is between 30 000 and 1 000 000
+#' @title Get various info on parquet files
+#'
+#' @description One very important parquet metadata is the row group size.\cr
+#'
+#' If it's value is low (below 10 000), you should rebuild your parquet files.\cr
+#'
+#' Normal value is between 30 000 and 1 000 000
 #'
 #' @param path parquet file path or directory. If directory is given,
 #'   `get_parquet_info` will be applied on all parquet files found in
@@ -41,6 +47,14 @@ get_parquet_info <- function(path) {
     )
 }
 
+#' @name get_parquet_attribute
+#'
+#' @title Utility to get attributes from a parquet file
+#'
+#' @param path parquet file path or directory.
+#' @param attribute name of searched attribute
+#'
+#' @noRd
 get_parquet_attribute <- function(path, attribute) {
   tryCatch({
     reader <- arrow::ParquetFileReader$create(path)
