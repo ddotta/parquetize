@@ -1,3 +1,9 @@
+# parquetize (WIP)
+
+This release includes :
+
+- `{parquetize}` now has a new `get_parquet_info` function for retrieving metadata from parquet files. This function is particularly useful for row group size (added by @nbc).
+
 # parquetize 0.5.7
 
 This release includes :
