@@ -41,11 +41,11 @@ This argument can not be filled in if max_memory is used.}
 
 \item{by_chunk}{DEPRECATED use max_memory or max_rows instead}
 
-\item{skip}{By default 0. This argument must be filled in if \code{by_chunk} is TRUE. Number of lines to ignore when converting.}
+\item{skip}{By default 0. This argument must be filled in if `by_chunk` is TRUE. Number of lines to ignore when converting.}
 
 \item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", \code{"partitioning"} argument must be filled in. In this case, a folder will be created for each modality of the variable filled in \code{"partitioning"}.
-Be careful, this argument can not be "yes" if \code{max_memory} or \code{max_rows} argument are not NULL.}
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{encoding}{String that indicates the character encoding for the input file.}
 
@@ -55,8 +55,8 @@ Be careful, this argument can not be "yes" if \code{max_memory} or \code{max_row
 
 \item{compression_level}{compression level. Meaning depends on compression algorithm.}
 
-\item{user_na}{If \code{TRUE} variables with user defined missing will be read
-into \code{\link[haven:labelled_spss]{haven::labelled_spss()}} objects. If \code{FALSE}, the default, user-defined missings will be converted to \code{NA}.}
+\item{user_na}{If `TRUE` variables with user defined missing will be read
+into [haven::labelled_spss()] objects. If `FALSE`, the default, user-defined missings will be converted to `NA`.}
 
 \item{...}{Additional format-specific arguments,  see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -68,18 +68,18 @@ Parquet files, invisibly
 This function allows to convert an input file to parquet format. \cr
 
 It handles SAS, SPSS and Stata files in a same function. There is only one function to use for these 3 cases.
-For these 3 cases, the function guesses the data format using the extension of the input file (in the \code{path_to_file} argument). \cr
+For these 3 cases, the function guesses the data format using the extension of the input file (in the `path_to_file` argument). \cr
 
 Two conversions possibilities are offered :
 
 \itemize{
 
-\item{Convert to a single parquet file. Argument \code{path_to_parquet} must then be used;}
-\item{Convert to a partitioned parquet file. Additionnal arguments \code{partition} and \code{partitioning} must then be used;}
+\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 
 }
 
-To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments \code{max_memory} or \code{max_rows} must then be used.
+To avoid overcharging R's RAM, the conversion can be done by chunk. One of arguments `max_memory` or `max_rows` must then be used.
 This is very useful for huge tables and for computers with little RAM because the conversion is then done
 with less memory consumption. For more information, see \href{https://ddotta.github.io/parquetize/articles/aa-conversions.html}{here}.
 }

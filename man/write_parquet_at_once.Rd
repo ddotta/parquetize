@@ -20,7 +20,7 @@ write_parquet_at_once(
 the output parquet file or dataset will be stored.}
 
 \item{partition}{string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", \code{"partitioning"} argument must be filled in. In this case, a folder will be created for each modality of the variable filled in \code{"partitioning"}.}
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.}
 
 \item{compression}{compression algorithm. Default "snappy".}
 

@@ -18,13 +18,13 @@ write_parquet_by_chunk(
 }
 \arguments{
 \item{read_method}{a method to read input files. This method take only three
-arguments
+  arguments
 
-\code{input} : some kind of data. Can be a
-\code{skip} : the number of row to skip
-\code{n_max} : the number of row to return
+  `input` : some kind of data. Can be a
+  `skip` : the number of row to skip
+  `n_max` : the number of row to return
 
-This method will be called until it returns a dataframe/tibble with zero row.}
+  This method will be called until it returns a dataframe/tibble with zero row.}
 
 \item{input}{that indicates the path to the input. It can be anything you
 want but more often a file's path or a data.frame.}
@@ -53,9 +53,9 @@ a dataset as return by arrow::open_dataset
 }
 \description{
 Low level function that implements the logic to to read input file by chunk and write a
-dataset. \cr
+  dataset. \cr
 
-It will:
+  It will:
 
 \itemize{
 \item{calculate the number of row by chunk if needed;}

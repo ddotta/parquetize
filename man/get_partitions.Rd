@@ -7,7 +7,7 @@
 get_partitions(conn, table, column)
 }
 \arguments{
-\item{conn}{A \code{DBIConnection} object, as return by \code{DBI::dbConnect}}
+\item{conn}{A `DBIConnection` object, as return by `DBI::dbConnect`}
 
 \item{table}{a DB table name}
 
@@ -19,7 +19,7 @@ a vector with unique values for the column of the table
 \description{
 This function allows you to extract unique values from a table's column to use as partitions.\cr
 
-Internally, this function does "SELECT DISTINCT(\code{mycolumn}) FROM \code{mytable};"
+Internally, this function does "SELECT DISTINCT(`mycolumn`) FROM `mytable`;"
 }
 \examples{
 dbi_connection <- DBI::dbConnect(RSQLite::SQLite(),

@@ -6,6 +6,8 @@
 \usage{
 csv_to_parquet(
   path_to_file,
+  url_to_csv = lifecycle::deprecated(),
+  csv_as_a_zip = lifecycle::deprecated(),
   filename_in_zip,
   path_to_parquet,
   columns = "all",
@@ -20,6 +22,10 @@ csv_to_parquet(
 \arguments{
 \item{path_to_file}{String that indicates the path to the input file (don't forget the extension).}
 
+\item{url_to_csv}{DEPRECATED use path_to_file instead}
+
+\item{csv_as_a_zip}{DEPRECATED}
+
 \item{filename_in_zip}{name of the csv/txt file in the zip. Required if several csv/txt are included in the zip.}
 
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
@@ -31,12 +37,12 @@ csv_to_parquet(
 \item{compression_level}{compression level. Meaning depends on compression algorithm.}
 
 \item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", \code{"partitioning"} argument must be filled in. In this case, a folder will be created for each modality of the variable filled in \code{"partitioning"}.
-Be careful, this argument can not be "yes" if \code{max_memory} or \code{max_rows} argument are not NULL.}
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{encoding}{String that indicates the character encoding for the input file.}
 
-\item{read_delim_args}{list of arguments for \code{read_delim_arrow}.}
+\item{read_delim_args}{list of arguments for `read_delim`.}
 
 \item{...}{additional format-specific arguments, see \href{https://arrow.apache.org/docs/r/reference/write_parquet.html}{arrow::write_parquet()}
 and \href{https://arrow.apache.org/docs/r/reference/write_dataset.html}{arrow::write_dataset()} for more informations.}
@@ -51,8 +57,8 @@ Two conversions possibilities are offered :
 
 \itemize{
 
-\item{Convert to a single parquet file. Argument \code{path_to_parquet} must then be used;}
-\item{Convert to a partitioned parquet file. Additionnal arguments \code{partition} and \code{partitioning} must then be used;}
+\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 
 }
 }
@@ -62,7 +68,7 @@ the data (because unzip() won't work reliably in this case -
 see \href{https://rdrr.io/r/utils/unzip.html}{here}).
 In this case, it's advised to unzip your csv/txt file by hand
 (for example with \href{https://www.7-zip.org/}{7-Zip})
-then use the function with the argument \code{path_to_file}.
+then use the function with the argument `path_to_file`.
 }
 \examples{
 

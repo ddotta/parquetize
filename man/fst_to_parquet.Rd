@@ -19,8 +19,8 @@ fst_to_parquet(
 \item{path_to_parquet}{String that indicates the path to the directory where the parquet files will be stored.}
 
 \item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", \code{"partitioning"} argument must be filled in. In this case, a folder will be created for each modality of the variable filled in \code{"partitioning"}.
-Be careful, this argument can not be "yes" if \code{max_memory} or \code{max_rows} argument are not NULL.}
+If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
+Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
 
 \item{compression}{compression algorithm. Default "snappy".}
 
@@ -39,8 +39,8 @@ Two conversions possibilities are offered :
 
 \itemize{
 
-\item{Convert to a single parquet file. Argument \code{path_to_parquet} must then be used;}
-\item{Convert to a partitioned parquet file. Additionnal arguments \code{partition} and \code{partitioning} must then be used;}
+\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
 
 }
 }
