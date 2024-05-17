@@ -113,3 +113,8 @@ rbind_parquet(
 )
 ```
 The `myhugefile.parquet` file will be created from the `myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet`... files!
+
+## Alternatives to `{parquetize}`
+
+Despite our best efforts, you may not be able to convert your very large database with {parquetize}.  
+In this case, one solution is probably to turn to [duckdb](https://github.com/duckdb/duckdb-r), which offers undeniable advantages when it comes to conversion operations.
