@@ -23,6 +23,7 @@ Depends:
 URL: https://ddotta.github.io/parquetize/,
     https://github.com/ddotta/parquetize
 BugReports: https://github.com/ddotta/parquetize/issues
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,
@@ -44,5 +45,6 @@ Imports:
     glue,
     fst,
     rlang,
-    dplyr
+    dplyr,
+    tibble
 VignetteBuilder: knitr

@@ -21,6 +21,7 @@ reference:
       - dbi_to_parquet
   - title: Other functions
     contents:
+      - get_parquet_info
       - get_partitions
       - check_parquet
       - download_extract
