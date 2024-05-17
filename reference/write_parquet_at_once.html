@@ -81,7 +81,7 @@ the output parquet file or dataset will be stored.</p></dd>
 
 <dt>partition</dt>
 <dd><p>string ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.</p></dd>
+If "yes", <code>"partitioning"</code> argument must be filled in. In this case, a folder will be created for each modality of the variable filled in <code>"partitioning"</code>.</p></dd>
 
 
 <dt>compression</dt>
@@ -109,12 +109,12 @@ If "yes", `"partitioning"` argument must be filled in. In this case, a folder wi
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">write_parquet_at_once</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpLSr55J/file168846ede7ac</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/RtmpM7zpsR/file16896637e56</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">write_parquet_at_once</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, partition <span class="op">=</span> <span class="st">"yes"</span>, partitioning <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpLSr55J/file16885ad84b66</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/RtmpM7zpsR/file16892009b6ec</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
