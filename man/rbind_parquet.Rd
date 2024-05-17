@@ -27,13 +27,13 @@ rbind_parquet(
 Parquet files, invisibly
 }
 \description{
-This function read all parquet files in `folder` argument that starts with `output_name`,
+This function read all parquet files in \code{folder} argument that starts with \code{output_name},
 combine them using rbind and write the result to a new parquet file. \cr
 
-It can also delete the initial files if `delete_initial_files` argument is TRUE. \cr
+It can also delete the initial files if \code{delete_initial_files} argument is TRUE. \cr
 
 Be careful, this function will not work if files with different structures
-are present in the folder given with the argument `folder`.
+are present in the folder given with the argument \code{folder}.
 }
 \examples{
 \dontrun{

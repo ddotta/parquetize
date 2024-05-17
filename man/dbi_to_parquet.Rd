@@ -32,8 +32,8 @@ This argument can not be filled in if max_memory is used.}
 \item{chunk_memory_sample_lines}{Number of lines to read to evaluate max_memory. Default to 10 000.}
 
 \item{partition}{String ("yes" or "no" - by default) that indicates whether you want to create a partitioned parquet file.
-If "yes", `"partitioning"` argument must be filled in. In this case, a folder will be created for each modality of the variable filled in `"partitioning"`.
-Be careful, this argument can not be "yes" if `max_memory` or `max_rows` argument are not NULL.}
+If "yes", \code{"partitioning"} argument must be filled in. In this case, a folder will be created for each modality of the variable filled in \code{"partitioning"}.
+Be careful, this argument can not be "yes" if \code{max_memory} or \code{max_rows} argument are not NULL.}
 
 \item{compression}{compression algorithm. Default "snappy".}
 
@@ -54,8 +54,8 @@ Two conversions possibilities are offered :
 
 \itemize{
 
-\item{Convert to a single parquet file. Argument `path_to_parquet` must then be used;}
-\item{Convert to a partitioned parquet file. Additionnal arguments `partition` and `partitioning` must then be used;}
+\item{Convert to a single parquet file. Argument \code{path_to_parquet} must then be used;}
+\item{Convert to a partitioned parquet file. Additionnal arguments \code{partition} and \code{partitioning} must then be used;}
 
 }
 

@@ -7,13 +7,13 @@
 parquetize_example(file = NULL)
 }
 \arguments{
-\item{file}{Name of file or directory. If `NULL`, the example files will be listed.}
+\item{file}{Name of file or directory. If \code{NULL}, the example files will be listed.}
 }
 \value{
 A character string
 }
 \description{
-parquetize comes bundled with a number of sample files in its `inst/extdata`
+parquetize comes bundled with a number of sample files in its \code{inst/extdata}
 directory. This function make them easy to access
 }
 \examples{
