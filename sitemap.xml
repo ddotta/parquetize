@@ -1,81 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/articles/aa-conversions.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/csv_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dbi_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/download_extract.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expect_missing_argument.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expect_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fst_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_parquet_info.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_partitions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/json_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parquetize-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parquetize_example.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rbind_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rds_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sqlite_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/table_to_parquet.html</loc>
-  </url>
-  <url>
-    <loc>/reference/write_parquet_at_once.html</loc>
-  </url>
-  <url>
-    <loc>/reference/write_parquet_by_chunk.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/articles/aa-conversions.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/check_parquet.html</loc></url>
+<url><loc>/reference/csv_to_parquet.html</loc></url>
+<url><loc>/reference/dbi_to_parquet.html</loc></url>
+<url><loc>/reference/download_extract.html</loc></url>
+<url><loc>/reference/expect_missing_argument.html</loc></url>
+<url><loc>/reference/expect_parquet.html</loc></url>
+<url><loc>/reference/fst_to_parquet.html</loc></url>
+<url><loc>/reference/get_parquet_info.html</loc></url>
+<url><loc>/reference/get_partitions.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/json_to_parquet.html</loc></url>
+<url><loc>/reference/parquetize-package.html</loc></url>
+<url><loc>/reference/parquetize_example.html</loc></url>
+<url><loc>/reference/rbind_parquet.html</loc></url>
+<url><loc>/reference/rds_to_parquet.html</loc></url>
+<url><loc>/reference/sqlite_to_parquet.html</loc></url>
+<url><loc>/reference/table_to_parquet.html</loc></url>
+<url><loc>/reference/write_parquet_at_once.html</loc></url>
+<url><loc>/reference/write_parquet_by_chunk.html</loc></url>
 </urlset>
+
