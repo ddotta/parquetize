@@ -70,4 +70,5 @@ You want to use the Insee file of first names by birth department? Use R and {pa
 
 ## Contribution
 
-Feel welcome to contribute to add features that you find useful in your daily work. Ideas are welcomed in [the issues](https://github.com/ddotta/parquetize/issues).
+Feel welcome to contribute to add features that you find useful in your daily work.  
+Ideas are welcomed in [the issues](https://github.com/ddotta/parquetize/issues).
