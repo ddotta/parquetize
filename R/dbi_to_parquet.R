@@ -103,6 +103,14 @@ dbi_to_parquet <- function(
     cli_abort("Be careful, the argument path_to_parquet must be filled in", class = "parquetize_missing_argument")
   }
 
+  check_arguments(
+    path_to_parquet,
+    partition = partition,
+    compression = compression,
+    compression_level = compression_level,
+    ...
+  )
+
   by_chunk <- !(missing(max_rows) & missing(max_memory))
 
   if (by_chunk == TRUE) {
@@ -143,7 +151,9 @@ dbi_to_parquet <- function(
       skip <- skip + nrow(data)
     }
     cli_alert_success("\nParquet dataset is available under {path_to_parquet}/")
-    return(invisible(TRUE))
+    dataset <- arrow::open_dataset(path_to_parquet)
+    check_result_dataset(path_to_parquet, dataset)
+    return(invisible(dataset))
   }
 
   result <- dbSendQuery(conn, sql_query)
