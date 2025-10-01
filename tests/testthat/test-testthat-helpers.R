@@ -8,7 +8,7 @@ test_that("expect_parquet fails on file error", {
 test_that("expect_parquet fails on file's number of line", {
   expect_error(
     expect_parquet(parquetize_example("iris_dataset"), with_lines = 25),
-    regexp = "not equal"
+    class = "expectation_failure"
   )
 })
 
