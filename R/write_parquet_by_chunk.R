@@ -127,6 +127,16 @@ write_parquet_by_chunk <- function(
                                      max_memory = max_memory)
   }
 
+  check_arguments(
+    path_to_parquet,
+    max_rows = max_rows,
+    max_memory = max_memory,
+    compression = compression,
+    compression_level = compression_level,
+    ...
+  )
+
+
   dir.create(path_to_parquet, showWarnings = FALSE, recursive = TRUE)
 
   parquetname <- tools::file_path_sans_ext(basename(path_to_parquet))
@@ -156,5 +166,7 @@ write_parquet_by_chunk <- function(
   Sys.sleep(0.01)
   cli_alert_success("\nData are available in parquet dataset under {path_to_parquet}/")
 
-  invisible(arrow::open_dataset(path_to_parquet))
+  dataset <- arrow::open_dataset(path_to_parquet)
+  check_result_dataset(path_to_parquet, dataset)
+  invisible(dataset)
 }

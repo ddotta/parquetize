@@ -100,3 +100,45 @@ test_that("Checks parquetizing by memory size chunks works", {
 
   expect_parquet(path_to_parquet, with_lines = 150, with_files = 4)
 })
+
+test_that("parquetize_check_arguments is called", {
+  path_to_parquet <- tempfile()
+  read_method <- my_read_closure()
+
+  called_fun <- function(...) {
+    args <- list(...)
+    if (args[['compression']] != "snappy") {
+      cli::cli_abort("Compression method must be snappy", class = "bad_compression")
+    }
+
+    if (args[['ellipsis_arg']] != TRUE) {
+      cli::cli_abort("Compression method must be snappy", class = "bad_ellipsis")
+    }
+
+  }
+
+  withr::local_options(list(parquetize_check_arguments = called_fun))
+  expect_error(
+    write_parquet_by_chunk(
+      read_method = read_method,
+      input = iris,
+      path_to_parquet = path_to_parquet,
+      max_memory = 2 / 1024,
+      compression = "zstd"
+    ),
+    class = "bad_compression"
+  )
+
+  expect_error(
+    write_parquet_by_chunk(
+      read_method = read_method,
+      input = iris,
+      path_to_parquet = path_to_parquet,
+      max_memory = 2 / 1024,
+      ellipsis_arg = FALSE
+    ),
+    class = "bad_ellipsis"
+  )
+
+})
+

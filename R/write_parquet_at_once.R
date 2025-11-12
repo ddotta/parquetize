@@ -29,6 +29,7 @@ write_parquet_at_once <- function(
     compression = "snappy",
     compression_level = NULL,
     ...) {
+
   Sys.sleep(0.01)
   cli_progress_message("Writing data...")
 
@@ -39,6 +40,13 @@ write_parquet_at_once <- function(
   if (missing(path_to_parquet)) {
     cli_abort("Be careful, path_to_parquet argument is mandatory", class = "parquetize_missing_argument")
   }
+
+  check_arguments(
+    partition = partition,
+    compression = compression,
+    compression_level = compression_level,
+    ...
+  )
 
   if (partition == "no") {
     if (isTRUE(file.info(path_to_parquet)$isdir)) {
@@ -62,5 +70,8 @@ write_parquet_at_once <- function(
   }
   Sys.sleep(0.01)
   cli_alert_success("\nData are available in parquet {parquet_type} under {path_to_parquet}")
-  invisible(arrow::open_dataset(path_to_parquet))
+
+  dataset <- arrow::open_dataset(path_to_parquet)
+  check_result_dataset(path_to_parquet, dataset)
+  invisible(dataset)
 }
