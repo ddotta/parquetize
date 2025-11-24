@@ -73,6 +73,7 @@
 #'   path_to_parquet = tempfile(fileext = ".parquet")
 #' )
 #'
+#' \dontrun{
 #' # Conversion from a URL and a zipped file (txt) :
 #'
 #' csv_to_parquet(
@@ -81,7 +82,6 @@
 #'   path_to_parquet = tempfile(fileext=".parquet")
 #' )
 #'
-#' \dontrun{
 #' # Conversion from a URL and a csv file with "gzip" compression :
 #'
 #' csv_to_parquet(

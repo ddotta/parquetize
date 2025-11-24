@@ -24,7 +24,7 @@ URL: https://ddotta.github.io/parquetize/,
     https://github.com/ddotta/parquetize
 BugReports: https://github.com/ddotta/parquetize/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
