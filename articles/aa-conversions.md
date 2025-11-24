@@ -1,0 +1,139 @@
+# Convert huge input file to parquet
+
+``` r
+library(parquetize)
+```
+
+## With `table_to_parquet()`
+
+For **huge input files in SAS, SPSS and Stata formats**, the parquetize
+package allows you to perform a clever conversion by using `max_memory`
+or `max_rows` in the
+[`table_to_parquet()`](https://ddotta.github.io/parquetize/reference/table_to_parquet.html)
+function. The native behavior of this function (and all other functions
+in the package) is to load the entire table to be converted into R and
+then write it to disk (in a single file or a partitioned directory).
+
+When handling very large files, the risk that frequently occurs is that
+the R session aborts because it cannot load the entire database into
+memory. This risk is even more present if you work locally on your
+computer and it can be limited if you work on remote servers.  
+**[`table_to_parquet()`](../reference/table_to_parquet.md) offers this
+solution which answers a need expressed by parquetize users.**
+
+|                                                                                                                                                                                     |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **The idea is to split the very large table into “chunks” based on memory consumption of input data or on the number of rows in the table in order to be able to simultaneously :** |
+| \- **read a chunk of the very large database**                                                                                                                                      |
+| \- **write this chunk in the floor file**                                                                                                                                           |
+
+Here are examples from the documentation using the iris table. There’s
+two ways to split output files :
+
+- by memory consumption
+- by number of lines
+
+### Spliting data by memory consumption
+
+`table_to_parquet` can guess the number of lines to put in a file based
+on the memory consuption with the argument `max_memory` expressed in Mb.
+
+Here we cut the 150 rows into chunks of roughly 5 Kb when a file is
+loaded as a tibble.  
+In this example we get 2 parquet files of 89 lines called
+`iris1-89.parquet` and `iris90-150.parquet`
+
+``` r
+table_to_parquet(
+  path_to_file = system.file("examples", "iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempfile(),
+  max_memory = 5 / 1024,
+  encoding = "utf-8"
+)
+#> Reading data...
+#> Writing file1b4156574206-1-89.parquet...
+#> Reading data...
+#> Writing file1b4156574206-90-150.parquet...
+#> ✔ Data are available in parquet dataset under /tmp/Rtmpcl3mBZ/file1b4156574206/
+#> Writing file1b4156574206-90-150.parquet...
+```
+
+In real life, you should use a `max_memory` in the Gb range, for example
+with a SAS file of 50 000 000 lines and using `max_memory` of 5000 Mb :
+
+``` r
+  table_to_parquet(
+  path_to_file = "myhugefile.sas7bdat",
+  path_to_parquet = tempdir(),
+  max_memory = 5000,
+  encoding = "utf-8"
+)
+```
+
+### Splitting data by number of lines
+
+> Tip: The number of lines that each chunk must contain must be
+> supported by the RAM of your computer/server. Ideally, the number of
+> chunks to be defined must be limited. It should be in tens and not
+> hundreds to limit the number of intermediate files (see example
+> below).
+
+Here we cut the 150 rows into 3 chunks of 50 rows. In this example we
+get 3 parquet files of 50 lines called `iris1-50.parquet`,
+`iris51-100.parquet` and `iris101-151.parquet`
+
+``` r
+table_to_parquet(
+  path_to_file = system.file("examples", "iris.sas7bdat", package = "haven"),
+  path_to_parquet = tempfile(),
+  max_rows = 50,
+  encoding = "utf-8"
+)
+```
+
+In real life, we can perform this kind of request with the parquetize
+API (for example with a SAS file of 50 000 000 lines and defining 25
+chunks of 2 000 000 rows each) :
+
+``` r
+table_to_parquet(
+  path_to_file = "myhugefile.sas7bdat",
+  path_to_parquet = tempdir(),
+  max_rows = 2000000,
+  encoding = "utf-8"
+)
+```
+
+Files `myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet`
+… will be created.
+
+## Function `rbind_parquet()`
+
+If at the end of the conversion with
+[`table_to_parquet()`](../reference/table_to_parquet.md), **you want to
+reconstitute a unique initial table** and **if you have the computer
+resources (in RAM) to do so**, you can use the helper function provided
+with the API of [`rbind_parquet()`](../reference/rbind_parquet.md).  
+This function allows to bind multiple parquet files by row.  
+Here’s an example without deleting initial files
+(`delete_initial_files`=FALSE) :
+
+``` r
+rbind_parquet(
+  folder = tempfile(),
+  output_name = "myhugefile",
+  delete_initial_files = FALSE
+)
+```
+
+The `myhugefile.parquet` file will be created from the
+`myhugefile1-2000000.parquet`, `myhugefile2000001-4000000.parquet`…
+files!
+
+## Alternatives to `{parquetize}`
+
+Despite our best efforts, you may not be able to convert your very large
+database with {parquetize}.  
+In this case, one solution is probably to turn to
+[duckdb](https://github.com/duckdb/duckdb-r), which offers undeniable
+advantages when it comes to conversion operations.
