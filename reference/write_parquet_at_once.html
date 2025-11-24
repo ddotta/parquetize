@@ -31,7 +31,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>write parquet file or dataset based on partition argument <br></h1>
-      <small class="dont-index">Source: <a href="https://github.com/ddotta/parquetize/blob/main/R/write_parquet_at_once.R" class="external-link"><code>R/write_parquet_at_once.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ddotta/parquetize/blob/v0.5.8/R/write_parquet_at_once.R" class="external-link"><code>R/write_parquet_at_once.R</code></a></small>
       <div class="d-none name"><code>write_parquet_at_once.Rd</code></div>
     </div>
 
@@ -92,12 +92,12 @@ If "yes", <code>"partitioning"</code> argument must be filled in. In this case, 
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">write_parquet_at_once</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmp6AeROy/file18ce794dd876</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmp0XSNj6/file18a760ec3bf</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">write_parquet_at_once</span><span class="op">(</span><span class="va">iris</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span>, partition <span class="op">=</span> <span class="st">"yes"</span>, partitioning <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/Rtmp6AeROy/file18ce757f5c7b</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet dataset under /tmp/Rtmp0XSNj6/file18a7680a32cb</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>

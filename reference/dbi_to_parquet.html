@@ -47,7 +47,7 @@ Examples explain how to convert a query to a chunked dataset"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Convert a SQL Query on a DBI connection to parquet format</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ddotta/parquetize/blob/main/R/dbi_to_parquet.R" class="external-link"><code>R/dbi_to_parquet.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ddotta/parquetize/blob/v0.5.8/R/dbi_to_parquet.R" class="external-link"><code>R/dbi_to_parquet.R</code></a></small>
       <div class="d-none name"><code>dbi_to_parquet.Rd</code></div>
     </div>
 
@@ -147,7 +147,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmp6AeROy/file18ce6c9e5e7c.parquet</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Data are available in parquet file under /tmp/Rtmp0XSNj6/file18a752756003.parquet</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-in"><span></span></span>
@@ -168,7 +168,7 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-85-126.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-127-150.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp6AeROy/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp0XSNj6/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-127-150.parquet...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Using chunk and partition together is not possible directly but easy to do :</span></span></span>
@@ -195,19 +195,19 @@ and <a href="https://arrow.apache.org/docs/r/reference/write_dataset.html" class
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp6AeROy/iris/Species=setosa/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp0XSNj6/iris/Species=setosa/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp6AeROy/iris/Species=versicolor/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp0XSNj6/iris/Species=versicolor/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-1-31.parquet...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp6AeROy/iris/Species=virginica/</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Parquet dataset is available under /tmp/Rtmp0XSNj6/iris/Species=virginica/</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Writing data in part-32-50.parquet...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If you need a more complicated query to get your partitions, you can use</span></span></span>

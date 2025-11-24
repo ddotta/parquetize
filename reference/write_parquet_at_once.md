@@ -56,12 +56,12 @@ a dataset as return by arrow::open_dataset
 ``` r
 write_parquet_at_once(iris, tempfile())
 #> Writing data...
-#> ✔ Data are available in parquet file under /tmp/Rtmp6AeROy/file18ce794dd876
+#> ✔ Data are available in parquet file under /tmp/Rtmp0XSNj6/file18a760ec3bf
 #> Writing data...
 
 write_parquet_at_once(iris, tempfile(), partition = "yes", partitioning = c("Species"))
 #> Writing data...
-#> ✔ Data are available in parquet dataset under /tmp/Rtmp6AeROy/file18ce757f5c7b
+#> ✔ Data are available in parquet dataset under /tmp/Rtmp0XSNj6/file18a7680a32cb
 #> Writing data...
 
 if (FALSE) { # \dontrun{

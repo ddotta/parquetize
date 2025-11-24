@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/ddotta/parquetize/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/ddotta/parquetize/blob/v0.5.8/DESCRIPTION)
 
 Dotta D, Chuche N (2025). *parquetize: Convert Files to Parquet Format*.
 R package version 0.5.8, <https://ddotta.github.io/parquetize/>.
