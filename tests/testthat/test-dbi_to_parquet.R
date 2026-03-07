@@ -102,3 +102,40 @@ test_that("Checks simple query works by chunk with max_memory", {
   )
 })
 
+test_that("parquetize_check_arguments is called", {
+  path_to_parquet <- tempfile()
+
+  called_fun <- function(...) {
+    args <- list(...)
+    if (args[['compression']] != "snappy") {
+      cli::cli_abort("Compression method must be snappy", class = "bad_compression")
+    }
+
+    if (args[['ellipsis_arg']] != TRUE) {
+      cli::cli_abort("Compression method must be snappy", class = "bad_ellipsis")
+    }
+
+  }
+
+  withr::local_options(list(parquetize_check_arguments = called_fun))
+  expect_error(
+    dbi_to_parquet(
+      conn = dbi_connection,
+      sql_query = "SELECT * FROM iris",
+      path_to_parquet = path_to_parquet,
+      compression = "zstd"
+    ),
+    class = "bad_compression"
+  )
+
+  expect_error(
+    dbi_to_parquet(
+      conn = dbi_connection,
+      sql_query = "SELECT * FROM iris",
+      path_to_parquet = path_to_parquet,
+      ellipsis_arg = FALSE
+    ),
+    class = "bad_ellipsis"
+  )
+
+})
