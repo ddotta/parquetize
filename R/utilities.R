@@ -10,13 +10,36 @@
 #'
 #' @noRd
 get_lines_for_memory <- function(data, max_memory = 4000) {
-  data_memory_size <- object.size(data)
+  data_memory_size <- object.size(strip_s7_class(data))
   # cosmetic : remove object.size attribute
   attributes(data_memory_size) <- NULL
 
   # max_memory is in Mb and data_memory_size in bytes
   lines <- ceiling(max_memory * 1024 * 1024 * nrow(data) / data_memory_size)
   lines
+}
+
+#' Remove S7 class definitions from an object
+#'
+#' S7 objects (like the `haven_meta` attribute added to columns by recent
+#' versions of haven) carry their class definition in an attribute. Class
+#' definitions are large and shared between objects, but `object.size()`
+#' counts them once per reference, massively over-estimating the size of
+#' data frames read by haven.
+#'
+#' @noRd
+strip_s7_class <- function(x) {
+  if (inherits(x, "S7_object")) {
+    attr(x, "S7_class") <- NULL
+  }
+  attrs <- attributes(x)
+  if (!is.null(attrs)) {
+    attributes(x) <- lapply(attrs, strip_s7_class)
+  }
+  if (is.list(x)) {
+    x[] <- lapply(x, strip_s7_class)
+  }
+  x
 }
 
 haven_read_function_by_extension <- list(
